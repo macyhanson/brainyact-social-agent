@@ -28,7 +28,7 @@ successful run.
    `.github/workflows/` path intact.
 
 2. Add two repository secrets under Settings > Secrets and variables > Actions:
-   - `ANTHROPIC_API_KEY`
+   - `ANTHROPIC_API_KEY` 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
    - `PUBLER_API_KEY` (value: `d24877bf9684eed77b02d900cc589b0bf70bd3f6fcc54fc0`)
 
    Account IDs and the workspace ID are not secrets and live in `config.py`.
