@@ -1,7 +1,7 @@
 {
   "platforms": {
     "linkedin": {
-      "week_index": 0
+      "week_index": 1
     },
     "instagram": {
       "week_index": 0
@@ -81,6 +81,16 @@
         },
         {
           "platform": "facebook",
+          "sent": 5,
+          "total": 5
+        }
+      ]
+    },
+    {
+      "date": "2026-06-11",
+      "results": [
+        {
+          "platform": "linkedin",
           "sent": 5,
           "total": 5
         }
