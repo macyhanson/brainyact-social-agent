@@ -1,0 +1,65 @@
+name: B2C content (Instagram + Facebook)
+
+# B2C posts go out Thursday at 13:00 UTC (8:00 AM Central), drafts ready before 9.
+# Runnable on demand from the Actions tab.
+on:
+  schedule:
+    - cron: "0 13 * * 4"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+# Serialize with the B2B workflow so the two never write history.json at once.
+concurrency:
+  group: social-agent
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate Instagram and Facebook posts with stock images and create Publer drafts
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PUBLER_API_KEY: ${{ secrets.PUBLER_API_KEY }}
+        run: python generate_and_post.py --platform instagram --platform facebook
+
+      - name: Add run summary to the Actions log
+        if: always()
+        run: cat run_summary.md >> "$GITHUB_STEP_SUMMARY" || true
+
+      - name: Commit advanced rotation state
+        run: |
+          git config user.name "brainyact-agent"
+          git config user.email "actions@users.noreply.github.com"
+          git add history.json
+          git diff --staged --quiet || git commit -m "chore: advance B2C rotation [skip ci]"
+          if git pull --rebase origin ${GITHUB_REF_NAME}; then
+            git push
+          else
+            # Abort rebase on conflict and perform a merge instead
+            git rebase --abort
+            git pull --no-rebase origin ${GITHUB_REF_NAME}
+            git push
+          fi
+
+      - name: Notify Macy (open a review issue)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create \
+            --title "BrainyAct B2C (Instagram + Facebook) drafts ready ($(date +%F))" \
+            --body-file run_summary.md
