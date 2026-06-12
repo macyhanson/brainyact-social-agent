@@ -36,9 +36,10 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Generate Instagram and Facebook posts and create Publer drafts
+      - name: Generate Instagram and Facebook posts with images and create Publer drafts
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           PUBLER_API_KEY: ${{ secrets.PUBLER_API_KEY }}
         run: |
           if [ "${{ inputs.dry_run }}" = "true" ]; then
