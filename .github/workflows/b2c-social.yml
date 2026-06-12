@@ -37,15 +37,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Generate Instagram and Facebook posts with images and create Publer drafts
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          PUBLER_API_KEY: ${{ secrets.PUBLER_API_KEY }}
         run: python generate_and_post.py --platform instagram --platform facebook
-          fi
-
-      - name: Add run summary to the Actions log
-        if: always()
         run: cat run_summary.md >> "$GITHUB_STEP_SUMMARY" || true
 
       - name: Commit advanced rotation state
