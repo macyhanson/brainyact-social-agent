@@ -5,11 +5,12 @@ BrainyAct Social Agent - autonomous weekly content runner.
 What it does, in order, for each platform:
   1. Reads history.json to find this platform's current rotation week (A/B/C).
   2. Calls the Anthropic API to generate 5 posts for that week's pillars.
-  3. Posts each one to Publer as a DRAFT (state: "draft"). Nothing goes live.
-  4. Advances the rotation week and logs the run to history.json.
-  5. Writes run_summary.md for the GitHub Actions notification step.
+  3. For Instagram/Facebook: generates an image for each post using DALL-E.
+  4. Posts each one to Publer as a DRAFT (state: "draft") with media. Nothing goes live.
+  5. Advances the rotation week and logs the run to history.json.
+  6. Writes run_summary.md for the GitHub Actions notification step.
 
-It never publishes. Macy reviews drafts in Publer, adds media, and approves.
+It never publishes. Macy reviews drafts in Publer, adds/edits media if needed, and approves.
 
 Local use:
   python generate_and_post.py                 # all platforms, real drafts
@@ -20,6 +21,7 @@ Local use:
 Environment variables required:
   ANTHROPIC_API_KEY   your Anthropic API key
   PUBLER_API_KEY      your Publer API key
+  OPENAI_API_KEY      your OpenAI API key (for DALL-E image generation)
 """
 
 import argparse
@@ -30,6 +32,7 @@ import sys
 
 import requests
 from anthropic import Anthropic
+from openai import OpenAI
 
 import config
 
@@ -88,9 +91,41 @@ def generate_posts(client, platform, pillars):
 
 
 # ---------------------------------------------------------------------------
+# Image generation with DALL-E
+# ---------------------------------------------------------------------------
+def generate_image_for_post(openai_client, platform, post):
+    """
+    Generate a single image for a post using DALL-E 3.
+    Returns the image URL or None if generation fails.
+    """
+    try:
+        body = post.get("body", "")
+        pillar = post.get("pillar", "post")
+
+        # Create a concise image prompt from the post content
+        # Use the first 100 chars of body + pillar to guide the image
+        prompt = f"For a {platform} post about '{pillar}': {body[:150]}"
+
+        resp = openai_client.images.generate(
+            model="dall-e-3",
+            prompt=prompt,
+            size="1024x1024",
+            quality="standard",
+            n=1,
+        )
+
+        if resp.data and len(resp.data) > 0:
+            return resp.data[0].url
+        return None
+    except Exception as exc:
+        print(f"  WARNING: DALL-E image generation failed: {exc}")
+        return None
+
+
+# ---------------------------------------------------------------------------
 # Publer (server-side, so no CORS issue, and the User-Agent header is required)
 # ---------------------------------------------------------------------------
-def post_to_publer(api_key, platform, text):
+def post_to_publer(api_key, platform, text, image_url=None):
     cfg = config.PLATFORMS[platform]
     headers = {
         "Authorization": f"Bearer-API {api_key}",
@@ -98,11 +133,21 @@ def post_to_publer(api_key, platform, text):
         "Content-Type": "application/json",
         "User-Agent": config.PUBLER_USER_AGENT,
     }
+
+    # Build media array only for Instagram and Facebook with generated images
+    media = []
+    if image_url and platform in ("instagram", "facebook"):
+        media.append({"type": "image", "url": image_url})
+
     payload = {
         "bulk": {
             "state": "draft",  # never "draft_private" - that silently fails
             "posts": [{
-                "networks": {cfg["network"]: {"type": "status", "text": text}},
+                "networks": {cfg["network"]: {
+                    "type": "status",
+                    "text": text,
+                    "media": media,  # Include media for Instagram/Facebook
+                }},
                 "accounts": [{"id": cfg["account_id"]}],
             }],
         }
@@ -117,7 +162,7 @@ def post_to_publer(api_key, platform, text):
 # ---------------------------------------------------------------------------
 # Orchestration
 # ---------------------------------------------------------------------------
-def run_platform(client, publer_key, history, platform, dry_run):
+def run_platform(client, openai_client, publer_key, history, platform, dry_run):
     cfg = config.PLATFORMS[platform]
     week_idx = current_week_index(history, platform)
     week_letter = "ABC"[week_idx % 3]
@@ -143,16 +188,28 @@ def run_platform(client, publer_key, history, platform, dry_run):
             log.append(f"- {pillar}: empty body, skipped")
             continue
 
+        # Generate image for Instagram/Facebook posts
+        image_url = None
+        if platform in ("instagram", "facebook") and not dry_run:
+            print(f"  [{i}] {pillar}: generating image...")
+            image_url = generate_image_for_post(openai_client, platform, post)
+            if image_url:
+                print(f"       image generated: {image_url[:60]}...")
+            else:
+                print(f"       image generation failed, proceeding without media")
+
         if dry_run:
-            print(f"  [{i}] {pillar} ({len(body)} chars) - DRY RUN, not posted")
-            log.append(f"- {pillar}: generated ({len(body)} chars), dry run")
+            media_status = f" + image" if image_url else ""
+            print(f"  [{i}] {pillar} ({len(body)} chars){media_status} - DRY RUN, not posted")
+            log.append(f"- {pillar}: generated ({len(body)} chars){media_status}, dry run")
             continue
 
-        ok, status, detail = post_to_publer(publer_key, platform, body)
+        ok, status, detail = post_to_publer(publer_key, platform, body, image_url=image_url)
         if ok:
             sent += 1
-            print(f"  [{i}] {pillar} -> Publer draft OK")
-            log.append(f"- {pillar}: draft created")
+            media_status = " + image" if image_url else ""
+            print(f"  [{i}] {pillar} -> Publer draft OK{media_status}")
+            log.append(f"- {pillar}: draft created{media_status}")
         else:
             print(f"  [{i}] {pillar} -> FAILED ({status}) {detail}")
             log.append(f"- {pillar}: FAILED ({status})")
@@ -179,19 +236,24 @@ def main():
 
     anthropic_key = os.environ.get("ANTHROPIC_API_KEY")
     publer_key = os.environ.get("PUBLER_API_KEY")
+    openai_key = os.environ.get("OPENAI_API_KEY")
+
     if not anthropic_key:
         sys.exit("Missing ANTHROPIC_API_KEY")
     if not publer_key and not args.dry_run:
         sys.exit("Missing PUBLER_API_KEY (or use --dry-run)")
+    if not openai_key and not args.dry_run:
+        sys.exit("Missing OPENAI_API_KEY (or use --dry-run)")
 
     client = Anthropic(api_key=anthropic_key)
+    openai_client = OpenAI(api_key=openai_key) if openai_key else None
     history = load_history()
     platforms = args.platform or list(config.PLATFORMS.keys())
 
     results = []
     for platform in platforms:
         results.append(
-            run_platform(client, publer_key, history, platform, args.dry_run)
+            run_platform(client, openai_client, publer_key, history, platform, args.dry_run)
         )
 
     if not args.dry_run:
@@ -214,7 +276,7 @@ def write_summary(results, dry_run):
         "",
         f"{total_sent} drafts {('would be created' if dry_run else 'created')} this run ({mode}).",
         "",
-        "Open Publer to add images/video and approve drafts for scheduling.",
+        "Open Publer to add images/video and approve drafts for scheduling." if not dry_run else "",
         "",
     ]
     for r in results:
