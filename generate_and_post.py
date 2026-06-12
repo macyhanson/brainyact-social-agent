@@ -5,7 +5,7 @@ BrainyAct Social Agent - autonomous weekly content runner.
 What it does, in order, for each platform:
   1. Reads history.json to find this platform's current rotation week (A/B/C).
   2. Calls the Anthropic API to generate 5 posts for that week's pillars.
-  3. For Instagram/Facebook: generates an image for each post using DALL-E.
+  3. For Instagram/Facebook: fetches a relevant stock image from Unsplash (free).
   4. Posts each one to Publer as a DRAFT (state: "draft") with media. Nothing goes live.
   5. Advances the rotation week and logs the run to history.json.
   6. Writes run_summary.md for the GitHub Actions notification step.
@@ -21,7 +21,8 @@ Local use:
 Environment variables required:
   ANTHROPIC_API_KEY   your Anthropic API key
   PUBLER_API_KEY      your Publer API key
-  OPENAI_API_KEY      your OpenAI API key (for DALL-E image generation)
+
+No API key required for image generation (uses free Unsplash API).
 """
 
 import argparse
@@ -32,12 +33,14 @@ import sys
 
 import requests
 from anthropic import Anthropic
-from openai import OpenAI
 
 import config
 
 HISTORY_PATH = os.path.join(os.path.dirname(__file__), "history.json")
 SUMMARY_PATH = os.path.join(os.path.dirname(__file__), "run_summary.md")
+
+# Unsplash free API (no key required, but best effort for rate limiting)
+UNSPLASH_API_URL = "https://api.unsplash.com/photos/random"
 
 
 # ---------------------------------------------------------------------------
@@ -91,34 +94,42 @@ def generate_posts(client, platform, pillars):
 
 
 # ---------------------------------------------------------------------------
-# Image generation with DALL-E
+# Image fetching from Unsplash (free)
 # ---------------------------------------------------------------------------
-def generate_image_for_post(openai_client, platform, post):
+def fetch_image_for_post(platform, post):
     """
-    Generate a single image for a post using DALL-E 3.
-    Returns the image URL or None if generation fails.
+    Fetch a relevant stock image from Unsplash (free API, no key required).
+    Returns the image URL or None if fetching fails.
     """
     try:
         body = post.get("body", "")
         pillar = post.get("pillar", "post")
 
-        # Create a concise image prompt from the post content
-        # Use the first 100 chars of body + pillar to guide the image
-        prompt = f"For a {platform} post about '{pillar}': {body[:150]}"
+        # Use pillar as search query for Unsplash (e.g., "Parent Wins", "How It Works")
+        # If pillar is generic, add context based on platform
+        search_query = pillar
+        if platform == "instagram" and len(search_query) < 3:
+            search_query = f"{pillar} neurodiversity children"
+        elif platform == "facebook" and len(search_query) < 3:
+            search_query = f"{pillar} family parenting"
 
-        resp = openai_client.images.generate(
-            model="dall-e-3",
-            prompt=prompt,
-            size="1024x1024",
-            quality="standard",
-            n=1,
-        )
+        params = {
+            "query": search_query,
+            "w": 1080,  # Instagram optimal width
+            "h": 1350,  # Instagram optimal height (9:11 aspect ratio)
+            "orientation": "portrait",
+        }
 
-        if resp.data and len(resp.data) > 0:
-            return resp.data[0].url
+        resp = requests.get(UNSPLASH_API_URL, params=params, timeout=10)
+
+        if resp.status_code == 200:
+            data = resp.json()
+            image_url = data.get("urls", {}).get("regular")
+            if image_url:
+                return image_url
         return None
     except Exception as exc:
-        print(f"  WARNING: DALL-E image generation failed: {exc}")
+        print(f"  WARNING: Unsplash image fetch failed: {exc}")
         return None
 
 
@@ -134,7 +145,7 @@ def post_to_publer(api_key, platform, text, image_url=None):
         "User-Agent": config.PUBLER_USER_AGENT,
     }
 
-    # Build media array only for Instagram and Facebook with generated images
+    # Build media array only for Instagram and Facebook with fetched images
     media = []
     if image_url and platform in ("instagram", "facebook"):
         media.append({"type": "image", "url": image_url})
@@ -162,7 +173,7 @@ def post_to_publer(api_key, platform, text, image_url=None):
 # ---------------------------------------------------------------------------
 # Orchestration
 # ---------------------------------------------------------------------------
-def run_platform(client, openai_client, publer_key, history, platform, dry_run):
+def run_platform(client, publer_key, history, platform, dry_run):
     cfg = config.PLATFORMS[platform]
     week_idx = current_week_index(history, platform)
     week_letter = "ABC"[week_idx % 3]
@@ -188,15 +199,15 @@ def run_platform(client, openai_client, publer_key, history, platform, dry_run):
             log.append(f"- {pillar}: empty body, skipped")
             continue
 
-        # Generate image for Instagram/Facebook posts
+        # Fetch image for Instagram/Facebook posts
         image_url = None
         if platform in ("instagram", "facebook") and not dry_run:
-            print(f"  [{i}] {pillar}: generating image...")
-            image_url = generate_image_for_post(openai_client, platform, post)
+            print(f"  [{i}] {pillar}: fetching image from Unsplash...")
+            image_url = fetch_image_for_post(platform, post)
             if image_url:
-                print(f"       image generated: {image_url[:60]}...")
+                print(f"       image fetched: {image_url[:60]}...")
             else:
-                print(f"       image generation failed, proceeding without media")
+                print(f"       image fetch failed, proceeding without media")
 
         if dry_run:
             media_status = f" + image" if image_url else ""
@@ -236,24 +247,20 @@ def main():
 
     anthropic_key = os.environ.get("ANTHROPIC_API_KEY")
     publer_key = os.environ.get("PUBLER_API_KEY")
-    openai_key = os.environ.get("OPENAI_API_KEY")
 
     if not anthropic_key:
         sys.exit("Missing ANTHROPIC_API_KEY")
     if not publer_key and not args.dry_run:
         sys.exit("Missing PUBLER_API_KEY (or use --dry-run)")
-    if not openai_key and not args.dry_run:
-        sys.exit("Missing OPENAI_API_KEY (or use --dry-run)")
 
     client = Anthropic(api_key=anthropic_key)
-    openai_client = OpenAI(api_key=openai_key) if openai_key else None
     history = load_history()
     platforms = args.platform or list(config.PLATFORMS.keys())
 
     results = []
     for platform in platforms:
         results.append(
-            run_platform(client, openai_client, publer_key, history, platform, args.dry_run)
+            run_platform(client, publer_key, history, platform, args.dry_run)
         )
 
     if not args.dry_run:
