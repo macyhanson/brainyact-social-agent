@@ -49,14 +49,14 @@ Brand rules:
 - Mix clinical credibility with conversational voice
 - Hashtags: always include #BrainyAct #Neurodiversity #DigitalTherapeutics plus 2 pillar-specific tags
 - BrainyAct is positioned as a complement to ABA therapy, not a replacement
-- Reference the 473-user outcomes dataset when relevant
+- Never cite the 473-user dataset, specific participant counts, or numeric outcome statistics. Speak to outcomes qualitatively: functional gains, engagement, real-world progress. Do not invent numbers.
 - Company is Kinuu, LLC
 
 Respond ONLY with a valid JSON array. No preamble, no markdown fences, no explanation."""
 
-LINKEDIN_USER_TEMPLATE = """Generate 5 LinkedIn posts for this week. Use these pillars in this order: {pillars}. Vary the length: include 2 short posts (150 to 250 words) and 3 medium posts (300 to 500 words). Each post must feel distinct in structure and tone from the others.
+LINKEDIN_USER_TEMPLATE = """Generate {count} LinkedIn posts for this week. Use these pillars in this order: {pillars}. Vary the length: include {short_n} short posts (150 to 250 words) and {medium_n} medium posts (300 to 500 words). Each post must feel distinct in structure and tone from the others.
 
-Return a JSON array with exactly 5 objects, each with these fields:
+Return a JSON array with exactly {count} objects, each with these fields:
 {{
   "pillar": "pillar name",
   "length": "short or medium",
@@ -188,5 +188,39 @@ PLATFORMS = {
             ["Condition Spotlight", "How It Works", "Science Made Simple",
              "Parent Wins", "BrainyAct Platform"],
         ],
+    },
+}
+
+
+# ---------------------------------------------------------------------------
+# Campaign overlays (on-demand, fired from the Actions tab or --campaign)
+# ---------------------------------------------------------------------------
+# A campaign temporarily overrides a platform's pillar sequence and appends a
+# focus addendum to its system prompt. Campaign runs do NOT advance the
+# evergreen A/B/C rotation, so balanced coverage stays intact.
+CAMPAIGNS = {
+    "centene": {
+        "label": "Centene payor sequence",
+        "platform": "linkedin",
+        "pillars": [
+            "Payor ROI",
+            "Clinical Outcomes",
+            "Neurodiversity Awareness",
+            "BrainyAct Product",
+            "Thought Leadership",
+        ],
+        "system_addendum": """
+
+CAMPAIGN FOCUS (payor sequence):
+This run targets decision-makers at a large Medicaid managed care organization. Tune every post to payor economics and managed-care priorities. Do NOT name Centene or any specific payor in the post text; the audience should recognize their own priorities without being named.
+
+Frame posts around:
+- Total cost of care and avoidable utilization, including emergency department diversion and crisis reduction
+- HEDIS and quality-measure alignment, and behavioral health access gaps
+- Value-based and at-risk contracting, and how a scalable digital intervention lowers per-member cost
+- Member and family access at population scale, especially in underserved and rural Medicaid populations
+- The downstream cost of underdiagnosis and delayed intervention
+
+Keep clinical credibility high and the tone built for a payor evaluating a vendor. Every post still ends with a CTA referencing brainyact.com.""",
     },
 }
