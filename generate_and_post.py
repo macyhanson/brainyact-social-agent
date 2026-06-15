@@ -73,14 +73,21 @@ def advance_week_index(history, platform):
 # ---------------------------------------------------------------------------
 # Generation
 # ---------------------------------------------------------------------------
-def generate_posts(client, platform, pillars):
+def generate_posts(client, platform, pillars, count, system_prompt):
     cfg = config.PLATFORMS[platform]
-    user_prompt = cfg["user_template"].format(pillars=", ".join(pillars))
+    short_n = count // 2
+    medium_n = count - short_n
+    user_prompt = cfg["user_template"].format(
+        pillars=", ".join(pillars),
+        count=count,
+        short_n=short_n,
+        medium_n=medium_n,
+    )
 
     resp = client.messages.create(
         model=cfg["model"],
         max_tokens=config.MAX_TOKENS,
-        system=cfg["system_prompt"],
+        system=system_prompt,
         messages=[{"role": "user", "content": user_prompt}],
     )
 
@@ -173,17 +180,37 @@ def post_to_publer(api_key, platform, text, image_url=None):
 # ---------------------------------------------------------------------------
 # Orchestration
 # ---------------------------------------------------------------------------
-def run_platform(client, publer_key, history, platform, dry_run):
+def run_platform(client, publer_key, history, platform, dry_run, count,
+                 campaign_key=None):
     cfg = config.PLATFORMS[platform]
-    week_idx = current_week_index(history, platform)
-    week_letter = "ABC"[week_idx % 3]
-    pillars = cfg["rotation"][week_idx]
+    campaign = config.CAMPAIGNS.get(campaign_key) if campaign_key else None
+    campaign_active = bool(campaign and campaign.get("platform") == platform)
 
-    log = [f"### {cfg['label']} (Week {week_letter})"]
-    print(f"\n=== {cfg['label']} | Week {week_letter} | pillars: {pillars} ===")
+    if campaign_active:
+        pillars = list(campaign["pillars"])
+        system_prompt = cfg["system_prompt"] + campaign.get("system_addendum", "")
+        mode_label = f"Campaign: {campaign['label']}"
+    else:
+        week_idx = current_week_index(history, platform)
+        week_letter = "ABC"[week_idx % 3]
+        pillars = list(cfg["rotation"][week_idx])
+        system_prompt = cfg["system_prompt"]
+        mode_label = f"Week {week_letter}"
+
+    # Fit the pillar list to the requested post count.
+    if count <= len(pillars):
+        pillars = pillars[:count]
+    else:
+        pillars = (pillars * ((count // len(pillars)) + 1))[:count]
+
+    # Campaign runs never advance the evergreen rotation.
+    advance = (not dry_run) and not campaign_active
+
+    log = [f"### {cfg['label']} ({mode_label})"]
+    print(f"\n=== {cfg['label']} | {mode_label} | {count} posts | pillars: {pillars} ===")
 
     try:
-        posts = generate_posts(client, platform, pillars)
+        posts = generate_posts(client, platform, pillars, count, system_prompt)
     except Exception as exc:  # noqa: BLE001 - surface any generation failure
         msg = f"Generation FAILED: {exc}"
         print(msg)
@@ -225,7 +252,7 @@ def run_platform(client, publer_key, history, platform, dry_run):
             print(f"  [{i}] {pillar} -> FAILED ({status}) {detail}")
             log.append(f"- {pillar}: FAILED ({status})")
 
-    if not dry_run:
+    if advance:
         advance_week_index(history, platform)
 
     return {"platform": platform, "ok": True, "log": "\n".join(log),
@@ -243,7 +270,20 @@ def main():
         "--dry-run", action="store_true",
         help="Generate and print posts without sending to Publer or advancing rotation.",
     )
+    parser.add_argument(
+        "--count", type=int, default=None,
+        help=f"Posts to generate per platform (default: {config.POSTS_PER_RUN}).",
+    )
+    parser.add_argument(
+        "--campaign", default=None,
+        choices=list(config.CAMPAIGNS.keys()),
+        help="Apply a campaign overlay (e.g. centene). Does not advance the rotation.",
+    )
     args = parser.parse_args()
+
+    count = args.count if args.count is not None else config.POSTS_PER_RUN
+    if count < 1:
+        sys.exit("--count must be at least 1")
 
     anthropic_key = os.environ.get("ANTHROPIC_API_KEY")
     publer_key = os.environ.get("PUBLER_API_KEY")
@@ -260,7 +300,8 @@ def main():
     results = []
     for platform in platforms:
         results.append(
-            run_platform(client, publer_key, history, platform, args.dry_run)
+            run_platform(client, publer_key, history, platform, args.dry_run,
+                         count, campaign_key=args.campaign)
         )
 
     if not args.dry_run:
