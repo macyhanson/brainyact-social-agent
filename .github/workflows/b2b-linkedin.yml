@@ -1,16 +1,27 @@
 name: B2B content (LinkedIn)
 
-# B2B posts go out Tuesday at 13:00 UTC (8:00 AM Central), drafts ready before 9.
-# Runnable on demand from the Actions tab.
+# Evergreen B2B posts go out before 9 AM Central so drafts are ready when Macy starts.
+#   Tuesday  13:00 UTC (8:00 AM Central) - full run, 5 posts
+#   Thursday 13:00 UTC (8:00 AM Central) - lighter run, 3 posts
+# Runnable on demand from the Actions tab, including the Centene campaign overlay.
 on:
   schedule:
     - cron: "0 13 * * 2"
+    - cron: "0 13 * * 4"
   workflow_dispatch:
     inputs:
       dry_run:
         description: "Generate only, do not post to Publer"
         type: boolean
         default: false
+      count:
+        description: "Posts to generate (blank = 5)"
+        type: string
+        default: ""
+      campaign:
+        description: "Campaign overlay, e.g. centene (blank = evergreen rotation)"
+        type: string
+        default: ""
 
 permissions:
   contents: write
@@ -41,11 +52,26 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           PUBLER_API_KEY: ${{ secrets.PUBLER_API_KEY }}
         run: |
-          if [ "${{ inputs.dry_run }}" = "true" ]; then
-            python generate_and_post.py --dry-run --platform linkedin
-          else
-            python generate_and_post.py --platform linkedin
+          ARGS="--platform linkedin"
+
+          # Thursday's scheduled run is the lighter 3-post run. Tuesday uses the default 5.
+          if [ "${{ github.event.schedule }}" = "0 13 * * 4" ]; then
+            ARGS="$ARGS --count 3"
           fi
+
+          # Manual overrides from the Actions tab (workflow_dispatch only).
+          if [ -n "${{ inputs.count }}" ]; then
+            ARGS="$ARGS --count ${{ inputs.count }}"
+          fi
+          if [ -n "${{ inputs.campaign }}" ]; then
+            ARGS="$ARGS --campaign ${{ inputs.campaign }}"
+          fi
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            ARGS="$ARGS --dry-run"
+          fi
+
+          echo "Running: python generate_and_post.py $ARGS"
+          python generate_and_post.py $ARGS
 
       - name: Add run summary to the Actions log
         if: always()
