@@ -32,7 +32,10 @@
         "[Self-Insured Employers] Adding an autism benefit to your plan is not the same as supporting neurodivergent familie (Autism benefits must deliver more than claims access)",
         "[Self-Insured Employers] It is 9:40 a.m. and your employee's third meeting is about to start. Their phone is also r (School calls during work hours are a productivity cost)",
         "[Self-Insured Employers] Most benefits leaders know their pediatric behavioral health spend. Very few know what it  (Hidden workforce cost of parenting neurodivergent children)",
-        "[Self-Insured Employers] Workforce mental health strategy has a blind spot. It almost never includes what is happen (Caregiver burden belongs inside workforce mental health strategy)"
+        "[Self-Insured Employers] Workforce mental health strategy has a blind spot. It almost never includes what is happen (Caregiver burden belongs inside workforce mental health strategy)",
+        "[Insurance Payors / Health Plans] Upstream support is not a soft benefit. It is a utilization strategy. (Upstream family support is prevention by another name)",
+        "[Insurance Payors / Health Plans] Caregiver burden is a care management issue. (Fragmented pathways obscure family function and caregiver stability)",
+        "[Self-Insured Employers] Most autism benefits are designed around access. Very few are designed around what happens (Autism benefits must evolve beyond claims access)"
       ]
     },
     "instagram": {
@@ -280,6 +283,16 @@
           "platform": "facebook",
           "sent": 5,
           "total": 5
+        }
+      ]
+    },
+    {
+      "date": "2026-06-18",
+      "results": [
+        {
+          "platform": "linkedin",
+          "sent": 3,
+          "total": 3
         }
       ]
     }
