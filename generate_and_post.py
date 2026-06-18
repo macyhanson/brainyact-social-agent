@@ -190,42 +190,66 @@ def generate_template_batched(client, platform, pillars, count, system_prompt, l
 # Generation: LinkedIn multi-audience (evergreen path)
 # ---------------------------------------------------------------------------
 def build_audience_prompt(aud, chunk_len, length_plan, ledger):
-    formats = random.sample(config.LINKEDIN_FORMATS,
-                            k=min(chunk_len, len(config.LINKEDIN_FORMATS)))
-    hooks = random.sample(config.LINKEDIN_HOOKS,
-                          k=min(chunk_len, len(config.LINKEDIN_HOOKS)))
+    formats_src = aud.get("formats") or config.LINKEDIN_FORMATS
+    hooks_src = aud.get("hook_bank") or config.LINKEDIN_HOOKS
+    formats = random.sample(formats_src, k=min(chunk_len, len(formats_src)))
+    hooks = random.sample(hooks_src, k=min(chunk_len, len(hooks_src)))
     pillars = aud["pillars"]
-    tr = aud.get("training", {})
 
+    topics_src = aud.get("topics") or []
+    topics = random.sample(topics_src, k=min(chunk_len, len(topics_src))) if topics_src else []
+
+    hashtags_on = aud.get("hashtags", True)
+    word_short = aud.get("word_short", "150 to 250")
+    word_medium = aud.get("word_medium", "300 to 500")
+    cta_bank = aud.get("cta_bank")
+    cta_strong = aud.get("cta_strong") or []
+
+    tr = aud.get("training", {})
     ex_block = ""
     examples = tr.get("examples", [])
     if examples:
-        joined = "\n".join(f'"{e[:400]}"' for e in examples[:4])
-        ex_block = ("\nImitate the voice and structure of these proven posts "
-                    f"(do not copy their text):\n{joined}\n")
+        pick = random.sample(examples, k=min(3, len(examples)))
+        joined = "\n\n".join(f'"{e.strip()[:1200]}"' for e in pick)
+        ex_block = ("\nImitate the voice, length, and structure of these proven posts "
+                    f"(do not copy their wording):\n{joined}\n")
 
     facts = tr.get("facts", [])
     facts_block = ("\nAudience facts to respect:\n" + "\n".join(f"- {f}" for f in facts)) if facts else ""
     requires = tr.get("requires", [])
     bans = tr.get("bans", [])
     req_line = ("\nEvery post must: " + "; ".join(requires)) if requires else ""
-    ban_line = ("\nNo post may: " + "; ".join(bans)) if bans else ""
+    ban_line = ("\nNo post may use: " + "; ".join(bans)) if bans else ""
+
+    hashtag_rule = ("Include #BrainyAct #Neurodiversity #DigitalTherapeutics plus 2 "
+                    "pillar-specific tags." if hashtags_on else "Do not use any hashtags.")
 
     post_lines = []
     for i in range(chunk_len):
         fmt = formats[i % len(formats)]
         hook = hooks[i % len(hooks)]
         length = length_plan[i]
-        words = "150 to 250" if length == "short" else "300 to 500"
-        post_lines.append(
-            f"Post {i + 1}\n"
-            f"  Pillar: {pillars[i % len(pillars)]}\n"
-            f"  Format: {fmt['name']} - {fmt['guide']}\n"
-            f"  Hook style: {hook}\n"
-            f"  Length: {length} ({words} words)\n"
-            f"  CTA: {aud['cta']}\n"
-            f"  numericPolicy: {aud['numeric_policy']}"
-        )
+        words = word_short if length == "short" else word_medium
+        if cta_bank:
+            if cta_strong and random.random() < 0.2:
+                cta = random.choice(cta_strong)
+            else:
+                cta = random.choice(cta_bank)
+        else:
+            cta = aud["cta"]
+        lines = [
+            f"Post {i + 1}",
+            f"  Pillar: {pillars[i % len(pillars)]}",
+            f"  Format: {fmt['name']} - {fmt['guide']}",
+            f"  Hook style: {hook}",
+            f"  Length: {length} ({words} words)",
+            f"  CTA to end on: {cta}",
+            f"  Hashtags: {hashtag_rule}",
+            f"  numericPolicy: {aud['numeric_policy']}",
+        ]
+        if topics:
+            lines.insert(2, f"  Suggested angle: {topics[i % len(topics)]}")
+        post_lines.append("\n".join(lines))
     body = "\n\n".join(post_lines)
 
     return (
@@ -242,7 +266,7 @@ def build_audience_prompt(aud, chunk_len, length_plan, ledger):
         f"Return a JSON array with exactly {chunk_len} objects, each with these fields:\n"
         f'{{"audience": "{aud["label"]}", "pillar": "pillar name", "format": "format name", '
         f'"length": "short or medium", "topic": "5 to 8 word angle summary", '
-        f'"hook": "first line", "body": "full post text including hook, body, CTA, and hashtags"}}'
+        f'"hook": "first line", "body": "full post text including hook, body, CTA, and hashtags if used"}}'
     )
 
 
