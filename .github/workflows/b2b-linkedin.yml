@@ -2,9 +2,9 @@ name: B2B content (LinkedIn)
 # LinkedIn B2B drafts are prepared before 9 AM Central so they are ready when Macy starts.
 #   Tuesday  13:00 UTC (8:00 AM Central) - evergreen run, 5 posts
 #   Thursday 13:00 UTC (8:00 AM Central) - lighter evergreen run, 3 posts
-# Every LinkedIn run is now multi-audience: posts are split across payors, care
-# coordinators, and employers by weight (default 12/9/9), and the weights scale
-# to whatever count is requested. Scheduled runs use the small default counts;
+# Every LinkedIn run is multi-audience: posts are split across payors and
+# self-insured employers by weight (default 16/14), and the weights scale to
+# whatever count is requested. Scheduled runs use the small default counts;
 # a manual run with count 30 fills Publer in one pass. Generation is batched in
 # fives so large runs never truncate.
 # Runnable on demand from the Actions tab, including the Centene campaign overlay
