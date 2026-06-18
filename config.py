@@ -88,12 +88,12 @@ Grounding facts (use these, do not contradict them):
 The audience for each post is specified in the request: insurance payors and health plans, waiver care coordinators and case managers, or self-insured employers. Write to the audience named in the request.
 
 Brand rules:
-- Always include a CTA referencing brainyact.com (the exact framing is assigned per post)
+- Always end with the exact CTA assigned to the post
 - Never name competitors
 - No em dashes
 - No generic AI opener phrases like "In today's landscape"
 - Mix clinical credibility with conversational voice
-- Hashtags: always include #BrainyAct #Neurodiversity #DigitalTherapeutics plus 2 pillar-specific tags
+- Hashtags: follow the per-post hashtag instruction exactly
 - BrainyAct is positioned as a complement to ABA therapy, not a replacement
 - Refer to the company only as "Kinuu" or the product as "BrainyAct by Kinuu". Never write "Kinuu Inc." or "Kinuu, LLC".
 
@@ -105,7 +105,7 @@ Claims integrity (strict):
 Respond ONLY with a valid JSON array. No preamble, no markdown fences, no explanation."""
 
 # Template kept for the campaign path (single-audience, count-aware, now batched).
-LINKEDIN_USER_TEMPLATE = """Generate {count} LinkedIn posts. Use these pillars in this order: {pillars}. Vary the length: include {short_n} short posts (150 to 250 words) and {medium_n} medium posts (300 to 500 words). Each post must feel distinct in structure and tone from the others.
+LINKEDIN_USER_TEMPLATE = """Generate {count} LinkedIn posts. Use these pillars in this order: {pillars}. Vary the length: include {short_n} short posts (150 to 250 words) and {medium_n} medium posts (300 to 500 words). Each post must feel distinct in structure and tone from the others. Include #BrainyAct #Neurodiversity #DigitalTherapeutics plus 2 pillar-specific tags in each post.
 
 Return a JSON array with exactly {count} objects, each with these fields:
 {{
@@ -190,19 +190,149 @@ LINKEDIN_AUDIENCES = {
     },
     "employers": {
         "label": "Self-Insured Employers",
-        "who": "Benefits leaders, total rewards, and HR decision-makers at self-insured employers carrying dependent neurodevelopmental care.",
-        "pains": "Rising dependent-care cost, caregiver absenteeism and lost productivity, undifferentiated benefits, unpredictable program structures, and weak reporting.",
-        "value_props": "Earlier functional gains without years of services, reduced disruption for working caregivers, predictable program structure, family stability, and clear reporting for benefits oversight.",
-        "language": "Benefits differentiation, caregiver productivity, predictable cost, ROI, family stability. Business-first and plain.",
-        "pillars": ["Employer Benefits", "Payor ROI", "Neurodiversity Awareness", "Thought Leadership"],
-        "cta": "See the employer overview at brainyact.com/for-businesses, or book a call at brainyact.com.",
-        "numeric_policy": _QUALITATIVE,
-        "system_addendum": "\n\nWrite for a benefits leader weighing cost and differentiation. Lead with caregiver productivity, predictable structure, and family stability.",
+        "who": "Benefits decision-makers at large self-insured employers: CHROs, VP of Total Rewards, VP and Director of Benefits, health and welfare leaders, well-being and employee experience leaders, DEI and neurodiversity leaders, workforce mental health and leave/absence leaders, and the benefits consultants, TPAs, and stop-loss advisors who serve them.",
+        "pains": "Health benefit cost growth, pediatric behavioral health access gaps, long waitlists, caregiver burden and lost productivity, dependent-care complexity, undifferentiated family benefits, overreliance on high-cost high-hour models, and a lack of measurable outcomes in child-focused benefits.",
+        "value_props": "A scalable, measurable, caregiver-centered developmental benefit that supports neurodivergent families before crisis: a bridge between waitlists, therapy, and home implementation, with outcome visibility employers can actually use.",
+        "language": "Executive-level and direct. Short sentences, one idea per post, strong hook, clear point of view. Employer-relevant language: caregiver burden, absenteeism, presenteeism, productivity, retention, utilization versus impact, upstream cost, dependent care. Insightful, slightly provocative, empathetic, strategic. Not fluffy, not clinical-heavy, not an ad.",
+        "pillars": [
+            "Caregiver Burden as Workforce Issue",
+            "Waitlists Are Not a Neutral Delay",
+            "Measurable Family Benefits",
+            "Neurodiversity Includes Caregivers",
+            "Home Engagement Is the Missing Link",
+            "Upstream Cost Pressure",
+        ],
+        "cta": "This belongs in the benefits strategy conversation.",
+        "cta_bank": [
+            "This is a conversation more self-insured employers should be having.",
+            "This is the gap BrainyAct is working to close.",
+            "Benefits leaders building family support strategies should be looking here.",
+            "Worth discussing if your 2026 benefits strategy includes neurodiversity, behavioral health, or caregiver support.",
+            "If your organization is rethinking dependent-care benefits, this belongs in the conversation.",
+            "This is where family benefits need to evolve.",
+            "Large self-insured employers should be looking here.",
+        ],
+        "cta_strong": [
+            "We are looking to partner with large self-insured employers that want to offer more measurable support for neurodivergent families.",
+            "If your benefits team is evaluating family mental health, autism, ADHD, or caregiver support solutions, BrainyAct should be on the list.",
+            "I would welcome conversations with benefits leaders exploring more scalable developmental support for employees' families.",
+        ],
+        "hashtags": False,
+        "word_short": "120 to 160",
+        "word_medium": "170 to 220",
+        "numeric_policy": "No BrainyAct outcome numbers or participant counts, and no medical claims. You MAY reference the public employer cost-trend figures listed in the facts, with their source. Do not invent other statistics.",
+        "system_addendum": "\n\nWrite for a benefits decision-maker at a large self-insured employer. Sound like a sharp practitioner, not an ad. The throughline across posts is the hidden workforce cost of unsupported neurodivergent families: employers already pay for it through productivity loss, caregiver burnout, behavioral health claims, navigation burden, and retention risk. Mention BrainyAct lightly, usually near the end, as a complementary, upstream, home-supported developmental benefit. No hashtags. No emojis.",
+        "formats": [
+            {"name": "Problem, reframe, implication", "guide": "State the problem benefits leaders see, reframe it, make the workforce implication explicit, tie BrainyAct in lightly near the end, close with a soft CTA."},
+            {"name": "Contrarian statement", "guide": "Open with a bold contrarian line, explain why it holds, then say what employers should do about it."},
+            {"name": "What benefits leaders are missing", "guide": "Name the metric they track (utilization), contrast it with what they miss (family relief, easier mornings, fewer school calls), name the next frontier."},
+            {"name": "Family reality vignette", "guide": "Open on a concrete home moment (a 7 a.m. meltdown, a school call between meetings), then connect it to absenteeism, presenteeism, productivity, and retention."},
+            {"name": "Data-anchored strategy", "guide": "Anchor on a public employer cost-trend figure from the facts (with source), then argue for measurable upstream family support."},
+        ],
+        "hook_bank": [
+            "Waitlists are not a neutral delay.",
+            "Caregiver burden is a workforce issue.",
+            "The next frontier in neurodiversity benefits is not only the employee. It is the employee's family.",
+            "A provider directory is not a family support strategy.",
+            "Utilization is not the same as impact.",
+            "The home is the setting most benefits forget.",
+            "Some of your most capable employees are quietly drowning in care coordination.",
+            "An EAP referral is not enough for every family.",
+            "The employee may be at work, but their stress started at home.",
+            "Large employers are missing a major dependent-care gap.",
+            "Family-friendly benefits often miss the families with the most complex needs.",
+            "If your neurodiversity strategy stops at hiring, it is incomplete.",
+            "The most expensive support is often the support that starts too late.",
+            "Benefits leaders need to stop confusing access with outcomes.",
+        ],
+        "topics": [
+            "The hidden workforce cost of parenting a neurodivergent child",
+            "Why waitlists are a benefits problem",
+            "Why autism benefits need to evolve beyond claims access",
+            "Why caregiver burden belongs in workforce mental health strategy",
+            "How self-insured employers can support families before crisis",
+            "Why utilization is not enough to measure benefit value",
+            "Why home-supported intervention matters",
+            "Why employees need more than an EAP referral",
+            "Why neurodiversity strategy must include caregivers",
+            "Why high-cost services need upstream complements",
+            "Why pediatric behavioral health is an employee productivity issue",
+            "Why family-friendly benefits often miss complex families",
+            "Why measurable developmental support belongs in benefit design",
+            "Why access alone is not the same as outcomes",
+        ],
         "training": {
-            "examples": [],  # paste 2-5 of Macy's best employer posts here
-            "facts": ["Caregiver productivity and predictable program structure are the strongest employer hooks."],
-            "requires": ["Business-first framing", "Tie to benefits differentiation"],
-            "bans": ["'proven', 'rewire', 'cure'", "Internal participant counts"],
+            "examples": [
+                """The employee sitting in your 9 a.m. meeting may have already handled more before work than most people handle all day.
+
+A meltdown before school. A call from the teacher. A therapy schedule that does not fit into a workday. A child on a waitlist with no clear next step.
+
+This is the reality for many employees raising neurodivergent children.
+
+Caregiver burden is not separate from workforce strategy. It affects focus, attendance, productivity, retention, and emotional capacity.
+
+Large self-insured employers have spent years expanding mental health benefits, but many still miss one of the biggest sources of employee stress: what is happening inside the family system.
+
+BrainyAct was built for this gap. Structured developmental support, caregiver involvement, home implementation, measurable progress.
+
+Because supporting the employee means supporting the family they are carrying with them into work every day.
+
+This belongs in the benefits strategy conversation.""",
+                """A waitlist is not a pause button.
+
+For families raising children with autism, ADHD, sensory processing challenges, or developmental delays, a six-month waitlist is six months of daily problem-solving without enough support.
+
+Six months of school calls. Six months of dysregulated mornings. Six months of stress that follows them into work.
+
+Employers often think about waitlists as a healthcare access issue. They are also a workforce issue.
+
+When support is delayed, the burden does not disappear. It shifts to the caregiver. That caregiver is often your employee.
+
+Large self-insured employers need family benefits that can support families while they are waiting, not only after they finally reach the front of the line.
+
+The question for employers is simple: what support are you offering families before they reach crisis?""",
+                """A benefit can have high utilization and still leave the core problem untouched.
+
+Utilization tells you someone used the benefit. It does not tell you whether the family stabilized. Whether the caregiver felt less overwhelmed. Whether daily routines improved. Whether the child gained regulation, participation, or confidence.
+
+For large self-insured employers, the next generation of benefits cannot only be measured by enrollment and clicks. They need outcome visibility, especially in pediatric behavioral health, autism support, and caregiver support.
+
+BrainyAct was built around structured programming and measurable progress, not just access.
+
+Because employers do not need more benefits that look good in a portal. They need benefits that show what changed.""",
+                """An EAP referral is not enough for a parent whose child is melting down every morning before school.
+
+A mental health app is not enough when the issue is developmental, sensory, behavioral, and family-wide. A provider directory is not enough when every clinic has a waitlist.
+
+This is where many benefits strategies fall short. They offer resources. But families need implementation. They need structure. They need something that reaches the home.
+
+For employees raising neurodivergent children, the stress is not abstract. It is daily, practical, and immediate.
+
+BrainyAct was built for this level of support. Not as another generic wellness tool, but as a structured developmental benefit for families who need more than a link, a list, or a referral.""",
+            ],
+            "facts": [
+                "Mercer reported average health benefit cost per employee rose 6.0 percent in 2025 and projected 6.7 percent for 2026, the highest increase in 15 years.",
+                "Business Group on Health reported employers expect 2026 health care cost trend at a median of 9.0 percent before plan design changes and 7.6 percent after.",
+                "LinkedIn B2B research: nearly three in four decision-makers consider thought leadership more trustworthy than product marketing. Posts should read as insight, not ads.",
+                "Strongest content lane: the hidden workforce cost of unsupported neurodivergent families.",
+                "Position BrainyAct as a scalable, measurable, home-supported developmental benefit. Never an app, wellness perk, therapy game, ABA replacement, cheaper autism benefit, or cure.",
+            ],
+            "requires": [
+                "Executive-level, direct voice with short lines and one idea per post",
+                "Make the employer implication explicit: productivity, absenteeism, presenteeism, retention, or cost",
+                "Mention BrainyAct lightly, usually near the end, as a complementary upstream home-supported developmental benefit",
+            ],
+            "bans": [
+                "Hashtags",
+                "Emojis",
+                "Hype words: revolutionary, game-changer, cutting-edge, unlock potential, transformative",
+                "'We are excited to announce'",
+                "Hard-sell closers like 'DM me to learn more'",
+                "Medical claims, or cures, treats, prevents, guarantees outcomes",
+                "Attacking or directly comparing against ABA",
+                "Heavy clinical jargon",
+                "Calling BrainyAct an app, wellness perk, therapy game, or cure",
+            ],
         },
     },
 }
