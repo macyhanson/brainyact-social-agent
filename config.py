@@ -156,19 +156,148 @@ _QUALITATIVE = "QUALITATIVE ONLY. No percentages, no participant counts, no site
 LINKEDIN_AUDIENCES = {
     "payors": {
         "label": "Insurance Payors / Health Plans",
-        "who": "Medical directors, utilization and care management leaders, and behavioral health policy owners at health plans and Medicaid managed care organizations.",
-        "pains": "Prolonged high-intensity service spend, crisis-driven encounters, restrictive placements, limited utilization visibility, and pressure on total cost of care and HEDIS measures.",
-        "value_props": "Fewer crisis-driven encounters, less reliance on restrictive environments, improved daily functioning for members and families, utilization data visibility, and reduced reliance on prolonged high-intensity services.",
-        "language": "Total cost of care, utilization, member outcomes, medical policy, ED diversion, HEDIS, evidence threshold. Measured, credible, never hyped.",
-        "pillars": ["Payor ROI", "Thought Leadership", "Clinical Outcomes", "Neurodiversity Awareness"],
-        "cta": "Read the payor brief at brainyact.com/for-businesses, or book a call at brainyact.com.",
-        "numeric_policy": _QUALITATIVE,
-        "system_addendum": "\n\nWrite for a payor evaluating a vendor. Tone is measured, evidence-aware, and economic. Lead with member outcomes and total cost of care, not enthusiasm.",
+        "who": "Payor clinical and strategy leaders: Chief Medical Officers, Chief Behavioral Health Officers, Medicaid plan presidents, VPs of clinical strategy and population health, directors of pediatric care management, autism services, behavioral health, and complex case management, plus value-based care, innovation, quality, utilization management, and health equity leaders. Secondary: managed care consultants, state Medicaid stakeholders, and autism benefit managers.",
+        "pains": "Access gaps and waitlists, downstream cost from delayed support, high-intensity service reliance, fragmented care pathways, limited functional outcomes visibility, weak home carryover, care management burden, member experience tied to caregiver burden, and pressure to move toward value-based developmental and behavioral health care.",
+        "value_props": "A scalable adjunctive developmental support layer that meets neurodivergent members and families earlier: structured programming, caregiver involvement, home implementation, and functional progress visibility that complements existing services rather than replacing them.",
+        "language": "Direct, strategic, payor-aware. Sounds like a clinical strategy leader, behavioral health operator, value-based care strategist, or care management executive. Short paragraphs, confident statements, no hype. Speak to cost, access, outcomes, care management, and value-based care.",
+        "pillars": [
+            "Access Gaps Drive Downstream Cost",
+            "Outcomes Visibility in Developmental Care",
+            "Caregiver Burden as Clinical Risk",
+            "Upstream Alternatives Before Escalation",
+            "Home Implementation Is the Missing Link",
+            "Better Tools for Care Management",
+            "Value-Based Care Needs Functional Outcomes",
+        ],
+        "cta": "This belongs in the payor strategy conversation.",
+        "cta_bank": [
+            "This is the gap BrainyAct is working to close.",
+            "This belongs in the payor strategy conversation.",
+            "This is where developmental care, behavioral health, and care management need to move next.",
+            "Payors evaluating autism, ADHD, pediatric behavioral health, or caregiver support should be looking here.",
+            "If your plan is focused on access, outcomes, and upstream support, this is worth discussing.",
+            "The next step is not more volume. It is better support, earlier.",
+        ],
+        "cta_strong": [
+            "BrainyAct is looking to partner with payors interested in measurable developmental support for neurodivergent members and families.",
+            "We are open to conversations with Medicaid and commercial plans exploring scalable family-centered support models.",
+            "If your team is rethinking autism, ADHD, pediatric behavioral health, or caregiver support, BrainyAct should be part of the conversation.",
+        ],
+        "hashtags": False,
+        "word_short": "130 to 180",
+        "word_medium": "190 to 250",
+        "numeric_policy": _QUALITATIVE + " Use claim-safe framing only (designed to support, may help, complements, helps create visibility into). No cost-savings or claims-reduction figures unless validated by payor-specific data.",
+        "system_addendum": "\n\nWrite for a payor clinical or strategy leader. Every post should connect to at least one payor priority: avoidable cost, access, earlier support, measurable outcomes, reduced service intensity, care-manager support, network gaps, member experience, value-based care, or caregiver burden before crisis. Mention BrainyAct lightly as a complementary, upstream, measurable, home-supported developmental layer, never a replacement. Do not attack existing services, overuse 'broken system', or imply payors do not care. No hashtags. No emojis.",
+        "formats": [
+            {"name": "Hook, problem, payor implication, BrainyAct, soft CTA", "guide": "Open on a sharp hook, state the family-level problem, make the payor implication explicit (cost, access, complexity, care management), connect BrainyAct lightly, close with a soft CTA."},
+            {"name": "Contrarian statement", "guide": "Open with a bold contrarian line (a waitlist is not a care pathway), explain why it holds for payors, then say what the plan should do."},
+            {"name": "What claims data does not show", "guide": "Contrast what a claim or utilization figure tells you with what it does not (function, regulation, family stability), then name the outcomes-visibility gap."},
+            {"name": "Care-manager reality", "guide": "Show the limited options a care manager has (directory, referral, waitlist), then argue for an actionable, structured support families can use now."},
+            {"name": "Reframe", "guide": "Reframe a familiar idea for payors, e.g. the caregiver is part of the care model, or upstream support is prevention by another name."},
+        ],
+        "hook_bank": [
+            "A waitlist is not a care pathway.",
+            "Access is not the same as support.",
+            "Utilization is not the same as progress.",
+            "A claim tells you what was billed. It does not tell you what changed.",
+            "Caregiver burden is a care management issue.",
+            "A provider directory is not a solution for every family.",
+            "The home is where the care plan is tested.",
+            "The next phase of autism care needs better outcomes visibility.",
+            "Payors cannot manage developmental care with claims data alone.",
+            "Families need more than authorization. They need implementation.",
+            "The most expensive support is often the support that starts too late.",
+            "Developmental care needs an upstream layer.",
+            "Care managers need more than referral options.",
+            "If the caregiver is overwhelmed, the care plan is already at risk.",
+            "Value-based care requires more than service volume.",
+            "Pediatric behavioral health needs scalable support models.",
+            "The question is not only whether care was delivered. It is whether function improved.",
+        ],
+        "topics": [
+            "Why waitlists are a payor problem",
+            "Why access alone is not enough",
+            "Why autism services need better outcomes visibility",
+            "Why claims data does not show functional progress",
+            "Why caregiver burden belongs in care management strategy",
+            "Why provider directories are not enough",
+            "Why payors need upstream developmental support",
+            "Why care managers need actionable family support tools",
+            "Why home implementation matters",
+            "Why pediatric behavioral health needs scalable models",
+            "Why value-based care needs functional outcomes",
+            "Why developmental care should not be measured only in hours",
+            "Why high-intensity service reliance creates cost pressure",
+            "Why families need support before crisis",
+            "Why Medicaid plans need practical family-centered solutions",
+            "Why member experience depends on caregiver experience",
+            "Why fragmented care pathways fail families",
+            "Why payors should support the family system, not just the diagnosis",
+        ],
         "training": {
-            "examples": [],  # paste 2-5 of Macy's best payor posts here as strings
-            "facts": ["Internal pre/post data does not meet payor evidence standards; a controlled efficacy trial is in progress. Speak to outcomes qualitatively."],
-            "requires": ["Frame around total cost of care and member outcomes"],
-            "bans": ["Percentages or participant counts", "'proven', 'rewire', 'cure'", "Competitor names"],
+            "examples": [
+                """A waitlist is not a care pathway.
+
+For families raising children with autism, ADHD, sensory processing challenges, or developmental delays, waiting does not mean needs are paused. It means parents are improvising. Schools are calling. Behaviors are escalating. Caregivers are burning out. Care managers are left with limited options.
+
+That matters for payors. Because access gaps do not stay isolated. They can become higher complexity, higher family stress, lower engagement, and more expensive downstream needs.
+
+BrainyAct was built as a scalable developmental support layer for neurodivergent members and families. Structured programming, caregiver involvement, home implementation, measurable progress. Not as a replacement for existing services, but as a way to give families a practical next step when the system has too few of them.
+
+This belongs in the payor strategy conversation.""",
+                """A claim tells you a service happened.
+
+It does not tell you whether a child became more regulated. Whether transitions got easier. Whether the parent felt more capable. Whether school calls decreased. Whether the family is functioning better at home.
+
+That is one of the biggest gaps in developmental and behavioral health care. Payors are often asked to fund services without enough visibility into functional progress.
+
+Hours matter. Access matters. Provider quality matters. But outcomes have to matter too.
+
+BrainyAct is built around structured developmental support and progress tracking, so families and stakeholders can see what is changing over time.
+
+The future of autism, ADHD, and pediatric behavioral health support cannot be measured only by utilization. It has to be measured by function.""",
+                """Caregiver burden is not outside the care model. It is part of the care model.
+
+For a child with autism, ADHD, sensory processing challenges, or developmental delays, progress depends on the environment around the child. The routines. The regulation strategies. The caregiver's capacity. The consistency between sessions.
+
+When the caregiver is overwhelmed, the care plan is already at risk.
+
+That is why payors need to look at family-centered developmental support differently. The parent is often the person trying to implement everything after the appointment ends.
+
+BrainyAct was designed with caregiver involvement and home implementation built in. Because supporting the member often means supporting the family system around them.
+
+That is not soft. That is clinical strategy.""",
+                """Care managers cannot solve every access problem with a referral.
+
+Sometimes the provider network is full. Sometimes the family is on three waitlists. Sometimes the child needs support now, but the next appointment is months away. Sometimes the parent needs practical guidance, not another phone number.
+
+This is where developmental and behavioral health care needs more flexible support models. Payors need solutions that give care management teams something actionable to offer families. Something structured. Something measurable. Something that supports the home and complements existing services without adding fragmentation.
+
+BrainyAct was built for this gap. A scalable developmental support model for neurodivergent members and families who need more than a directory.
+
+Care management works better when families have a real next step.""",
+            ],
+            "facts": [
+                "Internal pre/post data does not meet payor evidence standards; a controlled efficacy trial is in progress. Speak to outcomes qualitatively.",
+                "Strongest payor lane: payors need better upstream, measurable, family-centered support for neurodivergent members, and BrainyAct fills that gap.",
+                "Position BrainyAct as a scalable adjunctive, upstream, caregiver-enabled, home-supported developmental program. Never a replacement for ABA or therapy, a cure, a low-cost shortcut, a generic app, a wellness tool, a game, or a utilization-management tactic.",
+            ],
+            "requires": [
+                "Connect to at least one payor priority (cost, access, earlier support, measurable outcomes, service intensity, care management, network gaps, member experience, value-based care, or caregiver burden)",
+                "Direct, strategic, payor-aware voice with short paragraphs and confident statements",
+                "Mention BrainyAct lightly as a complementary upstream measurable home-supported developmental layer",
+                "Use claim-safe language: designed to support, may help, complements, helps create visibility into",
+            ],
+            "bans": [
+                "Hashtags",
+                "Emojis",
+                "Hype, motivational-speaker, or parent-influencer tone",
+                "Sounding like a SaaS ad or a pitch deck turned into a post",
+                "Attacking existing services, overusing 'broken system', or implying payors do not care",
+                "'DM me' style closers",
+                "Overclaims: reduces claims, prevents autism, cures, replaces ABA/OT/speech/behavioral health, guarantees outcomes, eliminates need for higher care, or saves payors a dollar figure",
+                "Participant counts or internal outcome numbers",
+            ],
         },
     },
     "careCoordinators": {
