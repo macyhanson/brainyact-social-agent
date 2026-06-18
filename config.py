@@ -122,8 +122,10 @@ Return a JSON array with exactly {count} objects, each with these fields:
 # ---------------------------------------------------------------------------
 # Each LinkedIn run is split across these audiences by weight. Weights scale to
 # whatever --count is requested, so a 5-post scheduled run and a 30-post manual
-# run both stay balanced. To add an audience: add it here and to the weights.
-LINKEDIN_AUDIENCE_WEIGHTS = {"payors": 12, "careCoordinators": 9, "employers": 9}
+# run both stay balanced. To add an audience: add it here and define its profile
+# below. Care coordinators are parked for now (omitted here), so they are not
+# generated; add "careCoordinators" back to re-enable.
+LINKEDIN_AUDIENCE_WEIGHTS = {"payors": 16, "employers": 14}
 
 # Post-shape variety. Pillars set the topic; these set the structure.
 LINKEDIN_FORMATS = [
@@ -300,6 +302,8 @@ Care management works better when families have a real next step.""",
             ],
         },
     },
+    # PARKED: not in LINKEDIN_AUDIENCE_WEIGHTS, so it is not generated.
+    # Re-add "careCoordinators" to the weights to bring this audience back.
     "careCoordinators": {
         "label": "Care Coordinators / Case Managers",
         "who": "Waiver case managers, support coordinators, and care navigators who route families to services and manage caseloads.",
