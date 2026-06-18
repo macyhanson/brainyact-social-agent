@@ -36,10 +36,10 @@
       ]
     },
     "instagram": {
-      "week_index": 1
+      "week_index": 2
     },
     "facebook": {
-      "week_index": 1
+      "week_index": 2
     }
   },
   "runs": [
@@ -265,6 +265,21 @@
           "platform": "linkedin",
           "sent": 30,
           "total": 30
+        }
+      ]
+    },
+    {
+      "date": "2026-06-18",
+      "results": [
+        {
+          "platform": "instagram",
+          "sent": 5,
+          "total": 5
+        },
+        {
+          "platform": "facebook",
+          "sent": 5,
+          "total": 5
         }
       ]
     }
