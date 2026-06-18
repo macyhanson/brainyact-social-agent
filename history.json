@@ -1,7 +1,39 @@
 {
   "platforms": {
     "linkedin": {
-      "week_index": 0
+      "week_index": 0,
+      "recent_angles": [
+        "[Insurance Payors / Health Plans] Utilization is not the same as progress. (Families need support before needs escalate to crisis)",
+        "[Insurance Payors / Health Plans] Care managers need more than referral options. (Supporting the family system improves payor-relevant outcomes)",
+        "[Insurance Payors / Health Plans] A provider directory is not a solution for every family. (Claims data misses caregiver burden and family function)",
+        "[Insurance Payors / Health Plans] Developmental care needs an upstream layer. (Care managers lack structured upstream tools for neurodivergent families)",
+        "[Insurance Payors / Health Plans] The question is not only whether care was delivered. It is whether function improved. (Waitlists are a payor problem requiring upstream home support)",
+        "[Insurance Payors / Health Plans] A claim tells you a service was delivered. It does not tell you what happened at home. (Why home implementation matters for payor outcomes)",
+        "[Insurance Payors / Health Plans] The next phase of autism care needs better outcomes visibility. That starts before the cri (Outcomes visibility before crisis requires structured upstream support)",
+        "[Insurance Payors / Health Plans] Families need more than authorization. They need implementation. (Caregiver capacity is a care plan variable payors should measure)",
+        "[Insurance Payors / Health Plans] The home is where the care plan is tested. (Access without home support leaves care plans incomplete)",
+        "[Insurance Payors / Health Plans] Access is not the same as support. (Fragmented pathways leave care managers without actionable family tools)",
+        "[Insurance Payors / Health Plans] Pediatric behavioral health needs scalable support models. (Member experience begins with caregiver capacity)",
+        "[Insurance Payors / Health Plans] The most expensive support is often the support that starts too late. (Early support prevents costly late intervention)",
+        "[Insurance Payors / Health Plans] Families need more than authorization. They need implementation. (Care managers need structured options beyond referral lists)",
+        "[Insurance Payors / Health Plans] A waitlist is not a care pathway. (Waitlists are not care pathways for neurodivergent members)",
+        "[Insurance Payors / Health Plans] Caregiver burden is a care management issue. (Utilization data obscures functional and family outcomes)",
+        "[Insurance Payors / Health Plans] Authorization opens a door. It does not walk the family through it. (Upstream support is prevention by another name)",
+        "[Self-Insured Employers] Waitlists are not a neutral delay. (Waitlists are a workforce cost not just access gap)",
+        "[Self-Insured Employers] The most expensive support is often the support that starts too late. (Measurable developmental support belongs in benefit design)",
+        "[Self-Insured Employers] Utilization is not the same as impact. (Family friendly benefits often miss complex neurodivergent families)",
+        "[Self-Insured Employers] The employee may be at work, but their stress started at home. (Home stress drives absenteeism presenteeism and retention risk)",
+        "[Self-Insured Employers] The next frontier in neurodiversity benefits is not only the employee. It is the employee' (Upstream home supported intervention as neurodiversity benefits frontier)",
+        "[Self-Insured Employers] Waitlists are not a neutral delay. (Neurodiversity strategy must include caregivers not just employees)",
+        "[Self-Insured Employers] Benefits leaders need to stop confusing access with outcomes. (High cost services need measurable upstream complements)",
+        "[Self-Insured Employers] Caregiver burden is a workforce issue. Most benefits strategies still treat it as a person (Autism benefits must evolve beyond claims access to family outcomes)",
+        "[Self-Insured Employers] It is 7:15 a.m. and your employee has already negotiated a meltdown, fielded a message fro (Morning meltdowns connect directly to presenteeism and retention risk)",
+        "[Self-Insured Employers] The neurodiversity benefit conversation at most large employers is still centered on the e (Measurable developmental home support belongs in benefit design)",
+        "[Self-Insured Employers] Adding an autism benefit to your plan is not the same as supporting neurodivergent familie (Autism benefits must deliver more than claims access)",
+        "[Self-Insured Employers] It is 9:40 a.m. and your employee's third meeting is about to start. Their phone is also r (School calls during work hours are a productivity cost)",
+        "[Self-Insured Employers] Most benefits leaders know their pediatric behavioral health spend. Very few know what it  (Hidden workforce cost of parenting neurodivergent children)",
+        "[Self-Insured Employers] Workforce mental health strategy has a blind spot. It almost never includes what is happen (Caregiver burden belongs inside workforce mental health strategy)"
+      ]
     },
     "instagram": {
       "week_index": 1
@@ -223,6 +255,16 @@
           "platform": "linkedin",
           "sent": 5,
           "total": 5
+        }
+      ]
+    },
+    {
+      "date": "2026-06-18",
+      "results": [
+        {
+          "platform": "linkedin",
+          "sent": 30,
+          "total": 30
         }
       ]
     }
