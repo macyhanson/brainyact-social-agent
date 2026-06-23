@@ -322,6 +322,16 @@
           "total": 30
         }
       ]
+    },
+    {
+      "date": "2026-06-23",
+      "results": [
+        {
+          "platform": "linkedin",
+          "sent": 0,
+          "total": 0
+        }
+      ]
     }
   ]
 }
