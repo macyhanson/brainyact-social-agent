@@ -3,11 +3,6 @@
     "linkedin": {
       "week_index": 0,
       "recent_angles": [
-        "[Self-Insured Employers] Waitlists are not a neutral delay. They are an unbudgeted workforce cost. (Autism benefits must evolve to include home-based developmental engagement)",
-        "[Self-Insured Employers] Some of your most capable employees are quietly drowning in care coordination. (Autism benefits must evolve beyond claims access)",
-        "[Self-Insured Employers] A provider directory is not a family support strategy. (Pediatric behavioral health delays are a productivity metric)",
-        "[Self-Insured Employers] An EAP referral is not enough for every family. (Morning crisis at home drives workplace presenteeism and retention)",
-        "[Self-Insured Employers] Waitlists are not a neutral delay. (Neurodiversity strategy must support caregivers not just employees)",
         "[Self-Insured Employers] The employee may be at work, but their stress started at home. (Rising cost trend demands measurable upstream family support)",
         "[Self-Insured Employers] Caregiver burden is a workforce issue. (Utilization metrics miss caregiver relief and family outcomes)",
         "[Self-Insured Employers] A provider directory is not a family support strategy. (EAP and directories fail families needing implementation support)",
@@ -42,7 +37,12 @@
         "[Self-Insured Employers] Waitlists are not a neutral delay. (Waitlists are a benefits cost not a delay)",
         "[Self-Insured Employers] Large employers are missing a major dependent-care gap. (Morning crisis at home drives measurable workforce cost)",
         "[Self-Insured Employers] Family-friendly benefits often miss the families with the most complex needs. (Family friendly benefits miss families with complex needs)",
-        "[Self-Insured Employers] If your neurodiversity strategy stops at hiring, it is incomplete. (Neurodiversity strategy must support caregivers before crisis)"
+        "[Self-Insured Employers] If your neurodiversity strategy stops at hiring, it is incomplete. (Neurodiversity strategy must support caregivers before crisis)",
+        "[Insurance Payors / Health Plans] A referral is not a solution when the network is full. (Care managers need structured options beyond referrals)",
+        "[Insurance Payors / Health Plans] Families need more than authorization. They need implementation. (Authorization alone does not create functional progress)",
+        "[Insurance Payors / Health Plans] Developmental care needs an upstream layer. Most plans are not funding one. (Developmental care requires an upstream family-centered layer)",
+        "[Self-Insured Employers] More hours of high-intensity therapy is not always the answer employers should be funding  (High-cost services need upstream family-centered complements)",
+        "[Self-Insured Employers] It is 7:15 a.m. and she has already missed the window. (Home crisis before 9am drives measurable workforce cost)"
       ]
     },
     "instagram": {
@@ -350,6 +350,16 @@
           "platform": "linkedin",
           "sent": 0,
           "total": 0
+        }
+      ]
+    },
+    {
+      "date": "2026-06-23",
+      "results": [
+        {
+          "platform": "linkedin",
+          "sent": 5,
+          "total": 5
         }
       ]
     }
