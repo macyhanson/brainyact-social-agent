@@ -3,9 +3,6 @@
     "linkedin": {
       "week_index": 0,
       "recent_angles": [
-        "[Self-Insured Employers] A provider directory is not a family support strategy. (Home crisis drives absenteeism presenteeism and retention risk)",
-        "[Self-Insured Employers] Waitlists are not a neutral delay. (Waitlists are a benefits cost not a delay)",
-        "[Self-Insured Employers] Large employers are missing a major dependent-care gap. (Morning crisis at home drives measurable workforce cost)",
         "[Self-Insured Employers] Family-friendly benefits often miss the families with the most complex needs. (Family friendly benefits miss families with complex needs)",
         "[Self-Insured Employers] If your neurodiversity strategy stops at hiring, it is incomplete. (Neurodiversity strategy must support caregivers before crisis)",
         "[Insurance Payors / Health Plans] A referral is not a solution when the network is full. (Care managers need structured options beyond referrals)",
@@ -42,7 +39,10 @@
         "[Self-Insured Employers] Waitlists are not a neutral delay. (High-cost services need upstream caregiver complements)",
         "[Self-Insured Employers] The employee may be at work, but their stress started at home. (Caregiver stress at home drives measurable workforce cost)",
         "[Self-Insured Employers] Family-friendly benefits often miss the families with the most complex needs. (Family benefits miss complex dependent care needs)",
-        "[Self-Insured Employers] The most expensive support is often the support that starts too late. (Upstream family support reduces downstream workforce and benefit cost)"
+        "[Self-Insured Employers] The most expensive support is often the support that starts too late. (Upstream family support reduces downstream workforce and benefit cost)",
+        "[Insurance Payors / Health Plans] Utilization is not the same as progress. (Utilization volume does not equal functional progress)",
+        "[Insurance Payors / Health Plans] The home is where the care plan is tested. (Supporting the family system improves developmental care outcomes)",
+        "[Self-Insured Employers] A provider directory is not a family support strategy. (Dependent behavioral health gap drives silent workforce cost)"
       ]
     },
     "instagram": {
@@ -400,6 +400,16 @@
           "platform": "facebook",
           "sent": 5,
           "total": 5
+        }
+      ]
+    },
+    {
+      "date": "2026-06-25",
+      "results": [
+        {
+          "platform": "linkedin",
+          "sent": 3,
+          "total": 3
         }
       ]
     }
