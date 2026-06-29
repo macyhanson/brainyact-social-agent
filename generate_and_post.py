@@ -1,297 +1,484 @@
-// BrainyAct LinkedIn B2B — scheduled runner (Path B)
-// Generates 5 payor + 5 employer single posts and 2 employer carousels,
-// pushes the 10 single posts to Publer as drafts, writes carousel scripts to
-// out/, and appends to ledger.json so angles never repeat across runs.
-//
-// Requires Node 20+ (global fetch). Env vars (set as GitHub secrets):
-//   ANTHROPIC_API_KEY, PUBLER_API_KEY, PUBLER_WORKSPACE_ID, PUBLER_LINKEDIN_ACCOUNT_ID
-import { readFile, writeFile, mkdir } from "node:fs/promises";
-import { existsSync } from "node:fs";
+#!/usr/bin/env python3
+"""
+BrainyAct Social Agent - autonomous content runner.
 
-const MODEL = "claude-sonnet-4-20250514";
-const LEDGER_PATH = new URL("./ledger.json", import.meta.url);
-const LEDGER_CAP = 80;
-const SINGLE_MIX = { payors: 5, employers: 5 };
-const CAROUSEL_MIX = { employers: 2 };
-const BATCH_SIZE = 5;
+What it does, in order, for each platform:
+  1. Reads history.json for rotation state and recent-angle memory.
+  2. Generates posts with the Anthropic API.
+       - LinkedIn (evergreen): splits the run across audiences (payors, care
+         coordinators, employers) by weight, batched in fives so large runs
+         never truncate.
+       - LinkedIn (--campaign): single-audience campaign sequence, also batched.
+       - Instagram / Facebook: unchanged single call of 5 posts.
+  3. For Instagram/Facebook: fetches a relevant stock image from Unsplash (free).
+  4. Posts each one to Publer as a DRAFT (state: "draft"). Nothing goes live.
+  5. Advances rotation (B2C) and updates recent-angle memory, then logs the run.
+  6. Writes run_summary.md for the GitHub Actions notification step.
 
-const {
-  ANTHROPIC_API_KEY,
-  PUBLER_API_KEY,
-  PUBLER_WORKSPACE_ID = "680fe03e02cf6a3063e9468e",
-  PUBLER_LINKEDIN_ACCOUNT_ID = "68360d90c7a351d4c0097a84",
-} = process.env;
+Freshness: a per-run ledger stops two posts in one run from repeating an angle,
+and recent opening lines are remembered across runs in history.json so back-to-
+back runs do not repeat themselves.
 
-if (!ANTHROPIC_API_KEY) { console.error("Missing ANTHROPIC_API_KEY"); process.exit(1); }
-if (!PUBLER_API_KEY) { console.error("Missing PUBLER_API_KEY"); process.exit(1); }
+Local use:
+  python generate_and_post.py                          # all platforms, real drafts
+  python generate_and_post.py --dry-run                # generate only, no posting
+  python generate_and_post.py --platform linkedin
+  python generate_and_post.py --platform linkedin --count 30
+  python generate_and_post.py --platform linkedin --campaign centene --count 10
 
-// ---------- Content config (kept in sync with SKILL.md) ----------
-const SITE_FACTS = `BrainyAct by Kinuu. Tagline: "Putting Hope in Motion." Brand line: "Transformation, not just treatment."
-Reimagined developmental care, visible results in 6 months, zero wait time, personalized programs. Ages 6+, with or without a formal diagnosis.
-Conditions: autism spectrum, ADHD, sensory processing disorder, dyslexia, dyscalculia, dysgraphia, adoption trauma, anxiety.
-Bottom-up developmental model grounded in functional neurology. Complement to ABA, not a replacement.
-Pages: brainyact.com/the-science, brainyact.com/for-businesses. Expert call: meetings.hubspot.com/macy-hanson/macy.`;
+Environment variables required:
+  ANTHROPIC_API_KEY   your Anthropic API key
+  PUBLER_API_KEY      your Publer API key
+"""
 
-const APPROVED_STATS = `Use ONLY these external stats, and ALWAYS attribute them. Never present any of these as a BrainyAct outcome:
-- About 1 in 31 children are identified with autism by age 8 (CDC ADDM, 2025 report, 2022 data).
-- About 1 in 6 children (roughly 17%) aged 3 to 17 has one or more developmental disabilities (CDC National Health Interview Survey, Zablotsky et al.). Use for the broad neurodevelopmental-prevalence hook; keep the "developmental disabilities" wording and CDC attribution.
-- 54% of employers now cover ABA therapy (Gallagher 2025 Benefits Benchmarks).
-- High-cost autism claims above $200K grew roughly 78% year over year, 2023 to 2024 (Mercer).
-- Active ABA at recommended intensity (10 to 40 hrs/week, $120 to $200/hr) runs about $50,000 to $100,000+ per child per year; broad-population average is about $20,000/year (2017 data).
-- 43% of autism caregivers reduce hours or leave the workforce (Gnanasekaran et al., 2015).
-- 46% of parents of a child with ADHD reduced work hours after diagnosis; 11% stopped working.
-- Caregiver-related productivity loss is estimated at over $25 billion a year across the US workforce (directional).`;
+import argparse
+import datetime as dt
+import json
+import os
+import random
+import sys
 
-const PRODUCT_FACTS = `Approved product facts (descriptive, allowed for all audiences): 275 data points tracked per child across six domains (Motor, Sensory, Behavior, Communication, Academic, Health); fixed 4 to 6 month duration; home-based and gamified; ages 6+; bottom-up developmental sequencing.`;
+import requests
+from anthropic import Anthropic
 
-const COST_MODEL = `The ONE approved cost model (employers only): traditional behavioral health is about $130,000 per member, roughly $13M per 100 members over three years. BrainyAct is under $20,000 per member, under $2M per 100, with outcomes in six months. Potential savings exceed $13M. This is BrainyAct's own cost comparison, not third-party data. Do not use any other cost or savings figure.`;
+import config
 
-const AUDIENCES = {
-  payors: {
-    label: "Insurance Payors / Health Plans",
-    who: "Medical directors, utilization and care management leaders, behavioral health policy owners at health plans and Medicaid MCOs.",
-    pains: "Prolonged high-intensity service spend, crisis-driven encounters, restrictive placements, limited utilization visibility, pressure on total cost of care and HEDIS measures.",
-    valueProps: "Fewer crisis-driven encounters, less reliance on restrictive environments, improved daily functioning, data visibility for utilization planning, reduced reliance on prolonged high-intensity services.",
-    language: "Total cost of care, utilization, member outcomes, medical policy, ED diversion, HEDIS, evidence threshold. Measured, credible, non-hyped.",
-    pillarsPreferred: ["Payor ROI", "Thought Leadership", "Clinical Outcomes", "Neurodiversity Awareness"],
-    cta: "Read the payor brief at brainyact.com/for-businesses, or book a call at meetings.hubspot.com/macy-hanson/macy.",
-    numericPolicy: "QUALITATIVE ONLY. No percentages, no participant counts, no cost figures, no stats of any kind.",
-  },
-  employers: {
-    label: "Self-Insured Employers",
-    who: "Benefits leaders, total rewards, HR directors, VP Benefits, and CFOs at self-insured employers carrying dependent neurodevelopmental care.",
-    pains: "Open-ended behavioral health claims with no discharge criteria or outcome data, rising high-cost autism claims, caregiver absenteeism and presenteeism, benefits that do not differentiate, no proof of ROI, full ERISA claims exposure.",
-    valueProps: "A fixed 4 to 6 month program with a real finish line, machine-readable outcome data across six domains, whole-child multi-condition care in one program, caregiver relief that stabilizes work performance, ERISA flexibility to act now.",
-    language: "Open-ended claims, off-ramp, discharge criteria, outcome data, total cost, caregiver productivity, ERISA flexibility, benefits differentiation. Business-first, plain, CFO-ready.",
-    pillarsPreferred: ["Employer Benefits", "Payor ROI", "Neurodiversity Awareness", "Thought Leadership"],
-    cta: "See the employer overview at brainyact.com/for-businesses, or book a 20-minute ROI walkthrough at meetings.hubspot.com/macy-hanson/macy.",
-    numericPolicy: "Approved external stats (always attributed), approved product facts, and the one approved cost model are allowed. NO internal outcome figures. NO guarantee language. You may critique the ABA reimbursement model (open-ended, unmeasured, no discharge), never ABA clinically.",
-  },
-};
+HISTORY_PATH = os.path.join(os.path.dirname(__file__), "history.json")
+SUMMARY_PATH = os.path.join(os.path.dirname(__file__), "run_summary.md")
 
-const TRAINING = {
-  payors: {
-    examples: [
-      "Most digital health tools ask neurodiverse kids to adapt to the platform. BrainyAct works the other way around. Built by Kinuu for individuals ages 6 to 30 with autism, ADHD, dyslexia, and related conditions, it builds functional skills through structured, engaging experiences that feel less like therapy and more like something a child actually wants to return to. For payors and benefits decision-makers, the operational profile matters as much as the clinical one. BrainyAct is home-based and scalable, so it reaches members in rural and underserved communities without a clinic visit. It complements existing ABA and behavioral health services rather than creating a parallel track. And it is built for sustained engagement, because a digital intervention members abandon after two sessions does not move quality metrics or reduce utilization. Real-world progress. Skill development that extends beyond the session. See what BrainyAct looks like inside a managed care strategy at brainyact.com. #BrainyAct #Neurodiversity #DigitalTherapeutics #ValueBasedCare #BehavioralHealthTech",
-      "Most digital tools for neurodivergent individuals were built to track behavior. BrainyAct was built to change it. A lot of tools in this space generate data. Far fewer generate progress. BrainyAct by Kinuu is a patent-pending gamification-based neurolearning platform for individuals ages 6 to 30. The engagement is built into the architecture, not layered on top, because it is grounded in how neurodivergent brains respond to reward, repetition, and mastery. It is designed to function alongside ABA therapy, not compete with it. And it tracks functional behavior, cognitive skill acquisition, and caregiver-reported quality of life qualitatively, so progress is visible rather than assumed. For payors and clinical programs adding a scalable, evidence-informed digital layer to neurodevelopmental care, BrainyAct is worth a serious look. Explore the platform at brainyact.com. #BrainyAct #Neurodiversity #DigitalTherapeutics #BehavioralHealth #ValueBasedCare",
-    ],
-    requires: ["Credible, measured tone", "Frame around total cost of care and member outcomes", "Open on a two-part antithesis (what other tools do, then flip to BrainyAct) or a sharp reframe; this drove the strongest engagement", "Use staccato fragment triads for emphasis", "Before the CTA, ask one measured, answerable question to invite replies (comments drive reach; recent posts earned none)", "Close on a soft, low-friction CTA"],
-    bans: ["Any number or percentage", "'proven', 'rewire', 'cure'", "Competitor names", "Internal participant counts (e.g. the 473-user dataset)"],
-  },
-  employers: {
-    examples: [
-      "We spent $15M treating 100 kids with autism and ADHD. Know how many improved enough to reduce services? We don't. Because nobody tracked it. That's the self-insured employer's quiet problem with behavioral health benefits. Every other medical benefit has outcome benchmarks. Why not behavioral health? BrainyAct runs a fixed 4 to 6 month program and tracks 275 data points per child across six domains, so the plan can finally see what it paid for. If this math matters to your plan, happy to show you. #employeebenefits #selffunded #behavioralhealth",
-      "Hot take: open-ended ABA authorizations are one of the most expensive line items in a self-funded plan, and most TPAs have no off-ramp for them. No discharge criteria. No outcome data. No end date. You would never accept that from a surgical vendor. It is not a family problem, it is a protocol problem. There is another path: a fixed-duration program with measured results across six developmental domains and a clear point where a child graduates. Happy to walk through it. No deck. 20 minutes. #selfinsured #employeebenefits #behavioralhealth",
-      "Neurodiversity is not a problem to solve. It is a population to serve better. About 1 in 6 children in the US has a developmental disability such as autism, ADHD, or a learning disability (CDC, National Health Interview Survey). The clinical system, for all its strengths, was not built to serve this population at scale. Waitlists are long. Access is uneven. Consistent, engaging, skill-targeted intervention produces results; the challenge has always been consistency and access. That is what BrainyAct was built to address, not to replace clinicians but to extend the reach of their work into the hours and spaces where most of life actually happens. For employers and health plans serving neurodiverse populations, the conversation starts with access. Learn more at brainyact.com. #BrainyAct #Neurodiversity #DigitalTherapeutics #WorkforceInclusion #HealthEquity",
-    ],
-    requires: ["Business-first, CFO-ready framing", "One idea per line; this audience skims", "Soft CTAs", "Attribute every external stat", "Open on a two-part antithesis or clean reframe; these drove the strongest engagement", "Use staccato fragment triads for emphasis", "Before the soft CTA, ask one genuine question benefits leaders would answer (comments drive reach; recent posts earned none)"],
-    bans: ["Internal outcome percentages (incl. 91%)", "Any guarantee language", "The $150K/$43M cost version", "Hashtag stuffing (max 5)", "Attacking ABA clinically", "Internal participant counts (e.g. the 473-user dataset)"],
-  },
-};
+UNSPLASH_API_URL = "https://api.unsplash.com/photos/random"
 
-const FORMATS = [
-  { name: "Contrarian take", guide: "Name a belief the audience holds, then flip it and defend the flip." },
-  { name: "Mini case story", guide: "One short anonymized narrative of a single family or organizational situation. No names." },
-  { name: "Numbered framework", guide: "Tight numbered list (3-4 items)." },
-  { name: "Question-led", guide: "Open with a sharp question the audience is actually asking, answer it across the post." },
-  { name: "Reframe", guide: "Reframe a familiar concept." },
-  { name: "First-person clinical POV", guide: "Expert thinking out loud using OT and functional-neurology framing." },
-  { name: "Myth-bust", guide: "Name a specific misconception, dismantle it with reasoning." },
-  { name: "Direct provocation", guide: "Short, punchy challenge to the status quo, then a crisp reason it matters." },
-  { name: "Trend read", guide: "Take a current access/coverage trend and draw a practical implication." },
-  { name: "Cost-model anchor", guide: "EMPLOYERS ONLY. Open on the approved cost model and draw the plan-level implication. CFO-ready. No other numbers." },
-];
 
-const HOOKS = ["The validated winner: a concrete product-contrast antithesis. What most tools do TO the neurodiverse user, then flip to what BrainyAct does FOR them ('Most tools ask kids to adapt to the platform. BrainyAct works the other way around'). In June 2026 data every engaged post used this flip; abstract aphorisms and long essays drew reach but zero engagement. Lead with it.", "A bold one-line claim", "A surprising but well-established external fact", "A specific question", "A short scene or moment", "A misconception stated flatly, then flipped", "A list promise", "A blunt cost-or-time observation"];
+# ---------------------------------------------------------------------------
+# History / rotation state
+# ---------------------------------------------------------------------------
+def load_history():
+    if not os.path.exists(HISTORY_PATH):
+        return {"platforms": {}, "runs": []}
+    with open(HISTORY_PATH, "r", encoding="utf-8") as fh:
+        return json.load(fh)
 
-const CAROUSEL_STRATEGIES = [
-  { name: "Provocative Stat", slides: 7, arc: "Cover = pattern-interrupt stat/question. Then: name the problem, deepen the pain, introduce the standard every other benefit meets, the BrainyAct difference, the ROI punchline (approved cost model), soft CTA." },
-  { name: "Contrarian Take", slides: 6, arc: "Cover = contrarian opener about the ABA reimbursement model. Then: the specifics, flip the frame (protocol not family problem), the family side, the alternative (fixed duration, six domains, finish line), soft CTA. Critique payment structure, never ABA clinically." },
-  { name: "CFO Direct Address", slides: 6, arc: "Cover = direct address to self-insured plans. Then: the problem in three crisp lines, remove the blame, the alternative exists, the number (approved cost model on its own slide), shortest CTA." },
-];
 
-const SYSTEM_PROMPT = `You are a B2B LinkedIn content strategist for BrainyAct by Kinuu, a patent-pending gamification-based neurolearning platform for ages 6+ with autism, ADHD, dyslexia, and related neurodevelopmental conditions.
+def save_history(history):
+    with open(HISTORY_PATH, "w", encoding="utf-8") as fh:
+        json.dump(history, fh, indent=2)
+        fh.write("\n")
 
-Grounding facts (use these, do not contradict them):
-${SITE_FACTS}
 
-${PRODUCT_FACTS}
+def current_week_index(history, platform):
+    return history.get("platforms", {}).get(platform, {}).get("week_index", 0)
 
-Brand rules:
-- End with the assigned CTA. Where it fits the audience, precede the CTA with ONE genuine, answerable question to the reader to invite replies. Comments and reshares are the primary driver of LinkedIn reach; recent posts earned zero of either, so a reply-worthy question is the highest-leverage addition.
-- Favor concrete over abstract, and keep posts tight. In recent data the longest, most abstract essay-style post drew reach but zero engagement, while sharp concrete posts converted.
-- Never name competitors or specific people at named firms. No em dashes. No generic AI openers.
-- Mix clinical credibility with conversational voice. Use 3 to 5 hashtags, leading with #BrainyAct #Neurodiversity #DigitalTherapeutics. One idea per line for skimmers.
-- BrainyAct is a complement to ABA, not a replacement. Refer to the company only as "Kinuu" or the product as "BrainyAct by Kinuu". Never write "Kinuu Inc." or "Kinuu, LLC".
 
-Claims integrity (STRICT, obey each item's numericPolicy exactly):
-- Payors: fully qualitative. No numbers at all.
-- Employers: you MAY use the approved external stats (always attributed), approved product facts, and the single approved cost model below. Nothing else numeric.
-${APPROVED_STATS}
-${COST_MODEL}
-- BANNED for everyone: the 91% figure and any internal outcome percentage or participant count; the $150K/$43M cost version; any performance or outcome guarantee; "proven", "rewire", "cure", "treatment" as an efficacy claim.
-- ABA: complement, not replacement. Employers may critique the ABA reimbursement model but never attack ABA clinically.
+def advance_week_index(history, platform):
+    rotation_len = len(config.PLATFORMS[platform]["rotation"])
+    cur = current_week_index(history, platform)
+    history.setdefault("platforms", {}).setdefault(platform, {})
+    history["platforms"][platform]["week_index"] = (cur + 1) % rotation_len
 
-Variety mandate (most important):
-- Each item has a distinct FORMAT/STRATEGY, HOOK, and angle. Follow them exactly. Never reuse an angle or opening line listed as already-used.
 
-Respond ONLY with valid JSON. No preamble, no markdown fences.`;
+def recent_angles(history, platform):
+    return history.get("platforms", {}).get(platform, {}).get("recent_angles", [])
 
-// ---------- helpers ----------
-function shuffle(arr) { const a = [...arr]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
 
-function ledgerBlock(ledger) {
-  if (!ledger.length) return "";
-  const recent = ledger.slice(-LEDGER_CAP);
-  return `\nALREADY USED (this run and prior runs) — do NOT repeat any of these angles or opening lines:\n${recent.map(l => `- [${l.audience}] ${l.opening} (${l.topic})`).join("\n")}`;
-}
+def store_recent_angles(history, platform, ledger):
+    history.setdefault("platforms", {}).setdefault(platform, {})
+    history["platforms"][platform]["recent_angles"] = ledger[-config.RECENT_ANGLE_MEMORY:]
 
-function buildBatchPrompt(audienceKeys, ledger) {
-  const fmts = shuffle(FORMATS), hooks = shuffle(HOOKS);
-  const lengths = shuffle(["short", "short", "medium", "medium", "medium"]);
-  const blocks = audienceKeys.map((key, i) => {
-    const a = AUDIENCES[key], t = TRAINING[key] || {};
-    const pillar = shuffle(a.pillarsPreferred)[0];
-    let fmt = fmts[i % fmts.length];
-    if (fmt.name === "Cost-model anchor" && key !== "employers") fmt = FORMATS[0];
-    const ex = (t.examples && t.examples.length) ? `\n  Imitate the voice of these proven posts (do not copy text):\n  ${t.examples.map(e => `"${e.slice(0, 500)}"`).join("\n  ")}` : "";
-    return `Post ${i + 1}
-  Audience: ${a.label}
-  Who they are: ${a.who}
-  Their pains: ${a.pains}
-  Value props: ${a.valueProps}
-  Voice/language: ${a.language}
-  Pillar: ${pillar}
-  Format: ${fmt.name} — ${fmt.guide}
-  Hook style: ${hooks[i % hooks.length]}
-  Length: ${lengths[i]} (${lengths[i] === "short" ? "150-250" : "300-500"} words)
-  CTA: ${a.cta}
-  numericPolicy: ${a.numericPolicy}
-  Must include: ${(t.requires || []).join("; ") || "n/a"}
-  Must avoid: ${(t.bans || []).join("; ") || "n/a"}${ex}`;
-  }).join("\n\n");
-  return `Generate exactly ${audienceKeys.length} LinkedIn single posts. Each must read as structurally different from every other item.
 
-${blocks}
-${ledgerBlock(ledger)}
+# ---------------------------------------------------------------------------
+# Freshness helpers
+# ---------------------------------------------------------------------------
+def summarize_angle(post):
+    """Compact opening-line signature used to avoid repeats within and across runs."""
+    hook = (post.get("hook") or "").strip()
+    if not hook:
+        hook = (post.get("body") or "").strip().split("\n")[0]
+    aud = post.get("audience", "")
+    topic = post.get("topic", "")
+    tag = f"[{aud}] " if aud else ""
+    extra = f" ({topic})" if topic else ""
+    return f"{tag}{hook[:90]}{extra}"
 
-Return a JSON array with one object per post:
-{ "audience": "audience label", "pillar": "pillar", "format": "format name", "length": "short|medium", "topic": "5-8 word summary", "hook": "first line", "body": "full post text including hook, body, CTA, hashtags" }`;
-}
 
-function buildCarouselPrompt(audienceKey, strategy, ledger) {
-  const a = AUDIENCES[audienceKey], t = TRAINING[audienceKey] || {};
-  const pillar = shuffle(a.pillarsPreferred)[0];
-  const ex = (t.examples && t.examples.length) ? `\nVoice anchors (imitate tone, do not copy):\n${t.examples.map(e => `"${e.slice(0, 400)}"`).join("\n")}` : "";
-  return `Generate ONE LinkedIn carousel for this audience.
+def ledger_directive(ledger):
+    if not ledger:
+        return ""
+    recent = ledger[-60:]
+    joined = "\n".join(f"- {a}" for a in recent)
+    return ("\n\nDo NOT repeat any of these angles or opening lines that were "
+            f"used recently. Take a different angle:\n{joined}")
 
-Audience: ${a.label}
-Who they are: ${a.who}
-Their pains: ${a.pains}
-Value props: ${a.valueProps}
-Voice/language: ${a.language}
-Pillar: ${pillar}
-Strategy: ${strategy.name} (${strategy.slides} slides)
-Slide arc to follow: ${strategy.arc}
-CTA direction: ${a.cta} (final slide is a soft version)
-numericPolicy: ${a.numericPolicy}
-Must include: ${(t.requires || []).join("; ") || "n/a"}
-Must avoid: ${(t.bans || []).join("; ") || "n/a"}${ex}
-${ledgerBlock(ledger)}
 
-Each slide: 1-3 short lines of copy plus a one-line design note. Slide 1 is the cover/hook. The caption ends with the soft CTA and 3 to 5 hashtags.
+def distribute_counts(weights, total):
+    """Split `total` across weighted keys (largest-remainder), always summing to total."""
+    keys = list(weights.keys())
+    wsum = sum(weights.values()) or 1
+    raw = {k: weights[k] / wsum * total for k in keys}
+    floored = {k: int(raw[k]) for k in keys}
+    remainder = total - sum(floored.values())
+    order = sorted(keys, key=lambda k: raw[k] - floored[k], reverse=True)
+    for k in order[:remainder]:
+        floored[k] += 1
+    return floored
 
-Return ONE JSON object:
-{ "audience": "${a.label}", "pillar": "${pillar}", "strategy": "${strategy.name}", "title": "short title", "topic": "5-8 word summary", "hook": "cover first line", "slides": [ { "n": 1, "copy": "slide copy", "design": "design note" } ], "caption": "LinkedIn caption with CTA and hashtags" }`;
-}
 
-async function callApi(userContent, maxTokens) {
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", "x-api-key": ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01" },
-    body: JSON.stringify({ model: MODEL, max_tokens: maxTokens, temperature: 0.9, system: SYSTEM_PROMPT, messages: [{ role: "user", content: userContent }] }),
-  });
-  if (!res.ok) throw new Error(`Anthropic ${res.status}: ${(await res.text()).slice(0, 300)}`);
-  const data = await res.json();
-  const raw = data.content?.[0]?.text || "";
-  return JSON.parse(raw.replace(/```json|```/g, "").trim());
-}
+# ---------------------------------------------------------------------------
+# Model call
+# ---------------------------------------------------------------------------
+def call_model(client, platform, system_prompt, user_prompt):
+    cfg = config.PLATFORMS[platform]
+    resp = client.messages.create(
+        model=cfg["model"],
+        max_tokens=config.MAX_TOKENS,
+        system=system_prompt,
+        messages=[{"role": "user", "content": user_prompt}],
+    )
+    raw = "".join(block.text for block in resp.content if block.type == "text")
+    cleaned = raw.replace("```json", "").replace("```", "").strip()
+    data = json.loads(cleaned)
+    if not isinstance(data, list) or not data:
+        raise ValueError("model returned no usable posts")
+    return data
 
-async function pushToPubler(text) {
-  const res = await fetch("https://app.publer.io/api/v1/posts/schedule", {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer-API ${PUBLER_API_KEY}`,
-      "Publer-Workspace-Id": PUBLER_WORKSPACE_ID,
-      "Content-Type": "application/json",
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
-    },
-    body: JSON.stringify({
-      bulk: { state: "draft", posts: [{ networks: { linkedin: { type: "status", text } }, accounts: [{ id: PUBLER_LINKEDIN_ACCOUNT_ID }] }] },
-    }),
-  });
-  const body = await res.text();
-  if (!res.ok) throw new Error(`Publer ${res.status}: ${body.slice(0, 200)}`);
-  return body;
-}
 
-// ---------- main ----------
-async function main() {
-  const ledger = existsSync(LEDGER_PATH) ? JSON.parse(await readFile(LEDGER_PATH, "utf8") || "[]") : [];
-  const stamp = new Date().toISOString().slice(0, 10);
+def call_model_with_retry(client, platform, system_prompt, user_prompt, attempts=2):
+    last = None
+    for _ in range(attempts):
+        try:
+            return call_model(client, platform, system_prompt, user_prompt)
+        except Exception as exc:  # noqa: BLE001 - one retry on truncation/parse error
+            last = exc
+    raise last
 
-  // singles
-  const singleQueue = shuffle(Object.entries(SINGLE_MIX).flatMap(([k, n]) => Array(n).fill(k)));
-  const posts = [];
-  for (let i = 0; i < singleQueue.length; i += BATCH_SIZE) {
-    const batch = singleQueue.slice(i, i + BATCH_SIZE);
-    let parsed;
-    try { parsed = await callApi(buildBatchPrompt(batch, ledger), 8000); }
-    catch { parsed = await callApi(buildBatchPrompt(batch, ledger), 8000); }
-    if (!Array.isArray(parsed)) throw new Error("Batch did not return an array.");
-    for (const p of parsed) {
-      posts.push(p);
-      ledger.push({ date: stamp, audience: p.audience || "", opening: (p.hook || p.body || "").slice(0, 80), topic: p.topic || "" });
+
+# ---------------------------------------------------------------------------
+# Generation: Instagram / Facebook (unchanged single call of 5)
+# ---------------------------------------------------------------------------
+def generate_posts(client, platform, pillars, count, system_prompt):
+    cfg = config.PLATFORMS[platform]
+    short_n = count // 2
+    medium_n = count - short_n
+    user_prompt = cfg["user_template"].format(
+        pillars=", ".join(pillars), count=count, short_n=short_n, medium_n=medium_n,
+    )
+    return call_model_with_retry(client, platform, system_prompt, user_prompt)
+
+
+# ---------------------------------------------------------------------------
+# Generation: count-aware template, batched (LinkedIn campaign path)
+# ---------------------------------------------------------------------------
+def generate_template_batched(client, platform, pillars, count, system_prompt, ledger):
+    cfg = config.PLATFORMS[platform]
+    posts = []
+    for start in range(0, count, config.POSTS_PER_BATCH):
+        chunk_pillars = pillars[start:start + config.POSTS_PER_BATCH]
+        n = len(chunk_pillars)
+        short_n = n // 2
+        medium_n = n - short_n
+        user_prompt = cfg["user_template"].format(
+            pillars=", ".join(chunk_pillars), count=n, short_n=short_n, medium_n=medium_n,
+        )
+        user_prompt += ledger_directive(ledger)
+        batch = call_model_with_retry(client, platform, system_prompt, user_prompt)
+        for p in batch:
+            posts.append(p)
+            ledger.append(summarize_angle(p))
+    return posts
+
+
+# ---------------------------------------------------------------------------
+# Generation: LinkedIn multi-audience (evergreen path)
+# ---------------------------------------------------------------------------
+def build_audience_prompt(aud, chunk_len, length_plan, ledger):
+    formats = random.sample(config.LINKEDIN_FORMATS,
+                            k=min(chunk_len, len(config.LINKEDIN_FORMATS)))
+    hooks = random.sample(config.LINKEDIN_HOOKS,
+                          k=min(chunk_len, len(config.LINKEDIN_HOOKS)))
+    pillars = aud["pillars"]
+    tr = aud.get("training", {})
+
+    ex_block = ""
+    examples = tr.get("examples", [])
+    if examples:
+        joined = "\n".join(f'"{e[:400]}"' for e in examples[:4])
+        ex_block = ("\nImitate the voice and structure of these proven posts "
+                    f"(do not copy their text):\n{joined}\n")
+
+    facts = tr.get("facts", [])
+    facts_block = ("\nAudience facts to respect:\n" + "\n".join(f"- {f}" for f in facts)) if facts else ""
+    requires = tr.get("requires", [])
+    bans = tr.get("bans", [])
+    req_line = ("\nEvery post must: " + "; ".join(requires)) if requires else ""
+    ban_line = ("\nNo post may: " + "; ".join(bans)) if bans else ""
+
+    post_lines = []
+    for i in range(chunk_len):
+        fmt = formats[i % len(formats)]
+        hook = hooks[i % len(hooks)]
+        length = length_plan[i]
+        words = "150 to 250" if length == "short" else "300 to 500"
+        post_lines.append(
+            f"Post {i + 1}\n"
+            f"  Pillar: {pillars[i % len(pillars)]}\n"
+            f"  Format: {fmt['name']} - {fmt['guide']}\n"
+            f"  Hook style: {hook}\n"
+            f"  Length: {length} ({words} words)\n"
+            f"  CTA: {aud['cta']}\n"
+            f"  numericPolicy: {aud['numeric_policy']}"
+        )
+    body = "\n\n".join(post_lines)
+
+    return (
+        f"Generate exactly {chunk_len} LinkedIn posts for this audience: {aud['label']}.\n"
+        f"Who they are: {aud['who']}\n"
+        f"Their pains: {aud['pains']}\n"
+        f"Value props to draw from: {aud['value_props']}\n"
+        f"Voice: {aud['language']}"
+        f"{ex_block}{facts_block}{req_line}{ban_line}\n\n"
+        f"Each post must be structurally different from the others and from anything "
+        f"in the do-not-repeat list.\n\n"
+        f"{body}"
+        f"{ledger_directive(ledger)}\n\n"
+        f"Return a JSON array with exactly {chunk_len} objects, each with these fields:\n"
+        f'{{"audience": "{aud["label"]}", "pillar": "pillar name", "format": "format name", '
+        f'"length": "short or medium", "topic": "5 to 8 word angle summary", '
+        f'"hook": "first line", "body": "full post text including hook, body, CTA, and hashtags"}}'
+    )
+
+
+def generate_with_audiences(client, platform, count, ledger):
+    cfg = config.PLATFORMS[platform]
+    audiences = cfg["audiences"]
+    weights = cfg["audience_weights"]
+    per = distribute_counts(weights, count)
+    base_system = cfg["system_prompt"]
+    all_posts = []
+
+    for akey, n in per.items():
+        if n <= 0:
+            continue
+        aud = audiences[akey]
+        system_prompt = base_system + aud.get("system_addendum", "")
+        for start in range(0, n, config.POSTS_PER_BATCH):
+            chunk_len = min(config.POSTS_PER_BATCH, n - start)
+            # ~40% short, rest medium, per chunk
+            length_plan = ["short" if i % 5 < 2 else "medium" for i in range(chunk_len)]
+            user_prompt = build_audience_prompt(aud, chunk_len, length_plan, ledger)
+            batch = call_model_with_retry(client, platform, system_prompt, user_prompt)
+            for p in batch:
+                p["audience"] = aud["label"]
+                all_posts.append(p)
+                ledger.append(summarize_angle(p))
+
+    random.shuffle(all_posts)  # interleave audiences in the Publer draft queue
+    return all_posts
+
+
+# ---------------------------------------------------------------------------
+# Image fetching from Unsplash (free) - Instagram / Facebook only
+# ---------------------------------------------------------------------------
+def fetch_image_for_post(platform, post):
+    try:
+        pillar = post.get("pillar", "post")
+        search_query = pillar
+        if platform == "instagram" and len(search_query) < 3:
+            search_query = f"{pillar} neurodiversity children"
+        elif platform == "facebook" and len(search_query) < 3:
+            search_query = f"{pillar} family parenting"
+
+        params = {"query": search_query, "w": 1080, "h": 1350, "orientation": "portrait"}
+        resp = requests.get(UNSPLASH_API_URL, params=params, timeout=10)
+        if resp.status_code == 200:
+            return resp.json().get("urls", {}).get("regular")
+        return None
+    except Exception as exc:  # noqa: BLE001
+        print(f"  WARNING: Unsplash image fetch failed: {exc}")
+        return None
+
+
+# ---------------------------------------------------------------------------
+# Publer (server-side; User-Agent header required for Cloudflare)
+# ---------------------------------------------------------------------------
+def post_to_publer(api_key, platform, text, image_url=None):
+    cfg = config.PLATFORMS[platform]
+    headers = {
+        "Authorization": f"Bearer-API {api_key}",
+        "Publer-Workspace-Id": config.PUBLER_WORKSPACE_ID,
+        "Content-Type": "application/json",
+        "User-Agent": config.PUBLER_USER_AGENT,
     }
-    console.log(`Generated single batch (${batch.length}), total ${posts.length}`);
-  }
+    media = []
+    if image_url and platform in ("instagram", "facebook"):
+        media.append({"type": "image", "url": image_url})
 
-  // carousels
-  const carouselQueue = shuffle(Object.entries(CAROUSEL_MIX).flatMap(([k, n]) => Array(n).fill(k)));
-  const carousels = [];
-  for (const key of carouselQueue) {
-    const strategy = shuffle(CAROUSEL_STRATEGIES)[0];
-    let car;
-    try { car = await callApi(buildCarouselPrompt(key, strategy, ledger), 4000); }
-    catch { car = await callApi(buildCarouselPrompt(key, strategy, ledger), 4000); }
-    if (!car || !Array.isArray(car.slides)) throw new Error("Carousel did not return slides.");
-    carousels.push(car);
-    ledger.push({ date: stamp, audience: car.audience || "", opening: (car.hook || car.title || "").slice(0, 80), topic: car.topic || "" });
-    console.log(`Generated carousel: ${car.title}`);
-  }
+    payload = {
+        "bulk": {
+            "state": "draft",  # never "draft_private" - that silently fails
+            "posts": [{
+                "networks": {cfg["network"]: {"type": "status", "text": text, "media": media}},
+                "accounts": [{"id": cfg["account_id"]}],
+            }],
+        }
+    }
+    resp = requests.post(config.PUBLER_ENDPOINT, headers=headers, json=payload, timeout=60)
+    ok = resp.status_code in (200, 201)
+    return ok, resp.status_code, resp.text[:300]
 
-  // push singles to Publer as drafts
-  let ok = 0, fail = 0;
-  for (const p of posts) {
-    try { await pushToPubler(p.body); ok++; }
-    catch (e) { fail++; console.error(`Publer push failed: ${e.message}`); }
-  }
-  console.log(`Publer drafts: ${ok} ok, ${fail} failed`);
 
-  // write carousel scripts to out/
-  await mkdir(new URL("./out/", import.meta.url), { recursive: true });
-  const md = carousels.map(c => {
-    const slides = c.slides.map(s => `SLIDE ${s.n}\n${s.copy}\n(design: ${s.design})`).join("\n\n");
-    return `## ${c.strategy} — ${c.audience} — "${c.title}"\n\n${slides}\n\nCAPTION:\n${c.caption}\n`;
-  }).join("\n---\n\n");
-  await writeFile(new URL(`./out/carousels-${stamp}.md`, import.meta.url), `# Employer carousels — ${stamp}\n\n${md}`);
-  console.log(`Wrote out/carousels-${stamp}.md`);
+# ---------------------------------------------------------------------------
+# Orchestration
+# ---------------------------------------------------------------------------
+def run_platform(client, publer_key, history, platform, dry_run, count, campaign_key=None):
+    cfg = config.PLATFORMS[platform]
+    campaign = config.CAMPAIGNS.get(campaign_key) if campaign_key else None
+    campaign_active = bool(campaign and campaign.get("platform") == platform)
 
-  // persist ledger (capped)
-  await writeFile(LEDGER_PATH, JSON.stringify(ledger.slice(-LEDGER_CAP), null, 2));
-  console.log(`Ledger now holds ${Math.min(ledger.length, LEDGER_CAP)} entries`);
+    ledger = list(recent_angles(history, platform))  # seed with cross-run memory
+    uses_ledger = False
 
-  if (ok === 0 && posts.length > 0) process.exit(1); // nothing landed
-}
+    def fit(pillars):
+        if count <= len(pillars):
+            return pillars[:count]
+        return (pillars * ((count // len(pillars)) + 1))[:count]
 
-main().catch(e => { console.error(e); process.exit(1); });
+    if campaign_active:
+        pillars = fit(list(campaign["pillars"]))
+        system_prompt = cfg["system_prompt"] + campaign.get("system_addendum", "")
+        mode_label = f"Campaign: {campaign['label']}"
+        generate = lambda: generate_template_batched(  # noqa: E731
+            client, platform, pillars, count, system_prompt, ledger)
+        advance = False
+        uses_ledger = True
+    elif cfg.get("audiences"):
+        mode_label = "Multi-audience"
+        generate = lambda: generate_with_audiences(client, platform, count, ledger)  # noqa: E731
+        advance = False  # LinkedIn freshness comes from audiences + ledger, not week rotation
+        uses_ledger = True
+    else:
+        week_idx = current_week_index(history, platform)
+        week_letter = "ABC"[week_idx % 3]
+        pillars = fit(list(cfg["rotation"][week_idx]))
+        system_prompt = cfg["system_prompt"]
+        mode_label = f"Week {week_letter}"
+        generate = lambda: generate_posts(client, platform, pillars, count, system_prompt)  # noqa: E731
+        advance = not dry_run
+
+    log = [f"### {cfg['label']} ({mode_label})"]
+    print(f"\n=== {cfg['label']} | {mode_label} | {count} posts ===")
+
+    try:
+        posts = generate()
+    except Exception as exc:  # noqa: BLE001 - surface any generation failure
+        msg = f"Generation FAILED: {exc}"
+        print(msg)
+        log.append(f"- {msg}")
+        return {"platform": platform, "ok": False, "log": "\n".join(log), "sent": 0, "total": 0}
+
+    sent = 0
+    for i, post in enumerate(posts, start=1):
+        body = (post.get("body") or "").strip()
+        pillar = post.get("pillar", f"post {i}")
+        aud = post.get("audience")
+        tag = f"{aud} | {pillar}" if aud else pillar
+        if not body:
+            log.append(f"- {tag}: empty body, skipped")
+            continue
+
+        image_url = None
+        if platform in ("instagram", "facebook") and not dry_run:
+            print(f"  [{i}] {tag}: fetching image from Unsplash...")
+            image_url = fetch_image_for_post(platform, post)
+            print(f"       {'image fetched' if image_url else 'no image, proceeding'}")
+
+        if dry_run:
+            media_status = " + image" if image_url else ""
+            print(f"  [{i}] {tag} ({len(body)} chars){media_status} - DRY RUN, not posted")
+            log.append(f"- {tag}: generated ({len(body)} chars){media_status}, dry run")
+            continue
+
+        ok, status, detail = post_to_publer(publer_key, platform, body, image_url=image_url)
+        if ok:
+            sent += 1
+            media_status = " + image" if image_url else ""
+            print(f"  [{i}] {tag} -> Publer draft OK{media_status}")
+            log.append(f"- {tag}: draft created{media_status}")
+        else:
+            print(f"  [{i}] {tag} -> FAILED ({status}) {detail}")
+            log.append(f"- {tag}: FAILED ({status})")
+
+    if advance:
+        advance_week_index(history, platform)
+    if uses_ledger and not dry_run:
+        store_recent_angles(history, platform, ledger)
+
+    return {"platform": platform, "ok": True, "log": "\n".join(log),
+            "sent": sent, "total": len(posts)}
+
+
+def main():
+    parser = argparse.ArgumentParser(description="BrainyAct social agent runner")
+    parser.add_argument("--platform", action="append", choices=list(config.PLATFORMS.keys()),
+                        help="Limit to one or more platforms (repeatable). Default: all.")
+    parser.add_argument("--dry-run", action="store_true",
+                        help="Generate and print posts without sending to Publer or advancing state.")
+    parser.add_argument("--count", type=int, default=None,
+                        help=f"Posts to generate per platform (default: {config.POSTS_PER_RUN}).")
+    parser.add_argument("--campaign", default=None, choices=list(config.CAMPAIGNS.keys()),
+                        help="Apply a campaign overlay (e.g. centene). Bypasses the audience split.")
+    args = parser.parse_args()
+
+    count = args.count if args.count is not None else config.POSTS_PER_RUN
+    if count < 1:
+        sys.exit("--count must be at least 1")
+
+    anthropic_key = os.environ.get("ANTHROPIC_API_KEY")
+    publer_key = os.environ.get("PUBLER_API_KEY")
+    if not anthropic_key:
+        sys.exit("Missing ANTHROPIC_API_KEY")
+    if not publer_key and not args.dry_run:
+        sys.exit("Missing PUBLER_API_KEY (or use --dry-run)")
+
+    client = Anthropic(api_key=anthropic_key)
+    history = load_history()
+    platforms = args.platform or list(config.PLATFORMS.keys())
+
+    results = []
+    for platform in platforms:
+        results.append(
+            run_platform(client, publer_key, history, platform, args.dry_run,
+                         count, campaign_key=args.campaign)
+        )
+
+    if not args.dry_run:
+        history.setdefault("runs", []).append({
+            "date": dt.date.today().isoformat(),
+            "results": [{"platform": r["platform"], "sent": r["sent"], "total": r["total"]}
+                        for r in results],
+        })
+        save_history(history)
+
+    write_summary(results, args.dry_run)
+
+
+def write_summary(results, dry_run):
+    today = dt.date.today().isoformat()
+    total_sent = sum(r["sent"] for r in results)
+    mode = "DRY RUN (nothing posted)" if dry_run else "drafts created in Publer"
+    lines = [
+        f"# BrainyAct drafts - {today}",
+        "",
+        f"{total_sent} drafts {('would be created' if dry_run else 'created')} this run ({mode}).",
+        "",
+        "Open Publer to add images/video and approve drafts for scheduling." if not dry_run else "",
+        "",
+    ]
+    for r in results:
+        lines.append(r["log"])
+        lines.append("")
+    with open(SUMMARY_PATH, "w", encoding="utf-8") as fh:
+        fh.write("\n".join(lines))
+    print(f"\nSummary written to {SUMMARY_PATH}")
+
+
+if __name__ == "__main__":
+    main()
