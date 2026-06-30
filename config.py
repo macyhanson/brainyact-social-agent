@@ -88,7 +88,9 @@ Grounding facts (use these, do not contradict them):
 The audience for each post is specified in the request: insurance payors and health plans, waiver care coordinators and case managers, or self-insured employers. Write to the audience named in the request.
 
 Brand rules:
-- Always end with the exact CTA assigned to the post
+- Before the assigned CTA, ask one genuine, answerable question to the reader to invite replies, then end with the exact CTA assigned to the post. Comments and reshares are the primary driver of LinkedIn reach, and recent posts earned none, so a reply-worthy question is the highest-leverage addition. For payors, keep the question measured and strategic.
+- Favor concrete over abstract and tight over long. In recent analytics the longest, most abstract essay-style posts drew reach but zero engagement, while sharp concrete posts converted.
+- The validated top-performing opener is the concrete product-contrast antithesis described in the hook list. Use it for at least one or two posts per run.
 - Never name competitors
 - No em dashes
 - No generic AI opener phrases like "In today's landscape"
@@ -141,6 +143,7 @@ LINKEDIN_FORMATS = [
 ]
 
 LINKEDIN_HOOKS = [
+    "The validated top performer: a concrete product-contrast antithesis. State what most tools or programs do TO the neurodiverse user, then flip to what BrainyAct does FOR them (\"Most tools ask neurodiverse kids to adapt to the platform. BrainyAct works the other way around\"). In recent analytics every post that earned engagement used this opener; abstract aphorisms and long essays drew reach but no engagement.",
     "A bold one-line claim",
     "A surprising but well-established external fact",
     "A specific question",
@@ -289,6 +292,8 @@ Care management works better when families have a real next step.""",
                 "Direct, strategic, payor-aware voice with short paragraphs and confident statements",
                 "Mention BrainyAct lightly as a complementary upstream measurable home-supported developmental layer",
                 "Use claim-safe language: designed to support, may help, complements, helps create visibility into",
+                "Open on the concrete product-contrast antithesis or a sharp reframe; that opener drove the strongest engagement in recent posts",
+                "Before the CTA, ask one measured, answerable question to invite replies (e.g. 'What is your plan using to extend care between visits?'); comments drive reach and recent posts earned none",
             ],
             "bans": [
                 "Hashtags",
@@ -454,6 +459,8 @@ BrainyAct was built for this level of support. Not as another generic wellness t
                 "Executive-level, direct voice with short lines and one idea per post",
                 "Make the employer implication explicit: productivity, absenteeism, presenteeism, retention, or cost",
                 "Mention BrainyAct lightly, usually near the end, as a complementary upstream home-supported developmental benefit",
+                "Open on the concrete product-contrast antithesis or a clean reframe; that opener drove the strongest engagement in recent posts",
+                "Before the CTA, ask one genuine question benefits leaders would answer (e.g. 'How is your plan measuring whether behavioral health spend worked?'); comments drive reach and recent posts earned none",
             ],
             "bans": [
                 "Hashtags",
