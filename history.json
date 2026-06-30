@@ -3,36 +3,6 @@
     "linkedin": {
       "week_index": 0,
       "recent_angles": [
-        "[Self-Insured Employers] More hours of high-intensity therapy is not always the answer employers should be funding  (High-cost services need upstream family-centered complements)",
-        "[Self-Insured Employers] It is 7:15 a.m. and she has already missed the window. (Home crisis before 9am drives measurable workforce cost)",
-        "[Insurance Payors / Health Plans] Payors cannot manage developmental care with claims data alone. (Care managers need actionable options beyond directories)",
-        "[Insurance Payors / Health Plans] Pediatric behavioral health needs scalable support models. (Scalable family-centered support belongs in pediatric behavioral health)",
-        "[Insurance Payors / Health Plans] Caregiver burden is a care management issue. Most plans are not treating it that way. (Caregiver capacity is a clinical variable payors underestimate)",
-        "[Insurance Payors / Health Plans] Upstream support is not a soft add-on. For neurodivergent members, it is what prevention a (Upstream developmental support is prevention by another name)",
-        "[Insurance Payors / Health Plans] A claim tells you a service was delivered. It does not tell you whether anything changed a (Functional outcomes and family stability are invisible in claims)",
-        "[Insurance Payors / Health Plans] When a family waits six months for developmental support, that delay does not stay in the  (Waitlists are a payor cost problem not a family inconvenience)",
-        "[Insurance Payors / Health Plans] Funding a diagnosis is not the same as supporting a family. (Scalable pediatric behavioral health requires supporting families not just diagnoses)",
-        "[Insurance Payors / Health Plans] Ask a care manager what happens after a family calls about a child with autism or ADHD and (Care managers need actionable structured options beyond referrals and directories)",
-        "[Insurance Payors / Health Plans] Fragmented developmental care does not look like a crisis at first. (Fragmented care pathways push families toward escalation not function)",
-        "[Insurance Payors / Health Plans] Utilization data can tell a payor how many sessions a child received. It cannot tell you w (Functional progress and family stability are invisible in utilization data)",
-        "[Insurance Payors / Health Plans] A provider directory is not a solution for every family. (Home implementation closes gap directories cannot fill)",
-        "[Insurance Payors / Health Plans] Value-based care requires more than service volume. (Fragmented care pathways leave functional outcomes invisible)",
-        "[Insurance Payors / Health Plans] The home is where the care plan is tested. (Care managers need actionable options beyond waitlists)",
-        "[Insurance Payors / Health Plans] Payors cannot manage developmental care with claims data alone. (Upstream developmental support is prevention by another name)",
-        "[Insurance Payors / Health Plans] Access is not the same as support. (Outcomes visibility gap persists beyond access and authorization)",
-        "[Insurance Payors / Health Plans] Upstream support is prevention by another name. (Why value-based care needs functional outcomes upstream)",
-        "[Self-Insured Employers] If your neurodiversity strategy stops at hiring, it is incomplete. (Why home-supported intervention closes the neurodiversity gap)",
-        "[Self-Insured Employers] Waitlists are not a neutral delay. (Waitlists are an active workforce cost not a pause)",
-        "[Self-Insured Employers] Utilization is not the same as impact. (Rising cost trend demands measurable upstream family benefit design)",
-        "[Self-Insured Employers] A provider directory is not a family support strategy. (Morning dysregulation at home drives measurable workforce cost)",
-        "[Self-Insured Employers] Some of your most capable employees are quietly drowning in care coordination. (Care coordination burden belongs in workforce mental health strategy)",
-        "[Self-Insured Employers] Adding more benefits does not help a family that cannot access any of them. (Waitlists are an active employer cost problem)",
-        "[Self-Insured Employers] The most expensive support is often the support that starts too late. (Morning dysregulation translates directly into workforce cost)",
-        "[Self-Insured Employers] Employers are paying more for health benefits and seeing less certainty about what is work (Rising cost trend demands measurable upstream dependent benefits)",
-        "[Self-Insured Employers] Neurodiversity benefits at most large employers are designed around the employee. (Caregiver burnout is a retention and productivity exposure)",
-        "[Self-Insured Employers] Enrollment numbers tell you a benefit was offered. They do not tell you whether the family (Home-supported implementation closes the gap utilization cannot measure)",
-        "[Self-Insured Employers] Waitlists are not a neutral delay. (High-cost services need upstream caregiver complements)",
-        "[Self-Insured Employers] The employee may be at work, but their stress started at home. (Caregiver stress at home drives measurable workforce cost)",
         "[Self-Insured Employers] Family-friendly benefits often miss the families with the most complex needs. (Family benefits miss complex dependent care needs)",
         "[Self-Insured Employers] The most expensive support is often the support that starts too late. (Upstream family support reduces downstream workforce and benefit cost)",
         "[Insurance Payors / Health Plans] Utilization is not the same as progress. (Utilization volume does not equal functional progress)",
@@ -42,7 +12,37 @@
         "[Insurance Payors / Health Plans] Value-based care commitments are moving faster than developmental outcome measurement. (Value-based care contracts demand functional outcomes plans cannot see)",
         "[Insurance Payors / Health Plans] Caregiver capacity is a clinical variable. Most care plans are not treating it that way. (Caregiver capacity is a functional neurology variable not a soft concern)",
         "[Self-Insured Employers] Most employers are funding the back end of a problem they could reach much earlier. (Sensorimotor dysfunction at home drives measurable workforce cost)",
-        "[Self-Insured Employers] The referral went through. The family is on a list. Now what? (Waitlist delay compounds daily into measurable employer cost)"
+        "[Self-Insured Employers] The referral went through. The family is on a list. Now what? (Waitlist delay compounds daily into measurable employer cost)",
+        "[Insurance Payors / Health Plans] What does authorization actually accomplish when the network has no available providers? (Network authorization without access is not care)",
+        "[Insurance Payors / Health Plans] A value-based contract gets signed. The functional outcome measures for developmental care (VBC contracts demand functional data plans cannot see)",
+        "[Insurance Payors / Health Plans] Caregiver burnout in families of children with developmental or behavioral health conditio (Caregiver stress is a measurable care plan variable)",
+        "[Insurance Payors / Health Plans] The belief worth challenging: intensity is how you demonstrate seriousness about neurodive (Earlier structured support reduces path to higher intensity)",
+        "[Insurance Payors / Health Plans] Forty-five minutes of clinical intervention, twice a week, is not enough contact time to b (Sensorimotor foundation determines how care generalizes home)",
+        "[Insurance Payors / Health Plans] Fast authorization and no available providers is not access. It is documentation of a gap. (Authorization speed does not equal access to care)",
+        "[Insurance Payors / Health Plans] Children with neurodevelopmental conditions learn through repetition, novelty, and motivat (Engagement in developmental programs is a clinical mechanism)",
+        "[Insurance Payors / Health Plans] A parent calls the member line. She is not in crisis. She is three weeks from it. (Caregiver depletion is a utilization signal most plans miss)",
+        "[Insurance Payors / Health Plans] What happens to a family when the right services are authorized but structurally out of re (Structured upstream support changes the trajectory before escalation)",
+        "[Insurance Payors / Health Plans] The misconception worth naming: if the clinical services are authorized and the child is a (Clinic sessions alone cannot produce durable functional change)",
+        "[Insurance Payors / Health Plans] Getting on a waitlist is not the same as getting support. (Authorized services not reached is still a gap)",
+        "[Insurance Payors / Health Plans] Three shifts in pediatric behavioral health that make functional outcomes visibility more  (Three shifts making functional outcomes visibility urgent)",
+        "[Insurance Payors / Health Plans] Caregiver depletion is a care management problem. Most care plans are not structured to se (Caregiver depletion as a measurable care pathway risk)",
+        "[Insurance Payors / Health Plans] Escalation prevention in pediatric behavioral health is rarely about a single intervention (Structured upstream support is how escalation gets prevented)",
+        "[Insurance Payors / Health Plans] If I think about where neurodevelopmental care most consistently breaks down, it is not in (Sensorimotor gains require consistent home implementation to generalize)",
+        "[Insurance Payors / Health Plans] A child's nervous system does not pause because the waitlist is long. (Developmental delay without support becomes escalation cost)",
+        "[Self-Insured Employers] What does a dysregulated morning at home cost your organization by noon? (What neurodivergent caregiving actually costs employers)",
+        "[Self-Insured Employers] Most behavioral health benefits are designed around access. The family still has to figure (Waitlist delay is active employer cost not pause)",
+        "[Self-Insured Employers] When I look at how most employer benefits are structured for neurodivergent families, the  (Bottom-up development gaps make outcomes invisible to employers)",
+        "[Self-Insured Employers] Your neurodiversity initiative is probably missing half the people it should serve. (Neurodiversity strategies ignore employee caregivers of neurodivergent children)",
+        "[Self-Insured Employers] A parent sits in a care coordinator intake call. She has been on hold for twenty minutes.  (Home-based engagement closes gap clinic hours cannot reach)",
+        "[Self-Insured Employers] When a child cannot regulate, the caregiver cannot either. (Sensorimotor dysfunction at home erodes workforce performance)",
+        "[Self-Insured Employers] Six months on a waitlist is not six months of waiting. It is six months of your employee m (Waitlist months are active employer productivity cost)",
+        "[Self-Insured Employers] Misconception: if you fund the benefit and track the utilization, you have done your job. (Dependent behavioral health investment lacks outcome visibility)",
+        "[Self-Insured Employers] The manager's camera is off. She is typing with one hand and texting the school nurse with (Four workforce costs neurodiversity strategies routinely overlook)",
+        "[Self-Insured Employers] Most developmental programs ask the child to show up and participate. Then they send the f (Home-supported implementation closes gap clinic hours cannot)",
+        "[Self-Insured Employers] You are not paying for a caregiver benefit gap. You are paying for it anyway. (Unstructured dependent care is a productivity line item)",
+        "[Self-Insured Employers] Most behavioral health navigation tools tell the family where to go. BrainyAct by Kinuu wo (Waitlist months convert directly into employer productivity loss)",
+        "[Self-Insured Employers] What would it take for your dependent behavioral health benefit to actually tell you somet (Three reasons dependent benefit ROI stays invisible to employers)",
+        "[Self-Insured Employers] She applied for FMLA. Her manager assumed burnout. The actual issue started two years earl (Neurodiversity benefits gap is a caregiver workforce exposure)"
       ]
     },
     "instagram": {
@@ -420,6 +420,16 @@
           "platform": "linkedin",
           "sent": 5,
           "total": 5
+        }
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "results": [
+        {
+          "platform": "linkedin",
+          "sent": 30,
+          "total": 30
         }
       ]
     }
