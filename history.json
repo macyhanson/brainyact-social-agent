@@ -3,9 +3,6 @@
     "linkedin": {
       "week_index": 0,
       "recent_angles": [
-        "[Self-Insured Employers] Family-friendly benefits often miss the families with the most complex needs. (Family benefits miss complex dependent care needs)",
-        "[Self-Insured Employers] The most expensive support is often the support that starts too late. (Upstream family support reduces downstream workforce and benefit cost)",
-        "[Insurance Payors / Health Plans] Utilization is not the same as progress. (Utilization volume does not equal functional progress)",
         "[Insurance Payors / Health Plans] The home is where the care plan is tested. (Supporting the family system improves developmental care outcomes)",
         "[Self-Insured Employers] A provider directory is not a family support strategy. (Dependent behavioral health gap drives silent workforce cost)",
         "[Insurance Payors / Health Plans] Three reasons a waitlist is a clinical risk, not just an inconvenience. (Waitlists are not neutral pauses they are cost events)",
@@ -42,7 +39,10 @@
         "[Self-Insured Employers] You are not paying for a caregiver benefit gap. You are paying for it anyway. (Unstructured dependent care is a productivity line item)",
         "[Self-Insured Employers] Most behavioral health navigation tools tell the family where to go. BrainyAct by Kinuu wo (Waitlist months convert directly into employer productivity loss)",
         "[Self-Insured Employers] What would it take for your dependent behavioral health benefit to actually tell you somet (Three reasons dependent benefit ROI stays invisible to employers)",
-        "[Self-Insured Employers] She applied for FMLA. Her manager assumed burnout. The actual issue started two years earl (Neurodiversity benefits gap is a caregiver workforce exposure)"
+        "[Self-Insured Employers] She applied for FMLA. Her manager assumed burnout. The actual issue started two years earl (Neurodiversity benefits gap is a caregiver workforce exposure)",
+        "[Insurance Payors / Health Plans] The referral gets authorized. The network has no openings. And the developmental need keep (Unmet developmental need accumulates before it escalates)",
+        "[Insurance Payors / Health Plans] Is session frequency a reliable signal that a child with a neurodevelopmental condition is (Service frequency is not a proxy for functional progress)",
+        "[Self-Insured Employers] She is in the meeting. But part of her never left the kitchen. (Caregiver cognitive load is a productivity line item)"
       ]
     },
     "instagram": {
@@ -445,6 +445,16 @@
           "platform": "facebook",
           "sent": 5,
           "total": 5
+        }
+      ]
+    },
+    {
+      "date": "2026-07-02",
+      "results": [
+        {
+          "platform": "linkedin",
+          "sent": 3,
+          "total": 3
         }
       ]
     }
