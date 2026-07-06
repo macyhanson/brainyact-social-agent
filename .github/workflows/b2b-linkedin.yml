@@ -1,93 +1,67 @@
-name: B2B content (LinkedIn)
-# LinkedIn B2B drafts are prepared before 9 AM Central so they are ready when Macy starts.
-#   Tuesday  13:00 UTC (8:00 AM Central) - evergreen run, 5 posts
-#   Thursday 13:00 UTC (8:00 AM Central) - lighter evergreen run, 3 posts
-# Every LinkedIn run is multi-audience: posts are split across payors and
-# self-insured employers by weight (default 16/14), and the weights scale to
-# whatever count is requested. Scheduled runs use the small default counts;
-# a manual run with count 30 fills Publer in one pass. Generation is batched in
-# fives so large runs never truncate.
-# Runnable on demand from the Actions tab, including the Centene campaign overlay
-# (campaign runs are payor-only and bypass the audience split).
+name: LinkedIn B2B — The Off-Ramp (Payors, Employers, TPAs, Brokers)
+
 on:
   schedule:
-    - cron: "0 13 * * 2"
-    - cron: "0 13 * * 4"
+    # 13:00 UTC every Monday.
+    # = 8:00 AM Central in summer (CDT), 7:00 AM Central in winter (CST).
+    # One line, accepted one-hour winter drift.
+    # Scheduled runs use the default phase (segment). For a broad-phase run,
+    # trigger manually from the Actions tab and pick "broad".
+    - cron: "0 13 * * 1"
   workflow_dispatch:
     inputs:
-      dry_run:
-        description: "Generate only, do not post to Publer"
+      phase:
+        description: "Campaign phase"
+        type: choice
+        default: "segment"
+        options:
+          - segment
+          - broad
+      campaign_active:
+        description: "Campaign mode (uncheck for the standard 2-audience run)"
         type: boolean
-        default: false
-      count:
-        description: "Posts to generate (blank = 5; use 30 to fill Publer, split across audiences)"
-        type: string
-        default: ""
-      campaign:
-        description: "Campaign overlay, e.g. centene (blank = evergreen multi-audience rotation)"
-        type: string
-        default: ""
+        default: true
+
 permissions:
-  contents: write
-  issues: write
-# Serialize with the B2C workflow so the two never write history.json at once.
+  contents: write          # needed to commit the updated ledger + carousel files
+
 concurrency:
-  group: social-agent
+  group: linkedin-b2b
   cancel-in-progress: false
+
 jobs:
   generate:
     runs-on: ubuntu-latest
-    # A 30-post run makes several sequential Sonnet calls; cap the job so a stall
-    # cannot run away. Normal runs finish in a few minutes.
-    timeout-minutes: 20
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
         with:
-          python-version: "3.12"
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-      - name: Generate LinkedIn posts and create Publer drafts
+          node-version: "20"
+
+      - name: Generate posts and push Publer drafts
+        working-directory: path/to/this/folder   # <-- set to where these files live in your repo
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           PUBLER_API_KEY: ${{ secrets.PUBLER_API_KEY }}
+          PUBLER_WORKSPACE_ID: ${{ secrets.PUBLER_WORKSPACE_ID }}
+          PUBLER_LINKEDIN_ACCOUNT_ID: ${{ secrets.PUBLER_LINKEDIN_ACCOUNT_ID }}
+          # Manual runs use the picked phase; scheduled runs default to segment.
+          CAMPAIGN_PHASE: ${{ github.event.inputs.phase || 'segment' }}
+          CAMPAIGN_ACTIVE: ${{ github.event.inputs.campaign_active || 'true' }}
+        run: node generate.mjs
+
+      - name: Commit ledger and carousel scripts
         run: |
-          ARGS="--platform linkedin"
-          # Thursday's scheduled run is the lighter 3-post run. Tuesday uses the default 5.
-          if [ "${{ github.event.schedule }}" = "0 13 * * 4" ]; then
-            ARGS="$ARGS --count 3"
-          fi
-          # Manual overrides from the Actions tab (workflow_dispatch only).
-          if [ -n "${{ inputs.count }}" ]; then
-            ARGS="$ARGS --count ${{ inputs.count }}"
-          fi
-          if [ -n "${{ inputs.campaign }}" ]; then
-            ARGS="$ARGS --campaign ${{ inputs.campaign }}"
-          fi
-          if [ "${{ inputs.dry_run }}" = "true" ]; then
-            ARGS="$ARGS --dry-run"
-          fi
-          echo "Running: python generate_and_post.py $ARGS"
-          python generate_and_post.py $ARGS
-      - name: Add run summary to the Actions log
-        if: always()
-        run: cat run_summary.md >> "$GITHUB_STEP_SUMMARY" || true
-      - name: Commit updated run state
-        if: ${{ inputs.dry_run != true }}
-        run: |
-          git config user.name "brainyact-agent"
-          git config user.email "actions@users.noreply.github.com"
-          git add history.json
-          git diff --staged --quiet || git commit -m "chore: update LinkedIn run state [skip ci]"
-          git pull --rebase origin ${GITHUB_REF_NAME} || true
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "LinkedIn B2B run $(date -u +%Y-%m-%d)"
           git push
-      - name: Notify Macy (open a review issue)
-        if: ${{ inputs.dry_run != true }}
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh issue create \
-            --title "BrainyAct B2B (LinkedIn) drafts ready ($(date +%F))" \
-            --body-file run_summary.md
+
+      - name: Upload carousel scripts as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: carousels
+          path: path/to/this/folder/out/*.md
+          if-no-files-found: ignore
