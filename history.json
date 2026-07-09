@@ -3,9 +3,6 @@
     "linkedin": {
       "week_index": 0,
       "recent_angles": [
-        "[Insurance Payors / Health Plans] The home is where the care plan is tested. (Supporting the family system improves developmental care outcomes)",
-        "[Self-Insured Employers] A provider directory is not a family support strategy. (Dependent behavioral health gap drives silent workforce cost)",
-        "[Insurance Payors / Health Plans] Three reasons a waitlist is a clinical risk, not just an inconvenience. (Waitlists are not neutral pauses they are cost events)",
         "[Insurance Payors / Health Plans] Value-based care commitments are moving faster than developmental outcome measurement. (Value-based care contracts demand functional outcomes plans cannot see)",
         "[Insurance Payors / Health Plans] Caregiver capacity is a clinical variable. Most care plans are not treating it that way. (Caregiver capacity is a functional neurology variable not a soft concern)",
         "[Self-Insured Employers] Most employers are funding the back end of a problem they could reach much earlier. (Sensorimotor dysfunction at home drives measurable workforce cost)",
@@ -42,7 +39,10 @@
         "[Self-Insured Employers] She applied for FMLA. Her manager assumed burnout. The actual issue started two years earl (Neurodiversity benefits gap is a caregiver workforce exposure)",
         "[Insurance Payors / Health Plans] The referral gets authorized. The network has no openings. And the developmental need keep (Unmet developmental need accumulates before it escalates)",
         "[Insurance Payors / Health Plans] Is session frequency a reliable signal that a child with a neurodevelopmental condition is (Service frequency is not a proxy for functional progress)",
-        "[Self-Insured Employers] She is in the meeting. But part of her never left the kitchen. (Caregiver cognitive load is a productivity line item)"
+        "[Self-Insured Employers] She is in the meeting. But part of her never left the kitchen. (Caregiver cognitive load is a productivity line item)",
+        "[Insurance Payors / Health Plans] The authorization was approved. The child never got seen. (Unstructured access gap compounds before escalation occurs)",
+        "[Insurance Payors / Health Plans] What is your plan actually seeing between sessions? (Functional progress invisible between clinical visits to payors)",
+        "[Self-Insured Employers] What does a family in daily crisis actually cost your workforce? (Caregiver stress is a benefits design failure)"
       ]
     },
     "instagram": {
@@ -470,6 +470,16 @@
           "platform": "facebook",
           "sent": 5,
           "total": 5
+        }
+      ]
+    },
+    {
+      "date": "2026-07-09",
+      "results": [
+        {
+          "platform": "linkedin",
+          "sent": 3,
+          "total": 3
         }
       ]
     }
