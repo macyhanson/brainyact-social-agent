@@ -3,11 +3,6 @@
     "linkedin": {
       "week_index": 0,
       "recent_angles": [
-        "[Insurance Payors / Health Plans] A value-based contract gets signed. The functional outcome measures for developmental care (VBC contracts demand functional data plans cannot see)",
-        "[Insurance Payors / Health Plans] Caregiver burnout in families of children with developmental or behavioral health conditio (Caregiver stress is a measurable care plan variable)",
-        "[Insurance Payors / Health Plans] The belief worth challenging: intensity is how you demonstrate seriousness about neurodive (Earlier structured support reduces path to higher intensity)",
-        "[Insurance Payors / Health Plans] Forty-five minutes of clinical intervention, twice a week, is not enough contact time to b (Sensorimotor foundation determines how care generalizes home)",
-        "[Insurance Payors / Health Plans] Fast authorization and no available providers is not access. It is documentation of a gap. (Authorization speed does not equal access to care)",
         "[Insurance Payors / Health Plans] Children with neurodevelopmental conditions learn through repetition, novelty, and motivat (Engagement in developmental programs is a clinical mechanism)",
         "[Insurance Payors / Health Plans] A parent calls the member line. She is not in crisis. She is three weeks from it. (Caregiver depletion is a utilization signal most plans miss)",
         "[Insurance Payors / Health Plans] What happens to a family when the right services are authorized but structurally out of re (Structured upstream support changes the trajectory before escalation)",
@@ -42,7 +37,12 @@
         "[Insurance Payors / Health Plans] The services were authorized. The child moved through three providers in two years. No one (Functional progress invisible across service transitions)",
         "[Insurance Payors / Health Plans] The call comes in at 9 a.m. The parent is composed. By the description she gives, she has  (Caregiver depletion reshapes behavioral health service demand)",
         "[Self-Insured Employers] Three reasons your neurodivergent family benefit is not a cost \u2014 it is a cost offset. (Caregiver productivity loss is already in your budget)",
-        "[Self-Insured Employers] What actually happens inside your workforce during the six months a family waits for devel (Waitlist months are active workforce cost events)"
+        "[Self-Insured Employers] What actually happens inside your workforce during the six months a family waits for devel (Waitlist months are active workforce cost events)",
+        "[Insurance Payors / Health Plans] Three reasons a waitlist is not a neutral holding pattern. (Waitlist pause misconception drives avoidable downstream cost)",
+        "[Insurance Payors / Health Plans] Functional outcomes in developmental care are not invisible by accident. (Four functional outcome visibility gaps payors routinely face)",
+        "[Insurance Payors / Health Plans] A parent describes her child's morning routine. What she is actually describing is a nervo (Caregiver nervous system capacity shapes member care plan outcomes)",
+        "[Self-Insured Employers] Health benefit costs are rising. Caregiver burden is accelerating them. (Four ways unsupported neurodivergent caregiving taxes workforce cost)",
+        "[Self-Insured Employers] A family gets a referral. The earliest appointment is five months out. (Pediatric access scarcity converts directly into employer liability)"
       ]
     },
     "instagram": {
@@ -480,6 +480,16 @@
           "platform": "linkedin",
           "sent": 3,
           "total": 3
+        }
+      ]
+    },
+    {
+      "date": "2026-07-14",
+      "results": [
+        {
+          "platform": "linkedin",
+          "sent": 5,
+          "total": 5
         }
       ]
     },
