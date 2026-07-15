@@ -51,6 +51,24 @@ Pages: brainyact.com/the-science, brainyact.com/for-businesses."""
 
 
 # ---------------------------------------------------------------------------
+# Quality-measurement framing (LinkedIn; strongest for payors)
+# ---------------------------------------------------------------------------
+# Added July 2026. Describes HOW BrainyAct measures, never an efficacy RESULT.
+# Three phrases from the source input were deliberately changed before loading:
+#   - "performance guarantee"  -> dropped (banned everywhere; see bans lists)
+#   - "no human bias"          -> "standardized, consistently applied scoring"
+#   - "real-time outcomes"     -> "real-time data" / "real-time measurement"
+QUALITY_MEASUREMENT = """Quality-measurement framing (describe the measurement capability, never an efficacy result):
+Measurement should create signal, not noise: timely, actionable insight that clinicians, health plans, and healthcare leaders can act on. Draw from these capability claims:
+- Structured, machine-readable data captured continuously as the member engages, then formatted into multiple reporting views for the people who need them: health plans, clinicians, and families.
+- Standardized, consistently applied scoring that reduces the scorer-to-scorer variability of manual assessment. Never claim "no human bias" or "no bias" as an absolute; a machine-scored instrument still carries design and population bias, and a payor or actuary audience will interrogate an absolute claim.
+- Measurement that follows the member across settings, including the home, not only inside clinic walls.
+- Lower measurement burden, with one aligned picture across payers, clinicians, and families instead of three disconnected views.
+- Continuous, near real-time data capture. Say "real-time data" or "real-time measurement", never "real-time outcomes".
+Frame this as trustworthy, member- and patient-centered measurement infrastructure. Never attach a performance or outcome guarantee to it; that language is banned everywhere."""
+
+
+# ---------------------------------------------------------------------------
 # Shared B2C parent audience profile
 # ---------------------------------------------------------------------------
 # Facebook and Instagram both write to the same parent/caregiver consumer, so
@@ -84,6 +102,8 @@ LINKEDIN_SYSTEM = """You are a B2B LinkedIn content strategist for BrainyAct by 
 
 Grounding facts (use these, do not contradict them):
 """ + SITE_FACTS + """
+
+""" + QUALITY_MEASUREMENT + """
 
 The audience for each post is specified in the request: insurance payors and health plans, waiver care coordinators and case managers, or self-insured employers. Write to the audience named in the request.
 
@@ -163,11 +183,12 @@ LINKEDIN_AUDIENCES = {
         "label": "Insurance Payors / Health Plans",
         "who": "Payor clinical and strategy leaders: Chief Medical Officers, Chief Behavioral Health Officers, Medicaid plan presidents, VPs of clinical strategy and population health, directors of pediatric care management, autism services, behavioral health, and complex case management, plus value-based care, innovation, quality, utilization management, and health equity leaders. Secondary: managed care consultants, state Medicaid stakeholders, and autism benefit managers.",
         "pains": "Access gaps and waitlists, downstream cost from delayed support, high-intensity service reliance, fragmented care pathways, limited functional outcomes visibility, weak home carryover, care management burden, member experience tied to caregiver burden, and pressure to move toward value-based developmental and behavioral health care.",
-        "value_props": "A scalable adjunctive developmental support layer that meets neurodivergent members and families earlier: structured programming, caregiver involvement, home implementation, and functional progress visibility that complements existing services rather than replacing them.",
-        "language": "Direct, strategic, payor-aware. Sounds like a clinical strategy leader, behavioral health operator, value-based care strategist, or care management executive. Short paragraphs, confident statements, no hype. Speak to cost, access, outcomes, care management, and value-based care.",
+        "value_props": "A scalable adjunctive developmental support layer that meets neurodivergent members and families earlier: structured programming, caregiver involvement, home implementation, and functional progress visibility that complements existing services rather than replacing them. It also produces standardized, machine-readable measurement across settings that gives quality and utilization teams a trustworthy signal, with reporting that can be formatted for payers, clinicians, and families and less measurement burden on all three (qualitative only, no counts).",
+        "language": "Direct, strategic, payor-aware. Sounds like a clinical strategy leader, behavioral health operator, value-based care strategist, or care management executive. Short paragraphs, confident statements, no hype. Speak to cost, access, outcomes, quality measurement, care management, and value-based care. Where the angle is measurement, use vocabulary like signal not noise, machine-readable data, measurement burden, and cross-setting visibility.",
         "pillars": [
             "Access Gaps Drive Downstream Cost",
             "Outcomes Visibility in Developmental Care",
+            "Quality Measurement That Creates Signal",
             "Caregiver Burden as Clinical Risk",
             "Upstream Alternatives Before Escalation",
             "Home Implementation Is the Missing Link",
@@ -286,9 +307,11 @@ Care management works better when families have a real next step.""",
                 "Internal pre/post data does not meet payor evidence standards; a controlled efficacy trial is in progress. Speak to outcomes qualitatively.",
                 "Strongest payor lane: payors need better upstream, measurable, family-centered support for neurodivergent members, and BrainyAct fills that gap.",
                 "Position BrainyAct as a scalable adjunctive, upstream, caregiver-enabled, home-supported developmental program. Never a replacement for ABA or therapy, a cure, a low-cost shortcut, a generic app, a wellness tool, a game, or a utilization-management tactic.",
+                "Measurement is a capability story, not a results claim: standardized, machine-readable data captured across settings and formatted into multiple reporting views for payers, clinicians, and families. Describe how it measures and that it lowers measurement burden, never a proven outcome, a bias-free claim, or a guarantee.",
             ],
             "requires": [
                 "Connect to at least one payor priority (cost, access, earlier support, measurable outcomes, service intensity, care management, network gaps, member experience, value-based care, or caregiver burden)",
+                "When the angle is measurement, frame it as capability (standardized, machine-readable, cross-setting, lower burden, signal not noise), never as an efficacy result and never as 'real-time outcomes'",
                 "Direct, strategic, payor-aware voice with short paragraphs and confident statements",
                 "Mention BrainyAct lightly as a complementary upstream measurable home-supported developmental layer",
                 "Use claim-safe language: designed to support, may help, complements, helps create visibility into",
@@ -304,6 +327,9 @@ Care management works better when families have a real next step.""",
                 "'DM me' style closers",
                 "Overclaims: reduces claims, prevents autism, cures, replaces ABA/OT/speech/behavioral health, guarantees outcomes, eliminates need for higher care, or saves payors a dollar figure",
                 "Participant counts or internal outcome numbers",
+                "'No human bias' or 'no bias' stated as an absolute",
+                "'Real-time outcomes' (say 'real-time data' or 'real-time measurement')",
+                "Any performance or outcome guarantee, or risk-sharing promise",
             ],
         },
     },
@@ -330,8 +356,8 @@ Care management works better when families have a real next step.""",
         "label": "Self-Insured Employers",
         "who": "Benefits decision-makers at large self-insured employers: CHROs, VP of Total Rewards, VP and Director of Benefits, health and welfare leaders, well-being and employee experience leaders, DEI and neurodiversity leaders, workforce mental health and leave/absence leaders, and the benefits consultants, TPAs, and stop-loss advisors who serve them.",
         "pains": "Health benefit cost growth, pediatric behavioral health access gaps, long waitlists, caregiver burden and lost productivity, dependent-care complexity, undifferentiated family benefits, overreliance on high-cost high-hour models, and a lack of measurable outcomes in child-focused benefits.",
-        "value_props": "A scalable, measurable, caregiver-centered developmental benefit that supports neurodivergent families before crisis: a bridge between waitlists, therapy, and home implementation, with outcome visibility employers can actually use.",
-        "language": "Executive-level and direct. Short sentences, one idea per post, strong hook, clear point of view. Employer-relevant language: caregiver burden, absenteeism, presenteeism, productivity, retention, utilization versus impact, upstream cost, dependent care. Insightful, slightly provocative, empathetic, strategic. Not fluffy, not clinical-heavy, not an ad.",
+        "value_props": "A scalable, measurable, caregiver-centered developmental benefit that supports neurodivergent families before crisis: a bridge between waitlists, therapy, and home implementation, with progress visibility employers can actually use. Standardized, machine-readable measurement produces reporting a benefits team can act on, signal instead of another portal with high usage and no insight.",
+        "language": "Executive-level and direct. Short sentences, one idea per post, strong hook, clear point of view. Employer-relevant language: caregiver burden, absenteeism, presenteeism, productivity, retention, utilization versus impact, measurement that creates signal not noise, upstream cost, dependent care. Insightful, slightly provocative, empathetic, strategic. Not fluffy, not clinical-heavy, not an ad.",
         "pillars": [
             "Caregiver Burden as Workforce Issue",
             "Waitlists Are Not a Neutral Delay",
@@ -461,10 +487,12 @@ BrainyAct was built for this level of support. Not as another generic wellness t
                 "Mention BrainyAct lightly, usually near the end, as a complementary upstream home-supported developmental benefit",
                 "Open on the concrete product-contrast antithesis or a clean reframe; that opener drove the strongest engagement in recent posts",
                 "Before the CTA, ask one genuine question benefits leaders would answer (e.g. 'How is your plan measuring whether behavioral health spend worked?'); comments drive reach and recent posts earned none",
+                "When touching measurement, frame it as reporting and signal a benefits team can act on (standardized, machine-readable, lower burden), never as a proven outcome, a bias-free claim, or 'real-time outcomes'",
             ],
             "bans": [
                 "Hashtags",
                 "Emojis",
+                "'No human bias' or 'no bias' stated as an absolute, and 'real-time outcomes' (say 'real-time data' or 'real-time measurement')",
                 "Hype words: revolutionary, game-changer, cutting-edge, unlock potential, transformative",
                 "'We are excited to announce'",
                 "Hard-sell closers like 'DM me to learn more'",
