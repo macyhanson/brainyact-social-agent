@@ -3,11 +3,6 @@
     "linkedin": {
       "week_index": 0,
       "recent_angles": [
-        "[Insurance Payors / Health Plans] Children with neurodevelopmental conditions learn through repetition, novelty, and motivat (Engagement in developmental programs is a clinical mechanism)",
-        "[Insurance Payors / Health Plans] A parent calls the member line. She is not in crisis. She is three weeks from it. (Caregiver depletion is a utilization signal most plans miss)",
-        "[Insurance Payors / Health Plans] What happens to a family when the right services are authorized but structurally out of re (Structured upstream support changes the trajectory before escalation)",
-        "[Insurance Payors / Health Plans] The misconception worth naming: if the clinical services are authorized and the child is a (Clinic sessions alone cannot produce durable functional change)",
-        "[Insurance Payors / Health Plans] Getting on a waitlist is not the same as getting support. (Authorized services not reached is still a gap)",
         "[Insurance Payors / Health Plans] Three shifts in pediatric behavioral health that make functional outcomes visibility more  (Three shifts making functional outcomes visibility urgent)",
         "[Insurance Payors / Health Plans] Caregiver depletion is a care management problem. Most care plans are not structured to se (Caregiver depletion as a measurable care pathway risk)",
         "[Insurance Payors / Health Plans] Escalation prevention in pediatric behavioral health is rarely about a single intervention (Structured upstream support is how escalation gets prevented)",
@@ -42,7 +37,12 @@
         "[Insurance Payors / Health Plans] Functional outcomes in developmental care are not invisible by accident. (Four functional outcome visibility gaps payors routinely face)",
         "[Insurance Payors / Health Plans] A parent describes her child's morning routine. What she is actually describing is a nervo (Caregiver nervous system capacity shapes member care plan outcomes)",
         "[Self-Insured Employers] Health benefit costs are rising. Caregiver burden is accelerating them. (Four ways unsupported neurodivergent caregiving taxes workforce cost)",
-        "[Self-Insured Employers] A family gets a referral. The earliest appointment is five months out. (Pediatric access scarcity converts directly into employer liability)"
+        "[Self-Insured Employers] A family gets a referral. The earliest appointment is five months out. (Pediatric access scarcity converts directly into employer liability)",
+        "[Insurance Payors / Health Plans] A family on a waitlist is not a paused file. It is a developing cost event. (Unmet developmental need is active cost not waiting)",
+        "[Insurance Payors / Health Plans] Autism spectrum disorder is among the most resource-intensive pediatric behavioral health  (Claim data does not reveal functional developmental progress)",
+        "[Insurance Payors / Health Plans] Most developmental care programs generate data. Very few generate the kind payors can act  (Four measurement gaps that limit developmental care quality strategy)",
+        "[Self-Insured Employers] Your benefits budget is already absorbing the cost of unsupported neurodivergent families. (Caregiver burnout is already a benefits line item)",
+        "[Self-Insured Employers] The referral goes through. The approval comes back. The employer assumes the problem is ha (Waitlist approval does not equal workforce cost pause)"
       ]
     },
     "instagram": {
@@ -495,6 +495,16 @@
     },
     {
       "date": "2026-07-14",
+      "results": [
+        {
+          "platform": "linkedin",
+          "sent": 5,
+          "total": 5
+        }
+      ]
+    },
+    {
+      "date": "2026-07-15",
       "results": [
         {
           "platform": "linkedin",
