@@ -3,9 +3,6 @@
     "linkedin": {
       "week_index": 0,
       "recent_angles": [
-        "[Insurance Payors / Health Plans] Three shifts in pediatric behavioral health that make functional outcomes visibility more  (Three shifts making functional outcomes visibility urgent)",
-        "[Insurance Payors / Health Plans] Caregiver depletion is a care management problem. Most care plans are not structured to se (Caregiver depletion as a measurable care pathway risk)",
-        "[Insurance Payors / Health Plans] Escalation prevention in pediatric behavioral health is rarely about a single intervention (Structured upstream support is how escalation gets prevented)",
         "[Insurance Payors / Health Plans] If I think about where neurodevelopmental care most consistently breaks down, it is not in (Sensorimotor gains require consistent home implementation to generalize)",
         "[Insurance Payors / Health Plans] A child's nervous system does not pause because the waitlist is long. (Developmental delay without support becomes escalation cost)",
         "[Self-Insured Employers] What does a dysregulated morning at home cost your organization by noon? (What neurodivergent caregiving actually costs employers)",
@@ -42,7 +39,10 @@
         "[Insurance Payors / Health Plans] Autism spectrum disorder is among the most resource-intensive pediatric behavioral health  (Claim data does not reveal functional developmental progress)",
         "[Insurance Payors / Health Plans] Most developmental care programs generate data. Very few generate the kind payors can act  (Four measurement gaps that limit developmental care quality strategy)",
         "[Self-Insured Employers] Your benefits budget is already absorbing the cost of unsupported neurodivergent families. (Caregiver burnout is already a benefits line item)",
-        "[Self-Insured Employers] The referral goes through. The approval comes back. The employer assumes the problem is ha (Waitlist approval does not equal workforce cost pause)"
+        "[Self-Insured Employers] The referral goes through. The approval comes back. The employer assumes the problem is ha (Waitlist approval does not equal workforce cost pause)",
+        "[Insurance Payors / Health Plans] Authorizing a service and solving an access gap are not the same thing. (Misconception that authorized care equals access solved)",
+        "[Insurance Payors / Health Plans] Most developmental health measurement is designed to document a service. Almost none of it (Claim volume is a poor proxy for developmental functional progress)",
+        "[Self-Insured Employers] Most family benefits measure whether the employee showed up. BrainyAct by Kinuu measures w (Utilization data misconception masks caregiver workforce cost)"
       ]
     },
     "instagram": {
@@ -525,6 +525,16 @@
           "platform": "facebook",
           "sent": 5,
           "total": 5
+        }
+      ]
+    },
+    {
+      "date": "2026-07-16",
+      "results": [
+        {
+          "platform": "linkedin",
+          "sent": 3,
+          "total": 3
         }
       ]
     }
