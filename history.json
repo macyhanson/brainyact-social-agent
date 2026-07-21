@@ -3,11 +3,6 @@
     "linkedin": {
       "week_index": 0,
       "recent_angles": [
-        "[Insurance Payors / Health Plans] If I think about where neurodevelopmental care most consistently breaks down, it is not in (Sensorimotor gains require consistent home implementation to generalize)",
-        "[Insurance Payors / Health Plans] A child's nervous system does not pause because the waitlist is long. (Developmental delay without support becomes escalation cost)",
-        "[Self-Insured Employers] What does a dysregulated morning at home cost your organization by noon? (What neurodivergent caregiving actually costs employers)",
-        "[Self-Insured Employers] Most behavioral health benefits are designed around access. The family still has to figure (Waitlist delay is active employer cost not pause)",
-        "[Self-Insured Employers] When I look at how most employer benefits are structured for neurodivergent families, the  (Bottom-up development gaps make outcomes invisible to employers)",
         "[Self-Insured Employers] Your neurodiversity initiative is probably missing half the people it should serve. (Neurodiversity strategies ignore employee caregivers of neurodivergent children)",
         "[Self-Insured Employers] A parent sits in a care coordinator intake call. She has been on hold for twenty minutes.  (Home-based engagement closes gap clinic hours cannot reach)",
         "[Self-Insured Employers] When a child cannot regulate, the caregiver cannot either. (Sensorimotor dysfunction at home erodes workforce performance)",
@@ -42,7 +37,12 @@
         "[Self-Insured Employers] The referral goes through. The approval comes back. The employer assumes the problem is ha (Waitlist approval does not equal workforce cost pause)",
         "[Insurance Payors / Health Plans] Authorizing a service and solving an access gap are not the same thing. (Misconception that authorized care equals access solved)",
         "[Insurance Payors / Health Plans] Most developmental health measurement is designed to document a service. Almost none of it (Claim volume is a poor proxy for developmental functional progress)",
-        "[Self-Insured Employers] Most family benefits measure whether the employee showed up. BrainyAct by Kinuu measures w (Utilization data misconception masks caregiver workforce cost)"
+        "[Self-Insured Employers] Most family benefits measure whether the employee showed up. BrainyAct by Kinuu measures w (Utilization data misconception masks caregiver workforce cost)",
+        "[Insurance Payors / Health Plans] Waiting families are not stable families. (Waitlist stability misconception hides accumulating downstream cost)",
+        "[Insurance Payors / Health Plans] Three reasons home is the most important setting your outcomes data is probably missing. (Home-based data visibility reframes developmental outcomes measurement)",
+        "[Insurance Payors / Health Plans] More data from developmental care programs is not the solution. Better-structured data is. (More developmental data does not mean better payor signal)",
+        "[Self-Insured Employers] She was not a flight risk. She was exhausted. (Neurodivergent caregiving quietly erodes workforce capacity)",
+        "[Self-Insured Employers] The approval came through. The family is still waiting. Your workforce is absorbing the di (Waitlist approval creates false sense of workforce stability)"
       ]
     },
     "instagram": {
@@ -535,6 +535,16 @@
           "platform": "linkedin",
           "sent": 3,
           "total": 3
+        }
+      ]
+    },
+    {
+      "date": "2026-07-21",
+      "results": [
+        {
+          "platform": "linkedin",
+          "sent": 5,
+          "total": 5
         }
       ]
     }
