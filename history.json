@@ -3,9 +3,6 @@
     "linkedin": {
       "week_index": 0,
       "recent_angles": [
-        "[Self-Insured Employers] Your neurodiversity initiative is probably missing half the people it should serve. (Neurodiversity strategies ignore employee caregivers of neurodivergent children)",
-        "[Self-Insured Employers] A parent sits in a care coordinator intake call. She has been on hold for twenty minutes.  (Home-based engagement closes gap clinic hours cannot reach)",
-        "[Self-Insured Employers] When a child cannot regulate, the caregiver cannot either. (Sensorimotor dysfunction at home erodes workforce performance)",
         "[Self-Insured Employers] Six months on a waitlist is not six months of waiting. It is six months of your employee m (Waitlist months are active employer productivity cost)",
         "[Self-Insured Employers] Misconception: if you fund the benefit and track the utilization, you have done your job. (Dependent behavioral health investment lacks outcome visibility)",
         "[Self-Insured Employers] The manager's camera is off. She is typing with one hand and texting the school nurse with (Four workforce costs neurodiversity strategies routinely overlook)",
@@ -42,7 +39,10 @@
         "[Insurance Payors / Health Plans] Three reasons home is the most important setting your outcomes data is probably missing. (Home-based data visibility reframes developmental outcomes measurement)",
         "[Insurance Payors / Health Plans] More data from developmental care programs is not the solution. Better-structured data is. (More developmental data does not mean better payor signal)",
         "[Self-Insured Employers] She was not a flight risk. She was exhausted. (Neurodivergent caregiving quietly erodes workforce capacity)",
-        "[Self-Insured Employers] The approval came through. The family is still waiting. Your workforce is absorbing the di (Waitlist approval creates false sense of workforce stability)"
+        "[Self-Insured Employers] The approval came through. The family is still waiting. Your workforce is absorbing the di (Waitlist approval creates false sense of workforce stability)",
+        "[Insurance Payors / Health Plans] What does your plan do when the authorization clears but the network cannot absorb the mem (Developmental need accumulates during extended access gaps)",
+        "[Insurance Payors / Health Plans] Misconception: if a child is receiving developmental services, the plan has visibility int (Bottom-up function is invisible to standard behavioral health measurement)",
+        "[Self-Insured Employers] Most family benefits treat caregiver stress as a personal problem. Your workforce budget t (Caregiver stability is a workforce performance variable)"
       ]
     },
     "instagram": {
@@ -560,6 +560,16 @@
           "platform": "facebook",
           "sent": 5,
           "total": 5
+        }
+      ]
+    },
+    {
+      "date": "2026-07-23",
+      "results": [
+        {
+          "platform": "linkedin",
+          "sent": 3,
+          "total": 3
         }
       ]
     }
