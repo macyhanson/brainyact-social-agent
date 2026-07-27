@@ -3,36 +3,6 @@
     "linkedin": {
       "week_index": 0,
       "recent_angles": [
-        "[Self-Insured Employers] Six months on a waitlist is not six months of waiting. It is six months of your employee m (Waitlist months are active employer productivity cost)",
-        "[Self-Insured Employers] Misconception: if you fund the benefit and track the utilization, you have done your job. (Dependent behavioral health investment lacks outcome visibility)",
-        "[Self-Insured Employers] The manager's camera is off. She is typing with one hand and texting the school nurse with (Four workforce costs neurodiversity strategies routinely overlook)",
-        "[Self-Insured Employers] Most developmental programs ask the child to show up and participate. Then they send the f (Home-supported implementation closes gap clinic hours cannot)",
-        "[Self-Insured Employers] You are not paying for a caregiver benefit gap. You are paying for it anyway. (Unstructured dependent care is a productivity line item)",
-        "[Self-Insured Employers] Most behavioral health navigation tools tell the family where to go. BrainyAct by Kinuu wo (Waitlist months convert directly into employer productivity loss)",
-        "[Self-Insured Employers] What would it take for your dependent behavioral health benefit to actually tell you somet (Three reasons dependent benefit ROI stays invisible to employers)",
-        "[Self-Insured Employers] She applied for FMLA. Her manager assumed burnout. The actual issue started two years earl (Neurodiversity benefits gap is a caregiver workforce exposure)",
-        "[Insurance Payors / Health Plans] The referral gets authorized. The network has no openings. And the developmental need keep (Unmet developmental need accumulates before it escalates)",
-        "[Insurance Payors / Health Plans] Is session frequency a reliable signal that a child with a neurodevelopmental condition is (Service frequency is not a proxy for functional progress)",
-        "[Self-Insured Employers] She is in the meeting. But part of her never left the kitchen. (Caregiver cognitive load is a productivity line item)",
-        "[Insurance Payors / Health Plans] The authorization was approved. The child never got seen. (Unstructured access gap compounds before escalation occurs)",
-        "[Insurance Payors / Health Plans] What is your plan actually seeing between sessions? (Functional progress invisible between clinical visits to payors)",
-        "[Self-Insured Employers] What does a family in daily crisis actually cost your workforce? (Caregiver stress is a benefits design failure)",
-        "[Insurance Payors / Health Plans] Three reasons a waitlist is a cost event, not a neutral pause. (Access delay is a cost event not a pause)",
-        "[Insurance Payors / Health Plans] The services were authorized. The child moved through three providers in two years. No one (Functional progress invisible across service transitions)",
-        "[Insurance Payors / Health Plans] The call comes in at 9 a.m. The parent is composed. By the description she gives, she has  (Caregiver depletion reshapes behavioral health service demand)",
-        "[Self-Insured Employers] Three reasons your neurodivergent family benefit is not a cost \u2014 it is a cost offset. (Caregiver productivity loss is already in your budget)",
-        "[Self-Insured Employers] What actually happens inside your workforce during the six months a family waits for devel (Waitlist months are active workforce cost events)",
-        "[Insurance Payors / Health Plans] Three reasons a waitlist is not a neutral holding pattern. (Waitlist pause misconception drives avoidable downstream cost)",
-        "[Insurance Payors / Health Plans] Functional outcomes in developmental care are not invisible by accident. (Four functional outcome visibility gaps payors routinely face)",
-        "[Insurance Payors / Health Plans] A parent describes her child's morning routine. What she is actually describing is a nervo (Caregiver nervous system capacity shapes member care plan outcomes)",
-        "[Self-Insured Employers] Health benefit costs are rising. Caregiver burden is accelerating them. (Four ways unsupported neurodivergent caregiving taxes workforce cost)",
-        "[Self-Insured Employers] A family gets a referral. The earliest appointment is five months out. (Pediatric access scarcity converts directly into employer liability)",
-        "[Insurance Payors / Health Plans] A family on a waitlist is not a paused file. It is a developing cost event. (Unmet developmental need is active cost not waiting)",
-        "[Insurance Payors / Health Plans] Autism spectrum disorder is among the most resource-intensive pediatric behavioral health  (Claim data does not reveal functional developmental progress)",
-        "[Insurance Payors / Health Plans] Most developmental care programs generate data. Very few generate the kind payors can act  (Four measurement gaps that limit developmental care quality strategy)",
-        "[Self-Insured Employers] Your benefits budget is already absorbing the cost of unsupported neurodivergent families. (Caregiver burnout is already a benefits line item)",
-        "[Self-Insured Employers] The referral goes through. The approval comes back. The employer assumes the problem is ha (Waitlist approval does not equal workforce cost pause)",
-        "[Insurance Payors / Health Plans] Authorizing a service and solving an access gap are not the same thing. (Misconception that authorized care equals access solved)",
         "[Insurance Payors / Health Plans] Most developmental health measurement is designed to document a service. Almost none of it (Claim volume is a poor proxy for developmental functional progress)",
         "[Self-Insured Employers] Most family benefits measure whether the employee showed up. BrainyAct by Kinuu measures w (Utilization data misconception masks caregiver workforce cost)",
         "[Insurance Payors / Health Plans] Waiting families are not stable families. (Waitlist stability misconception hides accumulating downstream cost)",
@@ -42,7 +12,37 @@
         "[Self-Insured Employers] The approval came through. The family is still waiting. Your workforce is absorbing the di (Waitlist approval creates false sense of workforce stability)",
         "[Insurance Payors / Health Plans] What does your plan do when the authorization clears but the network cannot absorb the mem (Developmental need accumulates during extended access gaps)",
         "[Insurance Payors / Health Plans] Misconception: if a child is receiving developmental services, the plan has visibility int (Bottom-up function is invisible to standard behavioral health measurement)",
-        "[Self-Insured Employers] Most family benefits treat caregiver stress as a personal problem. Your workforce budget t (Caregiver stability is a workforce performance variable)"
+        "[Self-Insured Employers] Most family benefits treat caregiver stress as a personal problem. Your workforce budget t (Caregiver stability is a workforce performance variable)",
+        "[Insurance Payors / Health Plans] The child I am thinking about never had a crisis visit. He had eighteen months of unmet ne (Developmental need escalates silently before crisis contact)",
+        "[Insurance Payors / Health Plans] Misconception: if a child is getting services and the provider is documenting progress, th (Clinical notes are not functional outcomes data for payors)",
+        "[Insurance Payors / Health Plans] Developmental care generates more documentation than almost any other behavioral health se (Developmental measurement designed for documentation fails payors)",
+        "[Insurance Payors / Health Plans] What if caregiver exhaustion is not a social determinant adjacent to the care plan? What i (Caregiver capacity is a clinical variable not a support service)",
+        "[Insurance Payors / Health Plans] Children diagnosed with neurodevelopmental conditions are among the most likely pediatric  (Upstream developmental layer prevented trajectory toward higher intensity)",
+        "[Insurance Payors / Health Plans] What actually happens to a neurodivergent member's trajectory during an extended access ga (Access delay is not a neutral clinical event)",
+        "[Insurance Payors / Health Plans] Most measurement tools in developmental care ask clinicians to produce data. BrainyAct by  (Measurement burden limits payor developmental outcomes visibility)",
+        "[Insurance Payors / Health Plans] Misconception: if a child is receiving quality developmental care, the plan is getting qua (Cross-setting measurement closes visibility gap for care teams)",
+        "[Insurance Payors / Health Plans] Three reasons I think payors underestimate caregiver burden as a clinical variable, not ju (Caregiver nervous system state is a clinical risk variable)",
+        "[Insurance Payors / Health Plans] The most expensive point to enter the developmental care trajectory is after the window fo (Service intensity grows when upstream options are absent)",
+        "[Insurance Payors / Health Plans] The child was never flagged as high-risk. Until he was. (Delayed access converts quietly into escalating service need)",
+        "[Insurance Payors / Health Plans] Most developmental programs report more data to payors every year. Payors are not getting  (More reporting fields do not equal better outcomes visibility)",
+        "[Insurance Payors / Health Plans] Misconception: if a child is being assessed regularly by a licensed clinician, the plan ha (Clinic-based measurement captures only a fraction of the picture)",
+        "[Insurance Payors / Health Plans] From a functional neurology perspective, the caregiver is part of the intervention. (Caregiver nervous system state shapes member developmental trajectory)",
+        "[Insurance Payors / Health Plans] A care manager closes a referral loop. The provider accepts the authorization. Three month (Structured upstream support changes trajectory before intensity escalates)",
+        "[Insurance Payors / Health Plans] The family never showed up as high-utilizers. Not at first. (Access gap accumulates cost before first crisis claim)",
+        "[Self-Insured Employers] What does it cost a workforce when the hardest part of an employee's day happens before 8  (Sensorimotor dysregulation follows caregiver into workday)",
+        "[Self-Insured Employers] Three reasons 'the referral is in' is not a satisfactory answer for your workforce. (Three workforce costs hiding inside waitlist approval)",
+        "[Self-Insured Employers] Misconception: if a family benefit has strong enrollment, the investment is working. (Four reasons dependent benefit measurement fails employers)",
+        "[Self-Insured Employers] Roughly one in five children in the U.S. has a developmental, behavioral, or mental health (Neurodiversity strategy that excludes caregivers misses workforce cost)",
+        "[Self-Insured Employers] The benefit worked on paper. The family was still drowning. (Home-based developmental support stabilizes family and workforce)",
+        "[Self-Insured Employers] The hardest part of a neurodivergent family's morning is invisible on any benefits dashboa (Sensorimotor dysregulation spills from home into workday)",
+        "[Self-Insured Employers] A six-month pediatric behavioral health waitlist is not a pause. It is six months of unstr (Waitlist months compound employer cost before care starts)",
+        "[Self-Insured Employers] Three reasons the data you are getting from your dependent behavioral health benefit is no (Dependent benefit measurement failure masks real workforce cost)",
+        "[Self-Insured Employers] A neurodiversity benefit that focuses entirely on the child has already missed half the wo (Neurodiversity benefits that ignore caregivers miss workforce cost)",
+        "[Self-Insured Employers] It is 7:15 a.m. The child's routine has already broken down. The caregiver is due on a cal (Four gaps home-supported care closes for employers)",
+        "[Self-Insured Employers] Four places caregiver burden shows up in your workforce budget before anyone names it. (Four ways caregiver burden surfaces in workforce cost)",
+        "[Self-Insured Employers] Getting a referral approved is not the same as solving the problem. (Approved referral does not pause workforce cost accumulation)",
+        "[Self-Insured Employers] Enrollment tells you a family showed up. It does not tell you anything useful after that. (Enrollment data is not evidence your family benefit worked)",
+        "[Self-Insured Employers] If your neurodiversity benefit is designed entirely around the child, who is it actually m (Neurodiversity strategy built around the child misses workforce impact)"
       ]
     },
     "instagram": {
@@ -570,6 +570,16 @@
           "platform": "linkedin",
           "sent": 3,
           "total": 3
+        }
+      ]
+    },
+    {
+      "date": "2026-07-27",
+      "results": [
+        {
+          "platform": "linkedin",
+          "sent": 30,
+          "total": 30
         }
       ]
     }
