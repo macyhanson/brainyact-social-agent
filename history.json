@@ -3,11 +3,6 @@
     "linkedin": {
       "week_index": 0,
       "recent_angles": [
-        "[Insurance Payors / Health Plans] Most developmental health measurement is designed to document a service. Almost none of it (Claim volume is a poor proxy for developmental functional progress)",
-        "[Self-Insured Employers] Most family benefits measure whether the employee showed up. BrainyAct by Kinuu measures w (Utilization data misconception masks caregiver workforce cost)",
-        "[Insurance Payors / Health Plans] Waiting families are not stable families. (Waitlist stability misconception hides accumulating downstream cost)",
-        "[Insurance Payors / Health Plans] Three reasons home is the most important setting your outcomes data is probably missing. (Home-based data visibility reframes developmental outcomes measurement)",
-        "[Insurance Payors / Health Plans] More data from developmental care programs is not the solution. Better-structured data is. (More developmental data does not mean better payor signal)",
         "[Self-Insured Employers] She was not a flight risk. She was exhausted. (Neurodivergent caregiving quietly erodes workforce capacity)",
         "[Self-Insured Employers] The approval came through. The family is still waiting. Your workforce is absorbing the di (Waitlist approval creates false sense of workforce stability)",
         "[Insurance Payors / Health Plans] What does your plan do when the authorization clears but the network cannot absorb the mem (Developmental need accumulates during extended access gaps)",
@@ -42,7 +37,12 @@
         "[Self-Insured Employers] Four places caregiver burden shows up in your workforce budget before anyone names it. (Four ways caregiver burden surfaces in workforce cost)",
         "[Self-Insured Employers] Getting a referral approved is not the same as solving the problem. (Approved referral does not pause workforce cost accumulation)",
         "[Self-Insured Employers] Enrollment tells you a family showed up. It does not tell you anything useful after that. (Enrollment data is not evidence your family benefit worked)",
-        "[Self-Insured Employers] If your neurodiversity benefit is designed entirely around the child, who is it actually m (Neurodiversity strategy built around the child misses workforce impact)"
+        "[Self-Insured Employers] If your neurodiversity benefit is designed entirely around the child, who is it actually m (Neurodiversity strategy built around the child misses workforce impact)",
+        "[Insurance Payors / Health Plans] Three reasons a neurodivergent member's unmet developmental need rarely stays unmet quietl (Three ways access gaps compound before first claim)",
+        "[Insurance Payors / Health Plans] Autism spectrum disorder affects an estimated one in thirty-six children in the United Sta (Authorization approval does not equal functional progress visibility)",
+        "[Insurance Payors / Health Plans] What if measurement burden in developmental care is not primarily an administrative inconv (Measurement burden is a care quality problem not admin problem)",
+        "[Self-Insured Employers] Misconception: caregiver burden shows up in your benefits data. It doesn't. It shows up ev (Caregiver burden hides inside familiar workforce cost lines)",
+        "[Self-Insured Employers] What is your plan actually covering during the six months before a neurodivergent child's  (Waitlist months accumulate workforce cost before care starts)"
       ]
     },
     "instagram": {
@@ -580,6 +580,16 @@
           "platform": "linkedin",
           "sent": 30,
           "total": 30
+        }
+      ]
+    },
+    {
+      "date": "2026-07-28",
+      "results": [
+        {
+          "platform": "linkedin",
+          "sent": 5,
+          "total": 5
         }
       ]
     }
