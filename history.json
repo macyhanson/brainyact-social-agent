@@ -3,9 +3,6 @@
     "linkedin": {
       "week_index": 0,
       "recent_angles": [
-        "[Self-Insured Employers] She was not a flight risk. She was exhausted. (Neurodivergent caregiving quietly erodes workforce capacity)",
-        "[Self-Insured Employers] The approval came through. The family is still waiting. Your workforce is absorbing the di (Waitlist approval creates false sense of workforce stability)",
-        "[Insurance Payors / Health Plans] What does your plan do when the authorization clears but the network cannot absorb the mem (Developmental need accumulates during extended access gaps)",
         "[Insurance Payors / Health Plans] Misconception: if a child is receiving developmental services, the plan has visibility int (Bottom-up function is invisible to standard behavioral health measurement)",
         "[Self-Insured Employers] Most family benefits treat caregiver stress as a personal problem. Your workforce budget t (Caregiver stability is a workforce performance variable)",
         "[Insurance Payors / Health Plans] The child I am thinking about never had a crisis visit. He had eighteen months of unmet ne (Developmental need escalates silently before crisis contact)",
@@ -42,7 +39,10 @@
         "[Insurance Payors / Health Plans] Autism spectrum disorder affects an estimated one in thirty-six children in the United Sta (Authorization approval does not equal functional progress visibility)",
         "[Insurance Payors / Health Plans] What if measurement burden in developmental care is not primarily an administrative inconv (Measurement burden is a care quality problem not admin problem)",
         "[Self-Insured Employers] Misconception: caregiver burden shows up in your benefits data. It doesn't. It shows up ev (Caregiver burden hides inside familiar workforce cost lines)",
-        "[Self-Insured Employers] What is your plan actually covering during the six months before a neurodivergent child's  (Waitlist months accumulate workforce cost before care starts)"
+        "[Self-Insured Employers] What is your plan actually covering during the six months before a neurodivergent child's  (Waitlist months accumulate workforce cost before care starts)",
+        "[Insurance Payors / Health Plans] Three reasons a waitlist is a clinical event, not an administrative one. (Access gap is not a pause, it is accumulation)",
+        "[Insurance Payors / Health Plans] Most developmental measurement tools are built to capture what the clinician did. BrainyAc (Measurement built around the clinician fails the payor)",
+        "[Self-Insured Employers] Caregiver burnout does not announce itself in your benefits data. (Four workforce costs caregiver burnout creates before benefits engage)"
       ]
     },
     "instagram": {
@@ -605,6 +605,16 @@
           "platform": "facebook",
           "sent": 5,
           "total": 5
+        }
+      ]
+    },
+    {
+      "date": "2026-07-30",
+      "results": [
+        {
+          "platform": "linkedin",
+          "sent": 3,
+          "total": 3
         }
       ]
     }
