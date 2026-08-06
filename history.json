@@ -3,9 +3,6 @@
     "linkedin": {
       "week_index": 0,
       "recent_angles": [
-        "[Insurance Payors / Health Plans] What if caregiver exhaustion is not a social determinant adjacent to the care plan? What i (Caregiver capacity is a clinical variable not a support service)",
-        "[Insurance Payors / Health Plans] Children diagnosed with neurodevelopmental conditions are among the most likely pediatric  (Upstream developmental layer prevented trajectory toward higher intensity)",
-        "[Insurance Payors / Health Plans] What actually happens to a neurodivergent member's trajectory during an extended access ga (Access delay is not a neutral clinical event)",
         "[Insurance Payors / Health Plans] Most measurement tools in developmental care ask clinicians to produce data. BrainyAct by  (Measurement burden limits payor developmental outcomes visibility)",
         "[Insurance Payors / Health Plans] Misconception: if a child is receiving quality developmental care, the plan is getting qua (Cross-setting measurement closes visibility gap for care teams)",
         "[Insurance Payors / Health Plans] Three reasons I think payors underestimate caregiver burden as a clinical variable, not ju (Caregiver nervous system state is a clinical risk variable)",
@@ -42,7 +39,10 @@
         "[Insurance Payors / Health Plans] The plan was funding services. No one could tell you whether the child was functioning bet (Functional progress invisible until escalation reaches crisis)",
         "[Insurance Payors / Health Plans] Three reasons measurement in developmental care keeps failing payors, and none of them are (Measurement burden is a signal quality problem not administrative)",
         "[Self-Insured Employers] A regulated nervous system is a prerequisite for focused work. (Sensorimotor load spills from home into workplace performance)",
-        "[Self-Insured Employers] Getting on a waitlist is not the same as getting help. (Waitlist approval is not workforce cost containment)"
+        "[Self-Insured Employers] Getting on a waitlist is not the same as getting help. (Waitlist approval is not workforce cost containment)",
+        "[Insurance Payors / Health Plans] Network adequacy is not a coverage problem. It is a trajectory problem. (Network adequacy is a trajectory problem not a coverage problem)",
+        "[Insurance Payors / Health Plans] When I look at how developmental progress is measured in most care plans, I keep returning (Functional neurology framing exposes measurement gap in developmental care)",
+        "[Self-Insured Employers] Most employers treat caregiver stress as a personal problem. It is a productivity problem  (Caregiver stress is a productivity cost not a personal problem)"
       ]
     },
     "instagram": {
@@ -640,6 +640,16 @@
           "platform": "facebook",
           "sent": 5,
           "total": 5
+        }
+      ]
+    },
+    {
+      "date": "2026-08-06",
+      "results": [
+        {
+          "platform": "linkedin",
+          "sent": 3,
+          "total": 3
         }
       ]
     }
