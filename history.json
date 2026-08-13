@@ -3,9 +3,6 @@
     "linkedin": {
       "week_index": 0,
       "recent_angles": [
-        "[Insurance Payors / Health Plans] Most developmental programs report more data to payors every year. Payors are not getting  (More reporting fields do not equal better outcomes visibility)",
-        "[Insurance Payors / Health Plans] Misconception: if a child is being assessed regularly by a licensed clinician, the plan ha (Clinic-based measurement captures only a fraction of the picture)",
-        "[Insurance Payors / Health Plans] From a functional neurology perspective, the caregiver is part of the intervention. (Caregiver nervous system state shapes member developmental trajectory)",
         "[Insurance Payors / Health Plans] A care manager closes a referral loop. The provider accepts the authorization. Three month (Structured upstream support changes trajectory before intensity escalates)",
         "[Insurance Payors / Health Plans] The family never showed up as high-utilizers. Not at first. (Access gap accumulates cost before first crisis claim)",
         "[Self-Insured Employers] What does it cost a workforce when the hardest part of an employee's day happens before 8  (Sensorimotor dysregulation follows caregiver into workday)",
@@ -42,7 +39,10 @@
         "[Insurance Payors / Health Plans] Authorizing care and knowing whether it is working are two completely different things. Mo (Authorization approval is not the same as functional progress)",
         "[Insurance Payors / Health Plans] Misconception: more structured reporting in developmental care means better visibility for (Machine-readable cross-setting measurement lowers burden and improves signal)",
         "[Self-Insured Employers] She was one of their strongest managers. Nobody connected the dots until she resigned. (Invisible caregiver crisis compounds before benefits register)",
-        "[Self-Insured Employers] Misconception: once a family has a referral and a place on a waitlist, they have what they (Waitlist approval transfers cost burden to employer)"
+        "[Self-Insured Employers] Misconception: once a family has a referral and a place on a waitlist, they have what they (Waitlist approval transfers cost burden to employer)",
+        "[Insurance Payors / Health Plans] Autism prevalence has roughly doubled over the past decade. Specialized developmental serv (Diagnosis surge outpaces developmental service supply nationally)",
+        "[Insurance Payors / Health Plans] Most developmental measurement tools are built around what the therapist can observe in th (Measurement built for clinicians fails payors and families)",
+        "[Self-Insured Employers] The promotion conversation never happened. (Silent attrition hiding inside neurodivergent family stress)"
       ]
     },
     "instagram": {
@@ -675,6 +675,16 @@
           "platform": "facebook",
           "sent": 5,
           "total": 5
+        }
+      ]
+    },
+    {
+      "date": "2026-08-13",
+      "results": [
+        {
+          "platform": "linkedin",
+          "sent": 3,
+          "total": 3
         }
       ]
     }
