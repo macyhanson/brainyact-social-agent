@@ -3,11 +3,6 @@
     "linkedin": {
       "week_index": 0,
       "recent_angles": [
-        "[Insurance Payors / Health Plans] A care manager closes a referral loop. The provider accepts the authorization. Three month (Structured upstream support changes trajectory before intensity escalates)",
-        "[Insurance Payors / Health Plans] The family never showed up as high-utilizers. Not at first. (Access gap accumulates cost before first crisis claim)",
-        "[Self-Insured Employers] What does it cost a workforce when the hardest part of an employee's day happens before 8  (Sensorimotor dysregulation follows caregiver into workday)",
-        "[Self-Insured Employers] Three reasons 'the referral is in' is not a satisfactory answer for your workforce. (Three workforce costs hiding inside waitlist approval)",
-        "[Self-Insured Employers] Misconception: if a family benefit has strong enrollment, the investment is working. (Four reasons dependent benefit measurement fails employers)",
         "[Self-Insured Employers] Roughly one in five children in the U.S. has a developmental, behavioral, or mental health (Neurodiversity strategy that excludes caregivers misses workforce cost)",
         "[Self-Insured Employers] The benefit worked on paper. The family was still drowning. (Home-based developmental support stabilizes family and workforce)",
         "[Self-Insured Employers] The hardest part of a neurodivergent family's morning is invisible on any benefits dashboa (Sensorimotor dysregulation spills from home into workday)",
@@ -42,7 +37,12 @@
         "[Self-Insured Employers] Misconception: once a family has a referral and a place on a waitlist, they have what they (Waitlist approval transfers cost burden to employer)",
         "[Insurance Payors / Health Plans] Autism prevalence has roughly doubled over the past decade. Specialized developmental serv (Diagnosis surge outpaces developmental service supply nationally)",
         "[Insurance Payors / Health Plans] Most developmental measurement tools are built around what the therapist can observe in th (Measurement built for clinicians fails payors and families)",
-        "[Self-Insured Employers] The promotion conversation never happened. (Silent attrition hiding inside neurodivergent family stress)"
+        "[Self-Insured Employers] The promotion conversation never happened. (Silent attrition hiding inside neurodivergent family stress)",
+        "[Insurance Payors / Health Plans] Most programs wait for a child to reach a threshold before they offer support. Families ca (Waitlist is a cost event not administrative pause)",
+        "[Insurance Payors / Health Plans] Misconception: if a member is engaged in authorized services, you have the visibility you  (Functional progress visibility requires more than authorization data)",
+        "[Insurance Payors / Health Plans] Developmental and behavioral health conditions are among the most commonly identified chro (More measurement in developmental care does not mean better signal)",
+        "[Self-Insured Employers] When does a child's developmental struggle become an employer's cost problem? (Nervous system load travels with caregivers to work)",
+        "[Self-Insured Employers] Most dependent behavioral health benefits hand a family a referral and consider the job do (Waitlist myth transfers cost burden to employer)"
       ]
     },
     "instagram": {
@@ -685,6 +685,16 @@
           "platform": "linkedin",
           "sent": 3,
           "total": 3
+        }
+      ]
+    },
+    {
+      "date": "2026-08-18",
+      "results": [
+        {
+          "platform": "linkedin",
+          "sent": 5,
+          "total": 5
         }
       ]
     }
