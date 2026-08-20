@@ -3,9 +3,6 @@
     "linkedin": {
       "week_index": 0,
       "recent_angles": [
-        "[Self-Insured Employers] Roughly one in five children in the U.S. has a developmental, behavioral, or mental health (Neurodiversity strategy that excludes caregivers misses workforce cost)",
-        "[Self-Insured Employers] The benefit worked on paper. The family was still drowning. (Home-based developmental support stabilizes family and workforce)",
-        "[Self-Insured Employers] The hardest part of a neurodivergent family's morning is invisible on any benefits dashboa (Sensorimotor dysregulation spills from home into workday)",
         "[Self-Insured Employers] A six-month pediatric behavioral health waitlist is not a pause. It is six months of unstr (Waitlist months compound employer cost before care starts)",
         "[Self-Insured Employers] Three reasons the data you are getting from your dependent behavioral health benefit is no (Dependent benefit measurement failure masks real workforce cost)",
         "[Self-Insured Employers] A neurodiversity benefit that focuses entirely on the child has already missed half the wo (Neurodiversity benefits that ignore caregivers miss workforce cost)",
@@ -42,7 +39,10 @@
         "[Insurance Payors / Health Plans] Misconception: if a member is engaged in authorized services, you have the visibility you  (Functional progress visibility requires more than authorization data)",
         "[Insurance Payors / Health Plans] Developmental and behavioral health conditions are among the most commonly identified chro (More measurement in developmental care does not mean better signal)",
         "[Self-Insured Employers] When does a child's developmental struggle become an employer's cost problem? (Nervous system load travels with caregivers to work)",
-        "[Self-Insured Employers] Most dependent behavioral health benefits hand a family a referral and consider the job do (Waitlist myth transfers cost burden to employer)"
+        "[Self-Insured Employers] Most dependent behavioral health benefits hand a family a referral and consider the job do (Waitlist myth transfers cost burden to employer)",
+        "[Insurance Payors / Health Plans] The cost event usually starts before the first authorization is ever submitted. (Unstructured access gap compounds before first authorization)",
+        "[Insurance Payors / Health Plans] Authorization data and functional progress data are not the same thing. (Four measurement gaps payor developmental data leaves open)",
+        "[Self-Insured Employers] What does it cost you when a caregiver never raises their hand? (What caregiver crisis costs before anyone asks for help)"
       ]
     },
     "instagram": {
@@ -710,6 +710,16 @@
           "platform": "facebook",
           "sent": 5,
           "total": 5
+        }
+      ]
+    },
+    {
+      "date": "2026-08-20",
+      "results": [
+        {
+          "platform": "linkedin",
+          "sent": 3,
+          "total": 3
         }
       ]
     }
