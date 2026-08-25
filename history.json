@@ -3,11 +3,6 @@
     "linkedin": {
       "week_index": 0,
       "recent_angles": [
-        "[Self-Insured Employers] A six-month pediatric behavioral health waitlist is not a pause. It is six months of unstr (Waitlist months compound employer cost before care starts)",
-        "[Self-Insured Employers] Three reasons the data you are getting from your dependent behavioral health benefit is no (Dependent benefit measurement failure masks real workforce cost)",
-        "[Self-Insured Employers] A neurodiversity benefit that focuses entirely on the child has already missed half the wo (Neurodiversity benefits that ignore caregivers miss workforce cost)",
-        "[Self-Insured Employers] It is 7:15 a.m. The child's routine has already broken down. The caregiver is due on a cal (Four gaps home-supported care closes for employers)",
-        "[Self-Insured Employers] Four places caregiver burden shows up in your workforce budget before anyone names it. (Four ways caregiver burden surfaces in workforce cost)",
         "[Self-Insured Employers] Getting a referral approved is not the same as solving the problem. (Approved referral does not pause workforce cost accumulation)",
         "[Self-Insured Employers] Enrollment tells you a family showed up. It does not tell you anything useful after that. (Enrollment data is not evidence your family benefit worked)",
         "[Self-Insured Employers] If your neurodiversity benefit is designed entirely around the child, who is it actually m (Neurodiversity strategy built around the child misses workforce impact)",
@@ -42,7 +37,12 @@
         "[Self-Insured Employers] Most dependent behavioral health benefits hand a family a referral and consider the job do (Waitlist myth transfers cost burden to employer)",
         "[Insurance Payors / Health Plans] The cost event usually starts before the first authorization is ever submitted. (Unstructured access gap compounds before first authorization)",
         "[Insurance Payors / Health Plans] Authorization data and functional progress data are not the same thing. (Four measurement gaps payor developmental data leaves open)",
-        "[Self-Insured Employers] What does it cost you when a caregiver never raises their hand? (What caregiver crisis costs before anyone asks for help)"
+        "[Self-Insured Employers] What does it cost you when a caregiver never raises their hand? (What caregiver crisis costs before anyone asks for help)",
+        "[Insurance Payors / Health Plans] A referral pending is not the same as a family holding steady. (Delayed access is a clinical risk not administrative lag)",
+        "[Insurance Payors / Health Plans] Most developmental tools are built around what the provider does in session. BrainyAct by  (Functional progress visibility gap between authorizations and outcomes)",
+        "[Insurance Payors / Health Plans] The common belief in developmental care measurement is that more data means better visibil (More developmental measurement data does not reduce payor burden automatically)",
+        "[Self-Insured Employers] Most family benefits are built to manage access. The cost they miss is what happens before (Rising benefit costs hide inside caregiver-driven workforce friction)",
+        "[Self-Insured Employers] Why do pediatric behavioral health waitlists show up in your workforce data before they ev (Three workforce costs accumulating silently during pediatric waitlists)"
       ]
     },
     "instagram": {
@@ -720,6 +720,16 @@
           "platform": "linkedin",
           "sent": 3,
           "total": 3
+        }
+      ]
+    },
+    {
+      "date": "2026-08-25",
+      "results": [
+        {
+          "platform": "linkedin",
+          "sent": 5,
+          "total": 5
         }
       ]
     }
