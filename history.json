@@ -3,9 +3,6 @@
     "linkedin": {
       "week_index": 0,
       "recent_angles": [
-        "[Self-Insured Employers] Getting a referral approved is not the same as solving the problem. (Approved referral does not pause workforce cost accumulation)",
-        "[Self-Insured Employers] Enrollment tells you a family showed up. It does not tell you anything useful after that. (Enrollment data is not evidence your family benefit worked)",
-        "[Self-Insured Employers] If your neurodiversity benefit is designed entirely around the child, who is it actually m (Neurodiversity strategy built around the child misses workforce impact)",
         "[Insurance Payors / Health Plans] Three reasons a neurodivergent member's unmet developmental need rarely stays unmet quietl (Three ways access gaps compound before first claim)",
         "[Insurance Payors / Health Plans] Autism spectrum disorder affects an estimated one in thirty-six children in the United Sta (Authorization approval does not equal functional progress visibility)",
         "[Insurance Payors / Health Plans] What if measurement burden in developmental care is not primarily an administrative inconv (Measurement burden is a care quality problem not admin problem)",
@@ -42,7 +39,10 @@
         "[Insurance Payors / Health Plans] Most developmental tools are built around what the provider does in session. BrainyAct by  (Functional progress visibility gap between authorizations and outcomes)",
         "[Insurance Payors / Health Plans] The common belief in developmental care measurement is that more data means better visibil (More developmental measurement data does not reduce payor burden automatically)",
         "[Self-Insured Employers] Most family benefits are built to manage access. The cost they miss is what happens before (Rising benefit costs hide inside caregiver-driven workforce friction)",
-        "[Self-Insured Employers] Why do pediatric behavioral health waitlists show up in your workforce data before they ev (Three workforce costs accumulating silently during pediatric waitlists)"
+        "[Self-Insured Employers] Why do pediatric behavioral health waitlists show up in your workforce data before they ev (Three workforce costs accumulating silently during pediatric waitlists)",
+        "[Insurance Payors / Health Plans] What is the plan actually covering while a neurodivergent child is technically enrolled bu (Unmet need escalates before plan sees it)",
+        "[Insurance Payors / Health Plans] Developmental and behavioral health conditions are among the costliest and least measurabl (Four gaps claims data leaves open in developmental care)",
+        "[Self-Insured Employers] How much of your behavioral health spend is arriving too late? (Unsupported neurodivergent families cost employers before benefits respond)"
       ]
     },
     "instagram": {
@@ -745,6 +745,16 @@
           "platform": "facebook",
           "sent": 5,
           "total": 5
+        }
+      ]
+    },
+    {
+      "date": "2026-08-27",
+      "results": [
+        {
+          "platform": "linkedin",
+          "sent": 3,
+          "total": 3
         }
       ]
     }
