@@ -3,11 +3,6 @@
     "linkedin": {
       "week_index": 0,
       "recent_angles": [
-        "[Insurance Payors / Health Plans] Three reasons a neurodivergent member's unmet developmental need rarely stays unmet quietl (Three ways access gaps compound before first claim)",
-        "[Insurance Payors / Health Plans] Autism spectrum disorder affects an estimated one in thirty-six children in the United Sta (Authorization approval does not equal functional progress visibility)",
-        "[Insurance Payors / Health Plans] What if measurement burden in developmental care is not primarily an administrative inconv (Measurement burden is a care quality problem not admin problem)",
-        "[Self-Insured Employers] Misconception: caregiver burden shows up in your benefits data. It doesn't. It shows up ev (Caregiver burden hides inside familiar workforce cost lines)",
-        "[Self-Insured Employers] What is your plan actually covering during the six months before a neurodivergent child's  (Waitlist months accumulate workforce cost before care starts)",
         "[Insurance Payors / Health Plans] Three reasons a waitlist is a clinical event, not an administrative one. (Access gap is not a pause, it is accumulation)",
         "[Insurance Payors / Health Plans] Most developmental measurement tools are built to capture what the clinician did. BrainyAc (Measurement built around the clinician fails the payor)",
         "[Self-Insured Employers] Caregiver burnout does not announce itself in your benefits data. (Four workforce costs caregiver burnout creates before benefits engage)",
@@ -42,7 +37,12 @@
         "[Self-Insured Employers] Why do pediatric behavioral health waitlists show up in your workforce data before they ev (Three workforce costs accumulating silently during pediatric waitlists)",
         "[Insurance Payors / Health Plans] What is the plan actually covering while a neurodivergent child is technically enrolled bu (Unmet need escalates before plan sees it)",
         "[Insurance Payors / Health Plans] Developmental and behavioral health conditions are among the costliest and least measurabl (Four gaps claims data leaves open in developmental care)",
-        "[Self-Insured Employers] How much of your behavioral health spend is arriving too late? (Unsupported neurodivergent families cost employers before benefits respond)"
+        "[Self-Insured Employers] How much of your behavioral health spend is arriving too late? (Unsupported neurodivergent families cost employers before benefits respond)",
+        "[Insurance Payors / Health Plans] A family gets a diagnosis. Then they get a waitlist number. Then nothing happens for month (Unstructured waiting converts to higher-intensity service need)",
+        "[Insurance Payors / Health Plans] Three reasons home is where developmental progress visibility actually breaks down. (Home-based data is not supplemental it is the signal)",
+        "[Insurance Payors / Health Plans] Misconception: the measurement burden in developmental care is a volume problem. Add more  (Structured reporting alone does not reduce developmental measurement burden)",
+        "[Self-Insured Employers] Is caregiver stress a benefits problem or a workforce performance problem? (Benefits spend misses where caregiver cost hides)",
+        "[Self-Insured Employers] Average health benefit costs per employee rose 6.0 percent in 2025 and are projected to cl (Waitlist months convert into measurable employer cost)"
       ]
     },
     "instagram": {
@@ -755,6 +755,16 @@
           "platform": "linkedin",
           "sent": 3,
           "total": 3
+        }
+      ]
+    },
+    {
+      "date": "2026-09-01",
+      "results": [
+        {
+          "platform": "linkedin",
+          "sent": 5,
+          "total": 5
         }
       ]
     }
