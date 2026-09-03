@@ -3,9 +3,6 @@
     "linkedin": {
       "week_index": 0,
       "recent_angles": [
-        "[Insurance Payors / Health Plans] Three reasons a waitlist is a clinical event, not an administrative one. (Access gap is not a pause, it is accumulation)",
-        "[Insurance Payors / Health Plans] Most developmental measurement tools are built to capture what the clinician did. BrainyAc (Measurement built around the clinician fails the payor)",
-        "[Self-Insured Employers] Caregiver burnout does not announce itself in your benefits data. (Four workforce costs caregiver burnout creates before benefits engage)",
         "[Insurance Payors / Health Plans] What is your plan actually doing for a neurodivergent member between diagnosis and first a (Network capacity gap compounds before first authorization)",
         "[Insurance Payors / Health Plans] The plan was funding services. No one could tell you whether the child was functioning bet (Functional progress invisible until escalation reaches crisis)",
         "[Insurance Payors / Health Plans] Three reasons measurement in developmental care keeps failing payors, and none of them are (Measurement burden is a signal quality problem not administrative)",
@@ -42,7 +39,10 @@
         "[Insurance Payors / Health Plans] Three reasons home is where developmental progress visibility actually breaks down. (Home-based data is not supplemental it is the signal)",
         "[Insurance Payors / Health Plans] Misconception: the measurement burden in developmental care is a volume problem. Add more  (Structured reporting alone does not reduce developmental measurement burden)",
         "[Self-Insured Employers] Is caregiver stress a benefits problem or a workforce performance problem? (Benefits spend misses where caregiver cost hides)",
-        "[Self-Insured Employers] Average health benefit costs per employee rose 6.0 percent in 2025 and are projected to cl (Waitlist months convert into measurable employer cost)"
+        "[Self-Insured Employers] Average health benefit costs per employee rose 6.0 percent in 2025 and are projected to cl (Waitlist months convert into measurable employer cost)",
+        "[Insurance Payors / Health Plans] Three reasons I keep coming back to the access gap as a cost inflection point, not a sched (Early developmental support reduces trajectory toward crisis)",
+        "[Insurance Payors / Health Plans] A child finishes a session. The clinician documents. The payor sees a claim. Nobody sees w (Four gaps cross-setting measurement capability can close)",
+        "[Self-Insured Employers] Most family benefits are designed to hand a family a resource. The assumption is that acce (Family benefits fix access not downstream workforce cost)"
       ]
     },
     "instagram": {
@@ -780,6 +780,16 @@
           "platform": "facebook",
           "sent": 5,
           "total": 5
+        }
+      ]
+    },
+    {
+      "date": "2026-09-03",
+      "results": [
+        {
+          "platform": "linkedin",
+          "sent": 3,
+          "total": 3
         }
       ]
     }
