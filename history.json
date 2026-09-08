@@ -3,11 +3,6 @@
     "linkedin": {
       "week_index": 0,
       "recent_angles": [
-        "[Insurance Payors / Health Plans] What is your plan actually doing for a neurodivergent member between diagnosis and first a (Network capacity gap compounds before first authorization)",
-        "[Insurance Payors / Health Plans] The plan was funding services. No one could tell you whether the child was functioning bet (Functional progress invisible until escalation reaches crisis)",
-        "[Insurance Payors / Health Plans] Three reasons measurement in developmental care keeps failing payors, and none of them are (Measurement burden is a signal quality problem not administrative)",
-        "[Self-Insured Employers] A regulated nervous system is a prerequisite for focused work. (Sensorimotor load spills from home into workplace performance)",
-        "[Self-Insured Employers] Getting on a waitlist is not the same as getting help. (Waitlist approval is not workforce cost containment)",
         "[Insurance Payors / Health Plans] Network adequacy is not a coverage problem. It is a trajectory problem. (Network adequacy is a trajectory problem not a coverage problem)",
         "[Insurance Payors / Health Plans] When I look at how developmental progress is measured in most care plans, I keep returning (Functional neurology framing exposes measurement gap in developmental care)",
         "[Self-Insured Employers] Most employers treat caregiver stress as a personal problem. It is a productivity problem  (Caregiver stress is a productivity cost not a personal problem)",
@@ -42,7 +37,12 @@
         "[Self-Insured Employers] Average health benefit costs per employee rose 6.0 percent in 2025 and are projected to cl (Waitlist months convert into measurable employer cost)",
         "[Insurance Payors / Health Plans] Three reasons I keep coming back to the access gap as a cost inflection point, not a sched (Early developmental support reduces trajectory toward crisis)",
         "[Insurance Payors / Health Plans] A child finishes a session. The clinician documents. The payor sees a claim. Nobody sees w (Four gaps cross-setting measurement capability can close)",
-        "[Self-Insured Employers] Most family benefits are designed to hand a family a resource. The assumption is that acce (Family benefits fix access not downstream workforce cost)"
+        "[Self-Insured Employers] Most family benefits are designed to hand a family a resource. The assumption is that acce (Family benefits fix access not downstream workforce cost)",
+        "[Insurance Payors / Health Plans] Is earlier developmental support a clinical nicety, or is it a cost strategy? (Earlier access is a cost strategy not charity)",
+        "[Insurance Payors / Health Plans] Value-based care contracts are arriving in behavioral health before the measurement infras (Value-based care pressure exposes developmental visibility gap)",
+        "[Insurance Payors / Health Plans] A clinician completes a standardized assessment. The payor receives a score. The quality t (Clinic-based measurement alone cannot close developmental visibility gap)",
+        "[Self-Insured Employers] Nobody flagged her as a retention risk. (Invisible caregiver load erodes high performer before anyone notices)",
+        "[Self-Insured Employers] Every month a neurodivergent child waits for care is a month your employee is managing the (Waitlist months are active cost events not administrative pauses)"
       ]
     },
     "instagram": {
@@ -790,6 +790,16 @@
           "platform": "linkedin",
           "sent": 3,
           "total": 3
+        }
+      ]
+    },
+    {
+      "date": "2026-09-08",
+      "results": [
+        {
+          "platform": "linkedin",
+          "sent": 5,
+          "total": 5
         }
       ]
     }
