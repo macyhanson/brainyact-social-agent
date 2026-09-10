@@ -3,9 +3,6 @@
     "linkedin": {
       "week_index": 0,
       "recent_angles": [
-        "[Insurance Payors / Health Plans] Network adequacy is not a coverage problem. It is a trajectory problem. (Network adequacy is a trajectory problem not a coverage problem)",
-        "[Insurance Payors / Health Plans] When I look at how developmental progress is measured in most care plans, I keep returning (Functional neurology framing exposes measurement gap in developmental care)",
-        "[Self-Insured Employers] Most employers treat caregiver stress as a personal problem. It is a productivity problem  (Caregiver stress is a productivity cost not a personal problem)",
         "[Insurance Payors / Health Plans] Most programs wait for a child to fail before they intervene. BrainyAct is designed to wor (Unmet developmental need quietly converts to crisis cost)",
         "[Insurance Payors / Health Plans] Authorizing care and knowing whether it is working are two completely different things. Mo (Authorization approval is not the same as functional progress)",
         "[Insurance Payors / Health Plans] Misconception: more structured reporting in developmental care means better visibility for (Machine-readable cross-setting measurement lowers burden and improves signal)",
@@ -42,7 +39,10 @@
         "[Insurance Payors / Health Plans] Value-based care contracts are arriving in behavioral health before the measurement infras (Value-based care pressure exposes developmental visibility gap)",
         "[Insurance Payors / Health Plans] A clinician completes a standardized assessment. The payor receives a score. The quality t (Clinic-based measurement alone cannot close developmental visibility gap)",
         "[Self-Insured Employers] Nobody flagged her as a retention risk. (Invisible caregiver load erodes high performer before anyone notices)",
-        "[Self-Insured Employers] Every month a neurodivergent child waits for care is a month your employee is managing the (Waitlist months are active cost events not administrative pauses)"
+        "[Self-Insured Employers] Every month a neurodivergent child waits for care is a month your employee is managing the (Waitlist months are active cost events not administrative pauses)",
+        "[Insurance Payors / Health Plans] What happens to a child's nervous system during the months nobody is watching? (Sensorimotor gaps escalate before authorization ever begins)",
+        "[Insurance Payors / Health Plans] Misconception: if a plan has authorization data and session notes, it has outcomes visibil (More authorization data does not close developmental visibility gap)",
+        "[Self-Insured Employers] Why do so many caregiver support benefits arrive after the damage is already done? (Three reasons caregiver load compounds before benefits engage)"
       ]
     },
     "instagram": {
@@ -815,6 +815,16 @@
           "platform": "facebook",
           "sent": 5,
           "total": 5
+        }
+      ]
+    },
+    {
+      "date": "2026-09-10",
+      "results": [
+        {
+          "platform": "linkedin",
+          "sent": 3,
+          "total": 3
         }
       ]
     }
