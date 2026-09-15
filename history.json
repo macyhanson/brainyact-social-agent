@@ -827,6 +827,16 @@
           "total": 3
         }
       ]
+    },
+    {
+      "date": "2026-09-15",
+      "results": [
+        {
+          "platform": "linkedin",
+          "sent": 0,
+          "total": 0
+        }
+      ]
     }
   ]
 }
