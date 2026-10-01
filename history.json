@@ -907,6 +907,21 @@
           "total": 0
         }
       ]
+    },
+    {
+      "date": "2026-10-01",
+      "results": [
+        {
+          "platform": "instagram",
+          "sent": 0,
+          "total": 0
+        },
+        {
+          "platform": "facebook",
+          "sent": 0,
+          "total": 0
+        }
+      ]
     }
   ]
 }
