@@ -1002,6 +1002,16 @@
           "total": 0
         }
       ]
+    },
+    {
+      "date": "2026-10-20",
+      "results": [
+        {
+          "platform": "linkedin",
+          "sent": 0,
+          "total": 0
+        }
+      ]
     }
   ]
 }
