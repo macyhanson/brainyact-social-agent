@@ -1082,6 +1082,21 @@
           "total": 0
         }
       ]
+    },
+    {
+      "date": "2026-11-05",
+      "results": [
+        {
+          "platform": "instagram",
+          "sent": 0,
+          "total": 0
+        },
+        {
+          "platform": "facebook",
+          "sent": 0,
+          "total": 0
+        }
+      ]
     }
   ]
 }
