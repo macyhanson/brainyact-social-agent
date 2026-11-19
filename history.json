@@ -1152,6 +1152,21 @@
           "total": 0
         }
       ]
+    },
+    {
+      "date": "2026-11-19",
+      "results": [
+        {
+          "platform": "instagram",
+          "sent": 0,
+          "total": 0
+        },
+        {
+          "platform": "facebook",
+          "sent": 0,
+          "total": 0
+        }
+      ]
     }
   ]
 }
